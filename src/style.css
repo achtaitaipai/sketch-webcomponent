@@ -16,12 +16,12 @@ body {
 }
 
 sketch-app {
-	border: 1px solid white;
+	/* border: 1px solid white; */
 	font-size: 0;
-	width: 90%;
+	width: 50%;
 	height: 90vh;
 	overflow: hidden;
 	position: relative;
 	touch-action: none;
-	background-color: white;
+	background-color: #282828;
 }

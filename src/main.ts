@@ -5,6 +5,8 @@ customElements.define('sketch-app', Sketch)
 const sketch = <Sketch>document.querySelector('sketch-app')
 const modeBtn = <NodeListOf<HTMLButtonElement>>document.querySelectorAll('.controls button')
 const colorInput = <HTMLInputElement>document.getElementById('color')
+const fullScreenBtn = <HTMLButtonElement>document.getElementById('fullScreen-js')
+const testBtn = <HTMLButtonElement>document.getElementById('test')
 
 modeBtn.forEach(btn => {
 	btn.addEventListener('click', e => {
@@ -18,5 +20,9 @@ colorInput.addEventListener('change', e => {
 	sketch.color = target?.value
 })
 
-sketch.adaptToWorkPlace()
-// sketch.zoom = 20
+fullScreenBtn.addEventListener('click', e => {
+	e.preventDefault()
+	sketch.requestFullscreen()
+})
+
+// sketch.fitSketch()
