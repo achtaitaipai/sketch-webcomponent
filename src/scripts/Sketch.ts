@@ -1,29 +1,37 @@
-import { Mode, Coordinate } from './types'
+import { Mode, Coordinate, DragEventType, PointerMove, ZoomEventType } from './types'
 import Camera from './Camera'
+import Drawing from './Layer/Drawing'
+import Background from './Layer/Background'
+import Layer from './Layer/Layer'
+import EventsManager from './EventsManager'
 
 export default class Sketch extends HTMLElement {
+	public color: string = '#000000'
+
 	private _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
-	private _pointerPressed: number | null = null
-	private _oldPointerPos: Coordinate | null = null
-	private _buttonPressed: number | null = null
+	private _drawing: Layer
+	private _cursor: Layer
+	private _background: Layer
 	private _mode = Mode.Paint
 	public _camera: Camera
-
-	public color: string = '#000000'
+	private _eventsManager: EventsManager
 
 	constructor() {
 		super()
 		this._canvas = this._createCanvas()!
 		this._ctx = this._canvas.getContext('2d')!
-		// this.fitSketch()
+		this._drawing = new Drawing()
+		this._cursor = new Drawing()
+		this._background = new Background()
 		this._camera = new Camera(this, this._canvas)
+		this._eventsManager = new EventsManager(this)
 		this._camera.fitSketch()
+		this._updatePreview()
 
 		this._addEvents()
 	}
 
-	//add canvas to shadow dom and define style
 	private _createCanvas() {
 		const shadow = this.attachShadow({ mode: 'open' })
 		const canvas = document.createElement('canvas')
@@ -38,15 +46,6 @@ export default class Sketch extends HTMLElement {
 		shadow.appendChild(canvas)
 		shadow.appendChild(style)
 		return canvas
-	}
-
-	private _addEvents() {
-		this.addEventListener('pointerdown', e => this._handleTouch(e))
-		this.addEventListener('pointerout', _ => this._handlePointerOut())
-		this.addEventListener('pointerup', _ => this._handlePointerOut())
-		this.addEventListener('pointermove', e => this._handlePointerMove(e))
-		this.addEventListener('wheel', e => this._handleWheel(e))
-		this.addEventListener('contextmenu', e => e.preventDefault())
 	}
 
 	set mode(value: string) {
@@ -68,6 +67,9 @@ export default class Sketch extends HTMLElement {
 					const img = this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height)
 					this._canvas.width = value
 					this._ctx.putImageData(img, 0, 0)
+					this._drawing.resize(value, this._canvas.height)
+					this._cursor.resize(value, this._canvas.height)
+					this._background.resize(value, this._canvas.height)
 					this._camera.fitSketch()
 				}
 				break
@@ -75,6 +77,9 @@ export default class Sketch extends HTMLElement {
 				const img = this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height)
 				this._canvas.height = value
 				this._ctx.putImageData(img, 0, 0)
+				this._drawing.resize(this._canvas.width, value)
+				this._cursor.resize(this._canvas.width, value)
+				this._background.resize(this._canvas.width, value)
 				this._camera.fitSketch()
 				break
 			default:
@@ -82,20 +87,13 @@ export default class Sketch extends HTMLElement {
 		}
 	}
 
-	private _handleTouch(e: PointerEvent) {
-		e.preventDefault()
-		this._pointerPressed = e.pointerId
-		this._buttonPressed = e.button
-		const pos = { x: e.clientX, y: e.clientY }
-		this._oldPointerPos = pos
-		const gridPos = this._gridCoordinate(pos)
+	private _handleLeftClick(e: { newPos: Coordinate; oldPos?: Coordinate }) {
+		const { newPos, oldPos } = e
+		const gridPos = this._gridCoordinate(newPos)
 		switch (this._mode) {
 			case Mode.Paint:
-				if (this._buttonPressed === 0) this._paint(gridPos)
-				else if (this._buttonPressed === 2) this._erase(gridPos)
-				break
-			case Mode.Erase:
-				if (this._buttonPressed !== 1) this._erase(gridPos)
+				this._drawing.paint(gridPos, 1, this.color)
+				this._updatePreview()
 				break
 			case Mode.Zoom:
 				this._camera.zoom(gridPos)
@@ -103,77 +101,87 @@ export default class Sketch extends HTMLElement {
 			case Mode.Unzoom:
 				this._camera.zoom(gridPos, -1)
 				break
-
-			default:
+			case Mode.Erase:
+				this._drawing.erase(gridPos, 1)
+				this._updatePreview()
+				break
+			case Mode.Drag:
+				if (oldPos) {
+					this._camera.drag(oldPos, newPos)
+				}
 				break
 		}
 	}
 
-	private _handlePointerOut() {
-		this._pointerPressed = null
+	private _handleRightClick(e: Coordinate) {
+		const pos = this._gridCoordinate(e)
+		this._drawing.erase(pos, 1)
+		this._updatePreview()
+		this._cursor.actif = false
 	}
 
-	private _handlePointerMove(e: PointerEvent) {
-		const pos = { x: e.clientX, y: e.clientY }
-		if (this._pointerPressed === e.pointerId) {
-			if (this._buttonPressed === 1) {
-				this._drag(pos)
-				return
-			}
-			switch (this._mode) {
-				case Mode.Paint:
-					if (this._pointerPressed === e.pointerId) {
-						const gridPos = this._gridCoordinate(pos)
-						if (this._buttonPressed === 2) this._erase(gridPos)
-						else {
-							this._paint(gridPos)
-						}
-						this._oldPointerPos = { x: e.clientX, y: e.clientY }
-					}
-					break
-				case Mode.Erase:
-					if (this._pointerPressed === e.pointerId) {
-						const gridPos = this._gridCoordinate(pos)
-						this._erase(gridPos)
-						this._oldPointerPos = { x: e.clientX, y: e.clientY }
-					}
-					break
-
-				case Mode.Drag:
-					this._drag(pos)
-					break
-
-				default:
-					break
-			}
-		}
-	}
-
-	private _handleWheel(e: WheelEvent) {
-		const pos = { x: e.clientX, y: e.clientY }
+	private _handleZoom(e: ZoomEventType) {
+		const { pos, dir } = e
 		const gridPos = this._gridCoordinate(pos)
-		if (e.deltaY > 0) this._camera.zoom(gridPos, -1)
-		else if (e.deltaY <= 10) this._camera.zoom(gridPos, 1)
+		if (dir > 0) this._camera.zoom(gridPos, -1)
+		else this._camera.zoom(gridPos, 1)
 	}
 
-	private _drag({ x, y }: Coordinate) {
-		if (this._oldPointerPos) {
-			const tx = x - this._oldPointerPos.x
-			const ty = y - this._oldPointerPos.y
-			this._oldPointerPos = { x, y }
-			this._camera.translate = {
-				x: this._camera.translate.x - tx,
-				y: this._camera.translate.y - ty,
-			}
+	private _handleMove(e: PointerMove) {
+		const gridPos = this._gridCoordinate(e.newPos)
+		if (this._mode === Mode.Paint) {
+			this._cursor.actif = true
+			this._cursor.clear()
+			this._cursor.paint(gridPos, 1, this.color)
+			this._updatePreview()
 		}
 	}
 
-	private _paint(pos: Coordinate, width?: number, height?: number) {
-		this._ctx.fillStyle = this.color
-		this._ctx.fillRect(Math.floor(pos.x), Math.floor(pos.y), width || 1, height || 1)
+	//TODO Nettoyer cette dégueulasserie
+	private _addEvents() {
+		this._eventsManager.addObserver('click', (e: Coordinate) => {
+			const newPos = e
+			this._handleLeftClick({ newPos })
+		})
+
+		this._eventsManager.addObserver('rightClick', (e: Coordinate) => {
+			this._handleRightClick(e)
+		})
+		this._eventsManager.addObserver('pointerUp', () => {
+			this._cursor.actif = true
+		})
+		this._eventsManager.addObserver('drag', (e: DragEventType) => {
+			const { button, oldPos, newPos } = e
+			switch (button) {
+				//wheel click
+				case 1:
+					this._camera.drag(oldPos, newPos)
+					break
+				case 2:
+					this._handleRightClick(newPos)
+					break
+				default:
+					this._handleLeftClick({ ...e })
+					break
+			}
+		})
+		this._eventsManager.addObserver('pointerMove', (e: PointerMove) => {
+			this._handleMove(e)
+		})
+		this._eventsManager.addObserver('pointerOut', () => {
+			this._cursor.actif = false
+			this._updatePreview()
+		})
+		this._eventsManager.addObserver('zoom', (e: ZoomEventType) => {
+			this._handleZoom(e)
+		})
 	}
-	private _erase(pos: Coordinate, width?: number, height?: number) {
-		this._ctx.clearRect(Math.floor(pos.x), Math.floor(pos.y), width || 1, height || 1)
+
+	private _updatePreview() {
+		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
+		this._background.draw(this._ctx)
+		this._drawing.draw(this._ctx)
+		this._cursor.draw(this._ctx)
 	}
 
 	private _gridCoordinate({ x, y }: Coordinate): Coordinate {

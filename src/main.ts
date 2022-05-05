@@ -25,4 +25,8 @@ fullScreenBtn.addEventListener('click', e => {
 	sketch.requestFullscreen()
 })
 
+testBtn.addEventListener('click', _ => {
+	sketch.setAttribute('width', '30')
+	sketch.setAttribute('height', '20')
+})
 // sketch.fitSketch()

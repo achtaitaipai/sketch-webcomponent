@@ -5,7 +5,7 @@ export default class Camera {
 	private _translate: Coordinate = { x: 0, y: 0 }
 
 	constructor(private _frame: HTMLElement, private _canvas: HTMLCanvasElement) {
-		document.addEventListener('fullscreenchange', e => {
+		document.addEventListener('fullscreenchange', _ => {
 			this.fitSketch()
 		})
 	}
@@ -53,5 +53,14 @@ export default class Camera {
 		this._zoomValue = newZoomValue
 		this._canvas.style.width = this._canvas.width * this._zoomValue + 'px'
 		this._canvas.style.setProperty('transform', `translate(${-this._translate.x}px,${-this._translate.y}px)`)
+	}
+
+	public drag(from: Coordinate, to: Coordinate) {
+		const tx = to.x - from.x
+		const ty = to.y - from.y
+		this.translate = {
+			x: this.translate.x - tx,
+			y: this.translate.y - ty,
+		}
 	}
 }
