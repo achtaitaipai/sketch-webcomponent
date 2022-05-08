@@ -36,13 +36,21 @@ export default abstract class Layer {
 		this.height = h
 		this._ctx.putImageData(img, 0, 0)
 	}
-	public paint(pos: Coordinate, size?: number, color?: string) {
+	public paint(pos: Coordinate, size: number, color?: string) {
 		this._ctx.fillStyle = color || '#000000'
-		this._ctx.fillRect(Math.floor(pos.x), Math.floor(pos.y), size || 1, size || 1)
+		const x = size > 1 ? pos.x - size / 2 : pos.x
+		const y = size > 1 ? pos.y - size / 2 : pos.y
+		this._ctx.fillRect(Math.floor(x), Math.floor(y), size, size)
 	}
 
-	public erase(pos: Coordinate, size?: number) {
-		this._ctx.clearRect(Math.floor(pos.x), Math.floor(pos.y), size || 1, size || 1)
+	public erase(pos: Coordinate, size: number) {
+		const x = size > 1 ? pos.x - size / 2 : pos.x
+		const y = size > 1 ? pos.y - size / 2 : pos.y
+		this._ctx.clearRect(Math.floor(x), Math.floor(y), size, size)
+	}
+	protected _getColor(pos: Coordinate) {
+		const [r, g, b, a] = this._ctx.getImageData(pos.x, pos.y, 1, 1).data
+		return [r, g, b, a].join('-')
 	}
 	public abstract clear(): void
 }

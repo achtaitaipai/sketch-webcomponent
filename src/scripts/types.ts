@@ -9,6 +9,7 @@ enum Mode {
 	Unzoom = 'unzoom',
 	Drag = 'drag',
 	Erase = 'erase',
+	Bucket = 'bucket',
 }
 
 type PointerMove = {

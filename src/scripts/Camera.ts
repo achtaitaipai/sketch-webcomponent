@@ -42,7 +42,8 @@ export default class Camera {
 
 	public zoom(pos?: Coordinate, dir?: number) {
 		let newZoomValue = this._zoomValue > 1 ? this._zoomValue + 1 : this._zoomValue * 2
-		if (dir && dir < 0) newZoomValue = this._zoomValue > 1 ? this._zoomValue - 1 : this._zoomValue * 0.5
+		if (dir && dir < 0) newZoomValue = this._zoomValue > 1 ? this._zoomValue - 1 : this._zoomValue * 0.999999
+		newZoomValue = Math.max(1, Math.min(50, newZoomValue))
 		if (pos) {
 			pos.x = Math.min(Math.max(pos.x, 0), this._canvas.width)
 			pos.y = Math.min(Math.max(pos.y, 0), this._canvas.width)

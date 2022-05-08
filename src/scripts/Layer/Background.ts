@@ -1,7 +1,7 @@
 import Layer from './Layer'
 
 export default class Background extends Layer {
-	private _colors = ['#808080', '#C0C0C0']
+	private _colors = ['#909090', '#C0C0C0']
 	private _size = 4
 	constructor() {
 		super()

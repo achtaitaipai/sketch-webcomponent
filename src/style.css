@@ -6,22 +6,111 @@
 html,
 body {
 	height: 100%;
+	display: grid;
+	background-color: #3f3e3e;
 }
 
 .main {
+	/* height: 100%; */
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	align-items: center;
+}
+
+.leftTools,
+.rightTools {
 	height: 100%;
-	background-color: black;
+	display: flex;
+	align-items: center;
+	gap: 4rem;
+}
+
+.colors {
+	justify-self: flex-end;
+	display: flex;
+	flex-direction: column;
+	font-size: 0;
+	gap: 0.2rem;
+	list-style: none;
+}
+.clr_radio {
+	display: none;
+}
+.clr_label {
+	display: inline-block;
+	width: 1.8rem;
+	height: 1.8rem;
+	cursor: pointer;
+}
+
+input:checked ~ .clr_label {
+	transform: scale(1.2);
+}
+.tools {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.2rem;
+	list-style: none;
+	width: 100%;
+	gap: 2rem;
+}
+.tool_radio {
+	display: none;
+}
+.tool_label {
+	display: inline-block;
+	color: white;
+	width: 2rem;
+	aspect-ratio: 69 / 69;
+	cursor: pointer;
 	display: grid;
 	place-items: center;
+	background-color: transparent;
+	border: 0;
+	font-size: 1.5rem;
+}
+
+input:checked ~ .tool_label {
+	outline: 1px solid white;
+}
+
+.size {
+	justify-self: flex-start;
+	display: flex;
+	flex-direction: column;
+	font-size: 0;
+	gap: 0.2rem;
+	list-style: none;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 80%;
+}
+.size_radio {
+	display: none;
+}
+.size_label {
+	display: block;
+	border: 1px solid white;
+	width: 1rem;
+	height: auto;
+	aspect-ratio: 69 / 69;
+	cursor: pointer;
+}
+
+input:checked ~ .size_label {
+	outline: 2px solid white;
 }
 
 sketch-app {
 	/* border: 1px solid white; */
+	grid-column: 2;
 	font-size: 0;
-	width: 50%;
+	width: 50vw;
 	height: 80vh;
 	overflow: hidden;
 	position: relative;
-	touch-action: none;
 	background-color: #282828;
+	touch-action: none;
 }

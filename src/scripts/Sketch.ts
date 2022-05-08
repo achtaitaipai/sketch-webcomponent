@@ -10,12 +10,13 @@ export default class Sketch extends HTMLElement {
 
 	private _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
-	private _drawing: Layer
+	private _drawing: Drawing
 	private _cursor: Layer
 	private _background: Layer
 	private _mode = Mode.Paint
-	public _camera: Camera
+	public camera: Camera
 	private _eventsManager: EventsManager
+	public size = 1
 
 	constructor() {
 		super()
@@ -24,9 +25,9 @@ export default class Sketch extends HTMLElement {
 		this._drawing = new Drawing()
 		this._cursor = new Drawing()
 		this._background = new Background()
-		this._camera = new Camera(this, this._canvas)
+		this.camera = new Camera(this, this._canvas)
 		this._eventsManager = new EventsManager(this)
-		this._camera.fitSketch()
+		this.camera.fitSketch()
 		this._updatePreview()
 
 		this._addEvents()
@@ -41,6 +42,7 @@ export default class Sketch extends HTMLElement {
 			-ms-interpolation-mode: nearest-neighbor;
 			image-rendering: pixelated;    
 			background-color: #ffff;
+			cursor:crosshair;
         }
         `
 		shadow.appendChild(canvas)
@@ -70,7 +72,7 @@ export default class Sketch extends HTMLElement {
 					this._drawing.resize(value, this._canvas.height)
 					this._cursor.resize(value, this._canvas.height)
 					this._background.resize(value, this._canvas.height)
-					this._camera.fitSketch()
+					this.camera.fitSketch()
 				}
 				break
 			case 'height':
@@ -80,7 +82,7 @@ export default class Sketch extends HTMLElement {
 				this._drawing.resize(this._canvas.width, value)
 				this._cursor.resize(this._canvas.width, value)
 				this._background.resize(this._canvas.width, value)
-				this._camera.fitSketch()
+				this.camera.fitSketch()
 				break
 			default:
 				return
@@ -92,22 +94,26 @@ export default class Sketch extends HTMLElement {
 		const gridPos = this._gridCoordinate(newPos)
 		switch (this._mode) {
 			case Mode.Paint:
-				this._drawing.paint(gridPos, 1, this.color)
+				this._drawing.paint(gridPos, this.size, this.color)
 				this._updatePreview()
 				break
 			case Mode.Zoom:
-				this._camera.zoom(gridPos)
+				this.camera.zoom(gridPos)
 				break
 			case Mode.Unzoom:
-				this._camera.zoom(gridPos, -1)
+				this.camera.zoom(gridPos, -1)
 				break
 			case Mode.Erase:
-				this._drawing.erase(gridPos, 1)
+				this._drawing.erase(gridPos, this.size)
+				this._updatePreview()
+				break
+			case Mode.Bucket:
+				this._drawing.bucket(gridPos, this.color)
 				this._updatePreview()
 				break
 			case Mode.Drag:
 				if (oldPos) {
-					this._camera.drag(oldPos, newPos)
+					this.camera.drag(oldPos, newPos)
 				}
 				break
 		}
@@ -115,7 +121,7 @@ export default class Sketch extends HTMLElement {
 
 	private _handleRightClick(e: Coordinate) {
 		const pos = this._gridCoordinate(e)
-		this._drawing.erase(pos, 1)
+		this._drawing.erase(pos, this.size)
 		this._updatePreview()
 		this._cursor.actif = false
 	}
@@ -123,8 +129,8 @@ export default class Sketch extends HTMLElement {
 	private _handleZoom(e: ZoomEventType) {
 		const { pos, dir } = e
 		const gridPos = this._gridCoordinate(pos)
-		if (dir > 0) this._camera.zoom(gridPos, -1)
-		else this._camera.zoom(gridPos, 1)
+		if (dir > 0) this.camera.zoom(gridPos, -1)
+		else this.camera.zoom(gridPos, 1)
 	}
 
 	private _handleMove(e: PointerMove) {
@@ -132,12 +138,11 @@ export default class Sketch extends HTMLElement {
 		if (this._mode === Mode.Paint) {
 			this._cursor.actif = true
 			this._cursor.clear()
-			this._cursor.paint(gridPos, 1, this.color)
+			this._cursor.paint(gridPos, this.size, this.color)
 			this._updatePreview()
 		}
 	}
 
-	//TODO Nettoyer cette dégueulasserie
 	private _addEvents() {
 		this._eventsManager.addObserver('click', (e: Coordinate) => {
 			const newPos = e
@@ -155,13 +160,13 @@ export default class Sketch extends HTMLElement {
 			switch (button) {
 				//wheel click
 				case 1:
-					this._camera.drag(oldPos, newPos)
+					this.camera.drag(oldPos, newPos)
 					break
 				case 2:
 					this._handleRightClick(newPos)
 					break
 				default:
-					this._handleLeftClick({ ...e })
+					if (this._mode === Mode.Paint || this._mode === Mode.Erase) this._handleLeftClick(e)
 					break
 			}
 		})
@@ -184,10 +189,17 @@ export default class Sketch extends HTMLElement {
 		this._cursor.draw(this._ctx)
 	}
 
+	public clear() {
+		this._background.clear()
+		this._drawing.clear()
+		this._cursor.clear()
+		this._updatePreview()
+	}
+
 	private _gridCoordinate({ x, y }: Coordinate): Coordinate {
 		const { left, top } = this._canvas.getBoundingClientRect()
-		const px = (x - left) / this._camera.zoomValue
-		const py = (y - top) / this._camera.zoomValue
+		const px = (x - left) / this.camera.zoomValue
+		const py = (y - top) / this.camera.zoomValue
 		return { x: px, y: py }
 	}
 }
