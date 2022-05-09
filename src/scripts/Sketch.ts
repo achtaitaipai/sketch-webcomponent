@@ -11,7 +11,7 @@ export default class Sketch extends HTMLElement {
 	private _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
 	private _drawing: Drawing
-	private _cursor: Layer
+	private _cursor: Drawing
 	private _background: Layer
 	private _mode = Mode.Paint
 	public camera: Camera
@@ -27,9 +27,12 @@ export default class Sketch extends HTMLElement {
 		this._background = new Background()
 		this.camera = new Camera(this, this._canvas)
 		this._eventsManager = new EventsManager(this)
+		// this._drawing.line({ x: 29, y: 29 }, { x: 29, y: 15 }, '#000000')
+	}
+
+	connectedCallback() {
 		this.camera.fitSketch()
 		this._updatePreview()
-
 		this._addEvents()
 	}
 
@@ -112,6 +115,7 @@ export default class Sketch extends HTMLElement {
 				this._updatePreview()
 				break
 			case Mode.Drag:
+				console.log('oe', oldPos)
 				if (oldPos) {
 					this.camera.drag(oldPos, newPos)
 				}
@@ -152,8 +156,13 @@ export default class Sketch extends HTMLElement {
 		this._eventsManager.addObserver('rightClick', (e: Coordinate) => {
 			this._handleRightClick(e)
 		})
-		this._eventsManager.addObserver('pointerUp', () => {
-			this._cursor.actif = true
+		this._eventsManager.addObserver('pointerUp', (e: DragEventType) => {
+			if (this._mode === Mode.Line) {
+				const from = this._gridCoordinate(e.initPos)
+				const to = this._gridCoordinate(e.newPos)
+				this._drawing.line(from, to, this.color)
+				this._updatePreview()
+			}
 		})
 		this._eventsManager.addObserver('drag', (e: DragEventType) => {
 			const { button, oldPos, newPos } = e
@@ -166,7 +175,15 @@ export default class Sketch extends HTMLElement {
 					this._handleRightClick(newPos)
 					break
 				default:
-					if (this._mode === Mode.Paint || this._mode === Mode.Erase) this._handleLeftClick(e)
+					if (this._mode === Mode.Paint || this._mode === Mode.Erase || this._mode === Mode.Drag) this._handleLeftClick(e)
+					else if (this._mode === Mode.Line) {
+						this._cursor.actif = true
+						const from = this._gridCoordinate(e.initPos)
+						const to = this._gridCoordinate(e.newPos)
+						this._cursor.clear()
+						this._cursor.line(from, to, this.color)
+						this._updatePreview()
+					}
 					break
 			}
 		})

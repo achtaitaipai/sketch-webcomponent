@@ -10,6 +10,7 @@ enum Mode {
 	Drag = 'drag',
 	Erase = 'erase',
 	Bucket = 'bucket',
+	Line = 'line',
 }
 
 type PointerMove = {
@@ -24,7 +25,13 @@ type ClickEventType = {
 
 type DragEventType = {
 	button: number
+	initPos: Coordinate
 	oldPos: Coordinate
+	newPos: Coordinate
+}
+type PointerUpType = {
+	button: number
+	initPos: Coordinate
 	newPos: Coordinate
 }
 
@@ -33,6 +40,6 @@ type ZoomEventType = {
 	dir: number
 }
 
-export type { Coordinate, DragEventType, PointerMove, ClickEventType, ZoomEventType }
+export type { Coordinate, DragEventType, PointerMove, ClickEventType, ZoomEventType, PointerUpType }
 
 export { Mode }

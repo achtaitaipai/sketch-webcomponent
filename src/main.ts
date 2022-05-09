@@ -29,8 +29,20 @@ tools.forEach(el => {
 			case 'paint':
 				sketch.mode = 'paint'
 				break
+			case 'line':
+				sketch.mode = 'line'
+				break
 			case 'erase':
 				sketch.mode = 'erase'
+				break
+			case 'zoom':
+				sketch.mode = 'zoom'
+				break
+			case 'unzoom':
+				sketch.mode = 'unzoom'
+				break
+			case 'handle':
+				sketch.mode = 'drag'
 				break
 			case 'bucket':
 				sketch.mode = 'bucket'
@@ -43,5 +55,9 @@ tools.forEach(el => {
 				break
 		}
 	})
+})
+document.addEventListener('load', _ => {
+	sketch.camera.fitSketch()
+	console.log('ok')
 })
 // sketch.fitSketch()

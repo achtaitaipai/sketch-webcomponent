@@ -69,7 +69,7 @@ input:checked ~ .clr_label {
 	place-items: center;
 	background-color: transparent;
 	border: 0;
-	font-size: 1.5rem;
+	font-size: 1rem;
 }
 
 input:checked ~ .tool_label {

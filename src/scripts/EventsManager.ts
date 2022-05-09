@@ -1,5 +1,5 @@
 import Listener from './Listener'
-import { Coordinate, DragEventType, PointerMove, ZoomEventType } from './types'
+import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType } from './types'
 import { distance } from './utils'
 
 type EventsType = 'click' | 'rightClick' | 'drag' | 'pointerMove' | 'pointerUp' | 'pointerOut' | 'zoom'
@@ -9,7 +9,7 @@ export default class EventsManager {
 	private _rightClickObservers = new Listener<Coordinate>()
 	private _dragObservers = new Listener<DragEventType>()
 	private _pointerMoveObservers = new Listener<PointerMove>()
-	private _pointerUpObservers = new Listener<Coordinate>()
+	private _pointerUpObservers = new Listener<PointerUpType>()
 	private _pointerOutObservers = new Listener<Coordinate>()
 	private _zoomObservers = new Listener<ZoomEventType>()
 
@@ -18,7 +18,7 @@ export default class EventsManager {
 	private _prevCenter: Coordinate | null = null
 
 	private _oldPos: Coordinate | null = null
-
+	private _initPos: Coordinate | null = null
 	private _buttonDown: number | null = null
 
 	constructor(el: HTMLElement) {
@@ -29,6 +29,7 @@ export default class EventsManager {
 			this._handleDrag(e)
 		})
 		el.addEventListener('pointerup', e => {
+			if (this._initPos) this._pointerUpObservers.notify({ button: e.button, initPos: this._initPos, newPos: { x: e.clientX, y: e.clientY } })
 			this._handleOut(e)
 		})
 		el.addEventListener('pointercancel', e => {
@@ -53,6 +54,7 @@ export default class EventsManager {
 			this._oldPos = pos
 			if (e.button === 2) this._rightClickObservers.notify(pos)
 			if (e.button === 0) {
+				this._initPos = pos
 				this._clickObservers.notify(pos)
 			}
 		}
@@ -78,7 +80,7 @@ export default class EventsManager {
 			if (this._prevDist !== null) {
 				const diff = dist - this._prevDist
 				if (this._prevCenter !== null && dist < 100) {
-					this._dragObservers.notify({ button: 1, oldPos: this._prevCenter, newPos: center })
+					this._dragObservers.notify({ button: 1, oldPos: this._prevCenter, newPos: center, initPos: this._initPos || { x: 0, y: 0 } })
 				} else if (diff > 0.5) {
 					this._zoomObservers.notify({ pos: center, dir: -1 })
 				} else if (-diff > 0.5) {
@@ -91,7 +93,7 @@ export default class EventsManager {
 			if (this._buttonDown === null) {
 				this._pointerMoveObservers.notify({ oldPos: this._oldPos || { x: -1, y: -1 }, newPos: pos })
 			} else if (this._buttonDown !== null && this._oldPos) {
-				this._dragObservers.notify({ oldPos: this._oldPos, newPos: pos, button: this._buttonDown })
+				this._dragObservers.notify({ oldPos: this._oldPos, newPos: pos, button: this._buttonDown, initPos: this._initPos || { x: 0, y: 0 } })
 				this._oldPos = pos
 			}
 		}
@@ -104,6 +106,7 @@ export default class EventsManager {
 		this._evtCache = this._evtCache.filter(evt => evt.pointerId !== e.pointerId)
 		this._prevDist = null
 		this._prevCenter = null
+		this._initPos = null
 	}
 
 	public addObserver(type: EventsType, callback: Function) {
