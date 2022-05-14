@@ -1,22 +1,20 @@
-import { Mode, Coordinate, DragEventType, PointerMove, ZoomEventType } from './types'
+import { Coordinate } from './types'
 import Camera from './Camera'
 import Drawing from './Layer/Drawing'
 import Background from './Layer/Background'
 import Layer from './Layer/Layer'
-import EventsManager from './EventsManager'
+import ToolsManager from './Tools/ToolsManager'
 
 export default class Sketch extends HTMLElement {
-	public color: string = '#000000'
-
 	private _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
 	private _drawing: Drawing
 	private _cursor: Drawing
 	private _background: Layer
-	private _mode = Mode.Paint
 	public camera: Camera
-	private _eventsManager: EventsManager
 	public size = 1
+	public color: string = '#000000'
+	private _tools: ToolsManager
 
 	constructor() {
 		super()
@@ -26,14 +24,13 @@ export default class Sketch extends HTMLElement {
 		this._cursor = new Drawing()
 		this._background = new Background()
 		this.camera = new Camera(this, this._canvas)
-		this._eventsManager = new EventsManager(this)
-		// this._drawing.line({ x: 29, y: 29 }, { x: 29, y: 15 }, '#000000')
+
+		this._tools = new ToolsManager(this, this._drawing, this._cursor)
 	}
 
 	connectedCallback() {
 		this.camera.fitSketch()
-		this._updatePreview()
-		this._addEvents()
+		this.updatePreview()
 	}
 
 	private _createCanvas() {
@@ -53,10 +50,8 @@ export default class Sketch extends HTMLElement {
 		return canvas
 	}
 
-	set mode(value: string) {
-		for (const mode of Object.values(Mode)) {
-			if (mode === value) this._mode = mode
-		}
+	set tool(value: string) {
+		this._tools.tool = value
 	}
 
 	static get observedAttributes() {
@@ -92,114 +87,7 @@ export default class Sketch extends HTMLElement {
 		}
 	}
 
-	private _handleLeftClick(e: { newPos: Coordinate; oldPos?: Coordinate }) {
-		const { newPos, oldPos } = e
-		const gridPos = this._gridCoordinate(newPos)
-		switch (this._mode) {
-			case Mode.Paint:
-				this._drawing.paint(gridPos, this.size, this.color)
-				this._updatePreview()
-				break
-			case Mode.Zoom:
-				this.camera.zoom(gridPos)
-				break
-			case Mode.Unzoom:
-				this.camera.zoom(gridPos, -1)
-				break
-			case Mode.Erase:
-				this._drawing.erase(gridPos, this.size)
-				this._updatePreview()
-				break
-			case Mode.Bucket:
-				this._drawing.bucket(gridPos, this.color)
-				this._updatePreview()
-				break
-			case Mode.Drag:
-				console.log('oe', oldPos)
-				if (oldPos) {
-					this.camera.drag(oldPos, newPos)
-				}
-				break
-		}
-	}
-
-	private _handleRightClick(e: Coordinate) {
-		const pos = this._gridCoordinate(e)
-		this._drawing.erase(pos, this.size)
-		this._updatePreview()
-		this._cursor.actif = false
-	}
-
-	private _handleZoom(e: ZoomEventType) {
-		const { pos, dir } = e
-		const gridPos = this._gridCoordinate(pos)
-		if (dir > 0) this.camera.zoom(gridPos, -1)
-		else this.camera.zoom(gridPos, 1)
-	}
-
-	private _handleMove(e: PointerMove) {
-		const gridPos = this._gridCoordinate(e.newPos)
-		if (this._mode === Mode.Paint) {
-			this._cursor.actif = true
-			this._cursor.clear()
-			this._cursor.paint(gridPos, this.size, this.color)
-			this._updatePreview()
-		}
-	}
-
-	private _addEvents() {
-		this._eventsManager.addObserver('click', (e: Coordinate) => {
-			const newPos = e
-			this._handleLeftClick({ newPos })
-		})
-
-		this._eventsManager.addObserver('rightClick', (e: Coordinate) => {
-			this._handleRightClick(e)
-		})
-		this._eventsManager.addObserver('pointerUp', (e: DragEventType) => {
-			if (this._mode === Mode.Line) {
-				const from = this._gridCoordinate(e.initPos)
-				const to = this._gridCoordinate(e.newPos)
-				this._drawing.line(from, to, this.color)
-				this._updatePreview()
-			}
-		})
-		this._eventsManager.addObserver('drag', (e: DragEventType) => {
-			const { button, oldPos, newPos } = e
-			switch (button) {
-				//wheel click
-				case 1:
-					this.camera.drag(oldPos, newPos)
-					break
-				case 2:
-					this._handleRightClick(newPos)
-					break
-				default:
-					if (this._mode === Mode.Paint || this._mode === Mode.Erase || this._mode === Mode.Drag) this._handleLeftClick(e)
-					else if (this._mode === Mode.Line) {
-						this._cursor.actif = true
-						const from = this._gridCoordinate(e.initPos)
-						const to = this._gridCoordinate(e.newPos)
-						this._cursor.clear()
-						this._cursor.line(from, to, this.color)
-						this._updatePreview()
-					}
-					break
-			}
-		})
-		this._eventsManager.addObserver('pointerMove', (e: PointerMove) => {
-			this._handleMove(e)
-		})
-		this._eventsManager.addObserver('pointerOut', () => {
-			this._cursor.actif = false
-			this._updatePreview()
-		})
-		this._eventsManager.addObserver('zoom', (e: ZoomEventType) => {
-			this._handleZoom(e)
-		})
-	}
-
-	private _updatePreview() {
+	public updatePreview() {
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
 		this._background.draw(this._ctx)
 		this._drawing.draw(this._ctx)
@@ -210,10 +98,10 @@ export default class Sketch extends HTMLElement {
 		this._background.clear()
 		this._drawing.clear()
 		this._cursor.clear()
-		this._updatePreview()
+		this.updatePreview()
 	}
 
-	private _gridCoordinate({ x, y }: Coordinate): Coordinate {
+	public gridCoordinate({ x, y }: Coordinate): Coordinate {
 		const { left, top } = this._canvas.getBoundingClientRect()
 		const px = (x - left) / this.camera.zoomValue
 		const py = (y - top) / this.camera.zoomValue

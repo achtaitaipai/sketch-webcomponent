@@ -26,33 +26,14 @@ tools.forEach(el => {
 	const input = <HTMLInputElement | HTMLButtonElement>el.querySelector('input,button')
 	input.addEventListener('click', _ => {
 		switch (input.value) {
-			case 'paint':
-				sketch.mode = 'paint'
-				break
-			case 'line':
-				sketch.mode = 'line'
-				break
-			case 'erase':
-				sketch.mode = 'erase'
-				break
-			case 'zoom':
-				sketch.mode = 'zoom'
-				break
-			case 'unzoom':
-				sketch.mode = 'unzoom'
-				break
-			case 'handle':
-				sketch.mode = 'drag'
-				break
-			case 'bucket':
-				sketch.mode = 'bucket'
-				break
 			case 'delete':
 				sketch.clear()
 				break
 			case 'fitscreen':
 				sketch.camera.fitSketch()
 				break
+			default:
+				sketch.tool = input.value
 		}
 	})
 })
@@ -60,4 +41,5 @@ document.addEventListener('load', _ => {
 	sketch.camera.fitSketch()
 	console.log('ok')
 })
+
 // sketch.fitSketch()

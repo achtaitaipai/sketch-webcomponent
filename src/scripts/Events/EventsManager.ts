@@ -1,8 +1,6 @@
 import Listener from './Listener'
-import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType } from './types'
-import { distance } from './utils'
-
-type EventsType = 'click' | 'rightClick' | 'drag' | 'pointerMove' | 'pointerUp' | 'pointerOut' | 'zoom'
+import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType, EventsNames } from '../types/eventsTypes'
+import { distance } from '../utils'
 
 export default class EventsManager {
 	private _clickObservers = new Listener<Coordinate>()
@@ -25,22 +23,22 @@ export default class EventsManager {
 		el.addEventListener('pointerdown', e => {
 			this._handleTouch(e)
 		})
-		el.addEventListener('pointermove', e => {
+		document.addEventListener('pointermove', e => {
 			this._handleDrag(e)
 		})
-		el.addEventListener('pointerup', e => {
+		document.addEventListener('pointerup', e => {
 			if (this._initPos) this._pointerUpObservers.notify({ button: e.button, initPos: this._initPos, newPos: { x: e.clientX, y: e.clientY } })
 			this._handleOut(e)
 		})
-		el.addEventListener('pointercancel', e => {
+		document.addEventListener('pointercancel', e => {
 			this._handleOut(e)
 		})
-		el.addEventListener('pointerout', e => {
-			this._handleOut(e)
-		})
-		el.addEventListener('wheel', e => {
+		// el.addEventListener('pointerout', e => {
+		// this._handleOut(e)
+		// })
+		document.addEventListener('wheel', e => {
 			const pos = { x: e.clientX, y: e.clientY }
-			const dir = Math.sign(e.deltaY)
+			const dir = -Math.sign(e.deltaY)
 			this._zoomObservers.notify({ pos, dir })
 		})
 		el.addEventListener('contextmenu', e => e.preventDefault())
@@ -109,7 +107,7 @@ export default class EventsManager {
 		this._initPos = null
 	}
 
-	public addObserver(type: EventsType, callback: Function) {
+	public addObserver(type: EventsNames, callback: Function) {
 		switch (type) {
 			case 'click':
 				return this._clickObservers.subscribe(callback)
@@ -129,7 +127,7 @@ export default class EventsManager {
 				return -1
 		}
 	}
-	public removeObserver(type: EventsType, id: number) {
+	public removeObserver(type: EventsNames, id: number) {
 		switch (type) {
 			case 'click':
 				return this._clickObservers.unsubscribe(id)

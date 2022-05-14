@@ -52,5 +52,10 @@ export default abstract class Layer {
 		const [r, g, b, a] = this._ctx.getImageData(pos.x, pos.y, 1, 1).data
 		return [r, g, b, a].join('-')
 	}
+	protected _getHexColor(pos: Coordinate) {
+		const [r, g, b, a] = this._ctx.getImageData(pos.x, pos.y, 1, 1).data
+		if (a === 0) return null
+		return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+	}
 	public abstract clear(): void
 }
