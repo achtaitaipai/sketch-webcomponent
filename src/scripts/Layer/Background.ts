@@ -8,8 +8,8 @@ export default class Background extends Layer {
 		this.clear()
 	}
 	public clear() {
-		for (let y = 0; y < this.height / this._size; y++) {
-			for (let x = 0; x < this.width / this._size; x++) {
+		for (let y = 0; y <= Math.ceil(this.height / this._size); y++) {
+			for (let x = 0; x <= Math.ceil(this.width / this._size); x++) {
 				const i = (x + y) % 2
 				this.paint({ x: x * this._size, y: y * this._size }, this._size, this._colors[i])
 			}

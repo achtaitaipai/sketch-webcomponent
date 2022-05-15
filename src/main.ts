@@ -8,6 +8,11 @@ const sketch = <Sketch>document.querySelector('sketch-app')
 const clrs = document.querySelectorAll('.clr')
 const sizes = document.querySelectorAll('.size')
 const tools = document.querySelectorAll('.tool')
+const resizeDialog = <any>document.getElementById('resizeModal-js')!
+const resizeCancel = document.getElementById('cancelResize-js')!
+const resizeForm = <HTMLFormElement>document.getElementById('resizeForm-js')!
+const width = <HTMLInputElement>resizeForm.querySelector('#resize-width')
+const height = <HTMLInputElement>resizeForm.querySelector('#resize-height')
 clrs.forEach(el => {
 	const input = <HTMLInputElement>el.querySelector('input')
 	const label = el.querySelector('label')
@@ -26,6 +31,11 @@ tools.forEach(el => {
 	const input = <HTMLInputElement | HTMLButtonElement>el.querySelector('input,button')
 	input.addEventListener('click', _ => {
 		switch (input.value) {
+			case 'resize':
+				resizeDialog.showModal()
+				width.value = sketch.width.toString()
+				height.value = sketch.height.toString()
+				break
 			case 'delete':
 				sketch.clear()
 				break
@@ -36,6 +46,14 @@ tools.forEach(el => {
 				sketch.tool = input.value
 		}
 	})
+})
+resizeCancel.addEventListener('click', _ => resizeDialog.close())
+resizeForm.addEventListener('submit', e => {
+	e.preventDefault()
+	const vAlign = <HTMLSelectElement>resizeForm.querySelector('#vAlign-js')
+	const hAlign = <HTMLSelectElement>resizeForm.querySelector('#hAlign-js')
+	sketch.resize(Number(width.value), Number(height.value), Number(hAlign.value), Number(vAlign.value))
+	resizeDialog.close()
 })
 document.addEventListener('load', _ => {
 	sketch.camera.fitSketch()

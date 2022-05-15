@@ -7,8 +7,8 @@ export default class Paint extends Tool {
 		this._drawing.paint(this._sketch.gridCoordinate(e), this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
 	}
-	public drag({ newPos }: DragEventType) {
-		this._drawing.paint(this._sketch.gridCoordinate(newPos), this._sketch.size, this._sketch.color)
+	public drag({ oldPos, newPos }: DragEventType) {
+		this._drawing.line(this._sketch.gridCoordinate(oldPos), this._sketch.gridCoordinate(newPos), this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
 		this._cursor.actif = false
 	}

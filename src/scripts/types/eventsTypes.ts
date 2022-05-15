@@ -29,7 +29,8 @@ export type PointerUpType = {
 
 export type ZoomEventType = {
 	pos: Coordinate
-	dir: number
+	dir?: number
+	factor?: number
 }
 
 export type ClickCallBack = (e: Coordinate) => void

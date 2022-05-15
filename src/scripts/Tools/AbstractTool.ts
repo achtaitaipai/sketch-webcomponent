@@ -11,6 +11,7 @@ export default abstract class Tool {
 		this._drawing = drawing
 		this._cursor = cursor
 	}
+	public init() {}
 	public click(_: Coordinate) {}
 	public rightClick(e: Coordinate): void {
 		this._drawing.erase(this._sketch.gridCoordinate(e), this._sketch.size)
@@ -22,6 +23,7 @@ export default abstract class Tool {
 	public unClick(_: PointerUpType) {}
 	public out(_: Coordinate) {}
 	public zoom(e: ZoomEventType) {
-		this._sketch.camera.zoom(this._sketch.gridCoordinate(e.pos), e.dir)
+		this._sketch.camera.zoom(this._sketch.gridCoordinate(e.pos), e.dir, e.factor)
 	}
+	public exit() {}
 }

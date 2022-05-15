@@ -6,6 +6,7 @@ export default class Drawing extends Layer {
 		this._ctx.clearRect(0, 0, this.width, this.height)
 	}
 
+	//TODO Optimiser... peut être une version avec Set comme file et une coordonée i = y * width +x ?
 	public bucket(pos: Coordinate, color: string) {
 		this._ctx.fillStyle = color
 		const x = Math.floor(pos.x)
@@ -21,12 +22,10 @@ export default class Drawing extends Layer {
 			if (sud.y < this.height && this._getColor(sud) === initCol) queue.push(sud)
 		}
 
-		let visited: Coordinate[] = []
 		while (queue.length > 0) {
 			const el = queue.shift()!
-			visited.push(el)
-			addNeighbor(el.x, el.y)
 			if (this._getColor(el) === initCol) {
+				addNeighbor(el.x, el.y)
 				let w = el.x
 				let e = el.x
 				while (this._getColor({ x: w - 1, y: el.y }) === initCol && w > 0) {
@@ -38,7 +37,6 @@ export default class Drawing extends Layer {
 					addNeighbor(e, el.y)
 				}
 				this._ctx.fillRect(w, el.y, e - w + 1, 1)
-				queue.filter(q => visited.find(v => v.x === q.x && v.y === q.y) === undefined)
 			}
 		}
 	}
@@ -94,6 +92,11 @@ export default class Drawing extends Layer {
 		}
 	}
 
+	public fillRect(pos: Coordinate, width: number, height: number, color: string) {
+		this._ctx.fillStyle = color
+		this._ctx.fillRect(pos.x, pos.y, width, height)
+	}
+
 	public rect(pos: Coordinate, width: number, height: number, size: number, color: string) {
 		this.line({ x: pos.x, y: pos.y }, { x: pos.x + width, y: pos.y }, size, color)
 		this.line({ x: pos.x + width, y: pos.y }, { x: pos.x + width, y: pos.y + height }, size, color)
@@ -102,6 +105,7 @@ export default class Drawing extends Layer {
 	}
 
 	public ellipse(centre: { x: number; y: number }, width: number, height: number, size: number, color: string) {
+		//https://fr.acervolima.com/algorithme-de-dessin-d-ellipse-mediane/
 		this._ctx.fillStyle = color
 		const rx = Math.floor(width / 2)
 		const ry = Math.floor(height / 2)
@@ -112,10 +116,10 @@ export default class Drawing extends Layer {
 		let dy = 2 * rx * rx * y
 
 		while (dx < dy) {
-			this._ctx.fillRect(x + centre.x, y + centre.y, 1, 1)
-			this._ctx.fillRect(-x + centre.x, y + centre.y, 1, 1)
-			this._ctx.fillRect(x + centre.x, -y + centre.y, 1, 1)
-			this._ctx.fillRect(-x + centre.x, -y + centre.y, 1, 1)
+			this._ctx.fillRect(x + centre.x, y + centre.y, size, size)
+			this._ctx.fillRect(-x + centre.x, y + centre.y, size, size)
+			this._ctx.fillRect(x + centre.x, -y + centre.y, size, size)
+			this._ctx.fillRect(-x + centre.x, -y + centre.y, size, size)
 			if (d1 < 0) {
 				x++
 				dx = dx + 2 * ry * ry
@@ -146,5 +150,17 @@ export default class Drawing extends Layer {
 				d2 = d2 + dx - dy + rx * rx
 			}
 		}
+	}
+	public resize(w: number, h: number, hAlign: number = -1, vAlign: number = -1) {
+		let x = 0
+		let y = 0
+		if (hAlign === 0) x = (w - this.width) / 2
+		else if (hAlign === 1) x = w - this.width
+		if (vAlign === 0) y = (h - this.height) / 2
+		else if (vAlign === 1) y = h - this.height
+		const img = this._ctx.getImageData(0, 0, this.width, this.height)
+		this.width = w
+		this.height = h
+		this._ctx.putImageData(img, x, y)
 	}
 }

@@ -1,8 +1,20 @@
-import { DragEventType } from '../types/eventsTypes'
+import { Coordinate, DragEventType } from '../types/eventsTypes'
 import Tool from './AbstractTool'
 
 export default class Drag extends Tool {
-	public drag(e: DragEventType): void {
-		this._sketch.camera.drag(e.oldPos, e.newPos)
+	private _img: ImageData | null = null
+
+	public click(_: Coordinate): void {
+		this._img = this._drawing.getImgData()
+	}
+	public drag({ initPos, newPos }: DragEventType) {
+		const from = this._sketch.gridCoordinate(initPos)
+		const to = this._sketch.gridCoordinate(newPos)
+		const dx = to.x - from.x
+		const dy = to.y - from.y
+		if (this._img) {
+			this._drawing.putDatas(this._img, dx, dy)
+			this._sketch.updatePreview()
+		}
 	}
 }

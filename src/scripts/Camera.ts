@@ -40,9 +40,12 @@ export default class Camera {
 		this.zoomValue = canvasRatio < containerRatio ? height / this._canvas.height : width / this._canvas.width
 	}
 
-	public zoom(pos?: Coordinate, dir?: number) {
+	public zoom(pos?: Coordinate, dir?: number, factor?: number) {
 		let newZoomValue = this._zoomValue > 1 ? this._zoomValue + 1 : this._zoomValue * 2
 		if (dir && dir < 0) newZoomValue = this._zoomValue > 1 ? this._zoomValue - 1 : this._zoomValue * 0.999999
+		if (factor) {
+			newZoomValue = factor > 1 ? this._zoomValue + 0.25 : this._zoomValue - 0.25
+		}
 		newZoomValue = Math.max(1, Math.min(50, newZoomValue))
 		if (pos) {
 			pos.x = Math.min(Math.max(pos.x, 0), this._canvas.width)

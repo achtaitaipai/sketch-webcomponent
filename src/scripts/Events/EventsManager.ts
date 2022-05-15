@@ -1,6 +1,6 @@
 import Listener from './Listener'
 import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType, EventsNames } from '../types/eventsTypes'
-import { distance } from '../utils'
+import interact from 'interactjs'
 
 export default class EventsManager {
 	private _clickObservers = new Listener<Coordinate>()
@@ -12,19 +12,33 @@ export default class EventsManager {
 	private _zoomObservers = new Listener<ZoomEventType>()
 
 	private _evtCache: PointerEvent[] = []
-	private _prevDist: number | null = null
-	private _prevCenter: Coordinate | null = null
 
 	private _oldPos: Coordinate | null = null
 	private _initPos: Coordinate | null = null
 	private _buttonDown: number | null = null
+	private _inGesture = false
 
 	constructor(el: HTMLElement) {
+		interact(el).gesturable({
+			onmove: event => {
+				if (event.scale !== 1) {
+					const pos = { x: event.client.x as number, y: event.client.y as number }
+					this._zoomObservers.notify({ pos, factor: event.scale })
+				}
+				event.stopPropagation()
+			},
+			onstart: _ => {
+				this._inGesture = true
+			},
+			onend: _ => {
+				this._inGesture = false
+			},
+		})
 		el.addEventListener('pointerdown', e => {
-			this._handleTouch(e)
+			if (!this._inGesture) this._handleTouch(e)
 		})
 		document.addEventListener('pointermove', e => {
-			this._handleDrag(e)
+			if (!this._inGesture) this._handleDrag(e)
 		})
 		document.addEventListener('pointerup', e => {
 			if (this._initPos) this._pointerUpObservers.notify({ button: e.button, initPos: this._initPos, newPos: { x: e.clientX, y: e.clientY } })
@@ -33,9 +47,6 @@ export default class EventsManager {
 		document.addEventListener('pointercancel', e => {
 			this._handleOut(e)
 		})
-		// el.addEventListener('pointerout', e => {
-		// this._handleOut(e)
-		// })
 		document.addEventListener('wheel', e => {
 			const pos = { x: e.clientX, y: e.clientY }
 			const dir = -Math.sign(e.deltaY)
@@ -60,40 +71,12 @@ export default class EventsManager {
 
 	private _handleDrag(e: PointerEvent) {
 		const pos = { x: e.clientX, y: e.clientY }
-		// Trouve le pointeur en cours dans le cache et le met à jour avec cet événement
-		for (var i = 0; i < this._evtCache.length; i++) {
-			if (e.pointerId == this._evtCache[i].pointerId) {
-				this._evtCache[i] = e
-				break
-			}
-		}
-		if (this._evtCache.length === 2) {
-			// console.log(this._evtCache)
-			const newPos = { x: this._evtCache[1].clientX, y: this._evtCache[1].clientY }
-			const oldPos = { x: this._evtCache[0].clientX, y: this._evtCache[0].clientY }
-			const dist = distance(oldPos, newPos)
-			const centerX = this._evtCache[0].clientX + (this._evtCache[1].clientX - this._evtCache[0].clientX) / 2
-			const centerY = this._evtCache[0].clientY + (this._evtCache[1].clientY - this._evtCache[0].clientY) / 2
-			const center = { x: centerX, y: centerY }
-			if (this._prevDist !== null) {
-				const diff = dist - this._prevDist
-				if (this._prevCenter !== null && dist < 100) {
-					this._dragObservers.notify({ button: 1, oldPos: this._prevCenter, newPos: center, initPos: this._initPos || { x: 0, y: 0 } })
-				} else if (diff > 0.5) {
-					this._zoomObservers.notify({ pos: center, dir: -1 })
-				} else if (-diff > 0.5) {
-					this._zoomObservers.notify({ pos: center, dir: 1 })
-				}
-			}
-			this._prevDist = dist
-			this._prevCenter = center
-		} else {
-			if (this._buttonDown === null) {
-				this._pointerMoveObservers.notify({ oldPos: this._oldPos || { x: -1, y: -1 }, newPos: pos })
-			} else if (this._buttonDown !== null && this._oldPos) {
-				this._dragObservers.notify({ oldPos: this._oldPos, newPos: pos, button: this._buttonDown, initPos: this._initPos || { x: 0, y: 0 } })
-				this._oldPos = pos
-			}
+
+		if (this._buttonDown === null) {
+			this._pointerMoveObservers.notify({ oldPos: this._oldPos || { x: -1, y: -1 }, newPos: pos })
+		} else if (this._buttonDown !== null && this._oldPos) {
+			this._dragObservers.notify({ oldPos: this._oldPos, newPos: pos, button: this._buttonDown, initPos: this._initPos || { x: 0, y: 0 } })
+			this._oldPos = pos
 		}
 	}
 
@@ -102,8 +85,6 @@ export default class EventsManager {
 		this._buttonDown = null
 		this._pointerOutObservers.notify(pos)
 		this._evtCache = this._evtCache.filter(evt => evt.pointerId !== e.pointerId)
-		this._prevDist = null
-		this._prevCenter = null
 		this._initPos = null
 	}
 
@@ -147,8 +128,4 @@ export default class EventsManager {
 				return null
 		}
 	}
-
-	// public removeClickObserver(id: number) {
-	// 	this._clickObservers.unsubscribe(id)
-	// }
 }

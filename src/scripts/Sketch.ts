@@ -6,7 +6,7 @@ import Layer from './Layer/Layer'
 import ToolsManager from './Tools/ToolsManager'
 
 export default class Sketch extends HTMLElement {
-	private _canvas: HTMLCanvasElement
+	public _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
 	private _drawing: Drawing
 	private _cursor: Drawing
@@ -43,11 +43,18 @@ export default class Sketch extends HTMLElement {
 			image-rendering: pixelated;    
 			background-color: #ffff;
 			cursor:crosshair;
+			pointer-events:none;
         }
         `
 		shadow.appendChild(canvas)
 		shadow.appendChild(style)
 		return canvas
+	}
+	get width() {
+		return this._canvas.width
+	}
+	get height() {
+		return this._canvas.height
 	}
 
 	set tool(value: string) {
@@ -58,29 +65,50 @@ export default class Sketch extends HTMLElement {
 		return ['width', 'height']
 	}
 
+	public crop(x: number, y: number, width: number, height: number) {
+		this._canvas.width = width
+		this._canvas.height = height
+		this._drawing.crop(x, y, width, height)
+		this._cursor.resize(width, height)
+		this._background.resize(width, height)
+		this._background.clear()
+		this.camera.fitSketch()
+		this.updatePreview()
+	}
+	public resize(width: number, height: number, hAlign: number, vAlign: number) {
+		this._canvas.width = width
+		this._canvas.height = height
+		this._drawing.resize(width, height, hAlign, vAlign)
+		this._cursor.resize(width, height)
+		this._background.resize(width, height)
+		this._background.clear()
+		this.camera.fitSketch()
+		this.updatePreview()
+	}
+
 	attributeChangedCallback(name: string, _: string, val: string) {
 		if (!val || isNaN(Number(val))) return
 		const value = Number(val)
 		switch (name) {
 			case 'width':
 				if (value >= 1) {
-					const img = this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height)
 					this._canvas.width = value
-					this._ctx.putImageData(img, 0, 0)
 					this._drawing.resize(value, this._canvas.height)
 					this._cursor.resize(value, this._canvas.height)
 					this._background.resize(value, this._canvas.height)
+					this._background.clear()
 					this.camera.fitSketch()
+					this.updatePreview()
 				}
 				break
 			case 'height':
-				const img = this._ctx.getImageData(0, 0, this._canvas.width, this._canvas.height)
 				this._canvas.height = value
-				this._ctx.putImageData(img, 0, 0)
 				this._drawing.resize(this._canvas.width, value)
 				this._cursor.resize(this._canvas.width, value)
 				this._background.resize(this._canvas.width, value)
+				this._background.clear()
 				this.camera.fitSketch()
+				this.updatePreview()
 				break
 			default:
 				return
@@ -89,9 +117,9 @@ export default class Sketch extends HTMLElement {
 
 	public updatePreview() {
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
-		this._background.draw(this._ctx)
-		this._drawing.draw(this._ctx)
-		this._cursor.draw(this._ctx)
+		this._ctx.drawImage(this._background.canvas, 0, 0)
+		this._ctx.drawImage(this._drawing.canvas, 0, 0)
+		this._ctx.drawImage(this._cursor.canvas, 0, 0)
 	}
 
 	public clear() {
@@ -105,6 +133,6 @@ export default class Sketch extends HTMLElement {
 		const { left, top } = this._canvas.getBoundingClientRect()
 		const px = (x - left) / this.camera.zoomValue
 		const py = (y - top) / this.camera.zoomValue
-		return { x: px, y: py }
+		return { x: Math.floor(px), y: Math.floor(py) }
 	}
 }

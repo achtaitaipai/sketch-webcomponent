@@ -3,7 +3,7 @@ import Drawing from '../Layer/Drawing'
 import Sketch from '../Sketch'
 import { Coordinate, DragEventType, PointerMove, ZoomEventType } from '../types/eventsTypes'
 import Bucket from './Bucket'
-import Drag from './Drag'
+import Handle from './Handle'
 import Erase from './Erase'
 import Line from './Line'
 import Paint from './Paint'
@@ -12,6 +12,8 @@ import unZoom from './UnZoom'
 import Zoom from './Zoom'
 import Rect from './Rect'
 import Circle from './Circle'
+import Drag from './Drag'
+import Crop from './Crop'
 
 export default class ToolsManager {
 	private _eventsManager: EventsManager
@@ -30,9 +32,11 @@ export default class ToolsManager {
 			rect: new Rect(sketch, drawing, cursor),
 			circle: new Circle(sketch, drawing, cursor),
 			bucket: new Bucket(sketch, drawing, cursor),
+			crop: new Crop(sketch, drawing, cursor),
 			zoom: new Zoom(sketch, drawing, cursor),
 			unzoom: new unZoom(sketch, drawing, cursor),
 			drag: new Drag(sketch, drawing, cursor),
+			handle: new Handle(sketch, drawing, cursor),
 		}
 		this._currentTool = this._tools.paint
 		this._eventsManager = new EventsManager(sketch)
@@ -40,7 +44,11 @@ export default class ToolsManager {
 	}
 
 	set tool(value: string) {
-		if (this._tools[value]) this._currentTool = this._tools[value]
+		if (this._tools[value]) {
+			this._currentTool.exit()
+			this._currentTool = this._tools[value]
+			this._currentTool.init()
+		}
 	}
 
 	private _addEvents() {

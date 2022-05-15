@@ -139,6 +139,10 @@
 						</label>
 					</li>
 					<li class="tool">
+						<input autocomplete="off" type="radio" id="crop" name="tool" value="crop" class="tool_radio" />
+						<label for="crop" class="tool_label"> Cr </label>
+					</li>
+					<li class="tool">
 						<input autocomplete="off" type="radio" id="zoom" name="tool" value="zoom" class="tool_radio" />
 						<label for="zoom" class="tool_label">
 							<i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -151,10 +155,17 @@
 						</label>
 					</li>
 					<li class="tool">
+						<input autocomplete="off" type="radio" id="drag" name="tool" value="drag" class="tool_radio" />
+						<label for="drag" class="tool_label"> D </label>
+					</li>
+					<li class="tool">
 						<input autocomplete="off" type="radio" id="handle" name="tool" value="handle" class="tool_radio" />
 						<label for="handle" class="tool_label">
 							<i class="fa-solid fa-hand"></i>
 						</label>
+					</li>
+					<li class="tool">
+						<button id="resize" class="tool_label" value="resize">resize</button>
 					</li>
 					<li class="tool">
 						<button id="delete" class="tool_label" value="delete">
@@ -168,6 +179,30 @@
 					</li>
 				</ul>
 			</div>
+			<dialog class="resizeModal" id="resizeModal-js">
+				<form id="resizeForm-js">
+					<label for="vAlign">vertical align :</label>
+					<select name="vAlign" id="vAlign-js">
+						<option value="-1">top</option>
+						<option value="0">center</option>
+						<option value="1">bottom</option>
+					</select>
+					<label for="hAlign">horizontal align :</label>
+					<select name="hAlign" id="hAlign-js">
+						<option value="-1">left</option>
+						<option value="0">center</option>
+						<option value="1">right</option>
+					</select>
+					<label for="resize-width">width : </label>
+					<input type="number" name="width" id="resize-width" value="30" min="1" max="800" />
+					<label for="resize-height">height : </label>
+					<input type="number" name="height" id="resize-height" value="30" min="1" max="800" />
+					<div class="resizeModal_btns">
+						<button>ok</button>
+						<button type="button" id="cancelResize-js">cancel</button>
+					</div>
+				</form>
+			</dialog>
 		</main>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
