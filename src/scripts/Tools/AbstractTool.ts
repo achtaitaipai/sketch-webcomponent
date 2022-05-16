@@ -1,4 +1,4 @@
-import Drawing from '../Layer/Drawing'
+import Drawing from '../Images/Drawing'
 import Sketch from '../Sketch'
 import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType } from '../types/eventsTypes'
 

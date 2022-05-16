@@ -1,6 +1,6 @@
 import { Coordinate } from '../types'
 
-export default abstract class Layer {
+export default abstract class AbstractImage {
 	private _canvas: HTMLCanvasElement
 	public actif = true
 	protected _ctx: CanvasRenderingContext2D
@@ -30,6 +30,10 @@ export default abstract class Layer {
 	}
 	getImgData(x = 0, y = 0, width = this.width, height = this.height) {
 		return new ImageData(new Uint8ClampedArray(this._ctx.getImageData(x, y, width, height).data), width, height)
+	}
+
+	get imgData() {
+		return this._ctx.getImageData(0, 0, this.width, this.height)
 	}
 
 	crop(x: number, y: number, width: number, height: number) {
@@ -70,6 +74,17 @@ export default abstract class Layer {
 		const [r, g, b, a] = this._ctx.getImageData(pos.x, pos.y, 1, 1).data
 		if (a === 0) return null
 		return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+	}
+	protected _hexToRgba(str: string) {
+		const color =
+			str
+				.replace('#', '')
+				.match(/(..?)/g)
+				?.map(n => parseInt(n, 16)) || []
+		for (let i = color.length; i < 4; i++) {
+			color.push(i === 3 ? 255 : 0)
+		}
+		return color
 	}
 	public abstract clear(): void
 }

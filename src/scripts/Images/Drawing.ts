@@ -1,44 +1,37 @@
+import createColor from '../Color'
 import { Coordinate } from '../types'
-import Layer from './Layer'
+import AbstractImage from './AbstractImage'
 
-export default class Drawing extends Layer {
+export default class Drawing extends AbstractImage {
 	public clear() {
 		this._ctx.clearRect(0, 0, this.width, this.height)
 	}
 
-	//TODO Optimiser... peut être une version avec Set comme file et une coordonée i = y * width +x ?
-	public bucket(pos: Coordinate, color: string) {
-		this._ctx.fillStyle = color
-		const x = Math.floor(pos.x)
-		const y = Math.floor(pos.y)
-		const initCol = this._getColor({ x, y })
-		if (this._getHexColor({ x, y })?.toUpperCase() === color.toUpperCase()) return
-		let queue: Coordinate[] = [{ x, y }]
-
-		const addNeighbor = (x: number, y: number) => {
-			const nord = { x, y: y - 1 }
-			const sud = { x, y: y + 1 }
-			if (nord.y >= 0 && this._getColor(nord) === initCol) queue.push(nord)
-			if (sud.y < this.height && this._getColor(sud) === initCol) queue.push(sud)
-		}
-
-		while (queue.length > 0) {
-			const el = queue.shift()!
-			if (this._getColor(el) === initCol) {
-				addNeighbor(el.x, el.y)
-				let w = el.x
-				let e = el.x
-				while (this._getColor({ x: w - 1, y: el.y }) === initCol && w > 0) {
-					w--
-					addNeighbor(w, el.y)
-				}
-				while (this._getColor({ x: e + 1, y: el.y }) === initCol && e < this.width - 1) {
-					e++
-					addNeighbor(e, el.y)
-				}
-				this._ctx.fillRect(w, el.y, e - w + 1, 1)
+	// 800 * 800 = 2165.157958984375 ms
+	public bucket(pos: Coordinate, newColor: string) {
+		console.time()
+		const index = pos.y * this.width + pos.x
+		const datas = this.getImgData().data
+		const startColor = createColor([...datas.slice(4 * index, 4 * index + 4)])
+		const color = createColor(newColor)
+		if (color.hex === startColor.hex) return
+		const queue = new Set([index])
+		const values = queue.values()
+		let val = values.next()
+		while (!val.done) {
+			const col = createColor([...datas.slice(4 * val.value, 4 * val.value + 4)])
+			if (col.hex === startColor.hex) {
+				const x = val.value % this.width
+				const y = Math.floor(val.value / this.width)
+				if (x > 0) queue.add(val.value - 1)
+				if (x < this.width - 1) queue.add(val.value + 1)
+				if (y > 0) queue.add(val.value - this.width)
+				if (y < this.height - 1) queue.add(val.value + this.width)
+				this.paint({ x, y }, 1, newColor)
 			}
+			val = values.next()
 		}
+		console.timeEnd()
 	}
 
 	public line(pos0: Coordinate, pos1: Coordinate, size: number, color: string) {

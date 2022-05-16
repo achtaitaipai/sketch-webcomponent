@@ -1,8 +1,8 @@
 import { Coordinate } from './types'
 import Camera from './Camera'
-import Drawing from './Layer/Drawing'
-import Background from './Layer/Background'
-import Layer from './Layer/Layer'
+import Drawing from './Images/Drawing'
+import Background from './Images/Background'
+import AbstractImage from './Images/AbstractImage'
 import ToolsManager from './Tools/ToolsManager'
 
 export default class Sketch extends HTMLElement {
@@ -10,7 +10,7 @@ export default class Sketch extends HTMLElement {
 	private _ctx: CanvasRenderingContext2D
 	private _drawing: Drawing
 	private _cursor: Drawing
-	private _background: Layer
+	private _background: AbstractImage
 	public camera: Camera
 	public size = 1
 	public color: string = '#000000'
