@@ -1,0 +1,32 @@
+.tools {
+	grid-column: -2;
+	grid-row: 2 / -2;
+	display: grid;
+	gap: 0.2rem;
+}
+.tool {
+	position: relative;
+	&_radio {
+		display: none;
+	}
+	&_label {
+		position: absolute;
+		cursor: pointer;
+		height: 100%;
+		left: 50%;
+		transform: translate(-50%, 0);
+	}
+	&_label:hover {
+		transform: scale(1.1) translate(-50%, 0);
+		transition: transform ease-out 0.2s;
+	}
+	&_img {
+		max-height: 100%;
+		max-width: 100%;
+		display: block;
+		margin: auto;
+	}
+	&_radio:checked ~ &_label {
+		border: 1px solid white;
+	}
+}

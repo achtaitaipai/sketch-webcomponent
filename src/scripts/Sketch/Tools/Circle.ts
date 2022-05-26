@@ -1,6 +1,5 @@
 import Drawing from '../Images/Drawing'
-import { Coordinate } from '../types'
-import { DragEventType, PointerMove, PointerUpType } from '../types/eventsTypes'
+import { Coordinate, DragEventType, PointerMove, PointerUpType } from '../types/eventsTypes'
 import Tool from './AbstractTool'
 
 export default class Circle extends Tool {

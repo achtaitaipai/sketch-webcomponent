@@ -1,4 +1,4 @@
-import { Coordinate } from '../types'
+import { Coordinate } from '../types/eventsTypes'
 import Tool from './AbstractTool'
 
 export default class unZoom extends Tool {

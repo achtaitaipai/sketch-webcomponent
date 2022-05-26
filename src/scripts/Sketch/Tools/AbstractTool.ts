@@ -17,6 +17,7 @@ export default abstract class Tool {
 		this._drawing.erase(this._sketch.gridCoordinate(e), this._sketch.size)
 		this._sketch.updatePreview()
 		this._cursor.actif = false
+		this._cursor.clear()
 	}
 	public drag(_: DragEventType) {}
 	public move(_: PointerMove) {}

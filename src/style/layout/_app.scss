@@ -1,0 +1,18 @@
+.main {
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-rows: 1fr 80vh 1fr;
+	grid-template-columns: repeat(11, 1fr) 5rem;
+	background-color: $primary-200;
+}
+
+.sketch {
+	grid-row: 2;
+	grid-column: 4 / -2;
+	background-color: $primary-0;
+	overflow: hidden;
+	touch-action: none;
+	user-select: none;
+	cursor: crosshair;
+}

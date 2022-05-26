@@ -1,4 +1,4 @@
-import { Coordinate } from '../types'
+import { Coordinate } from '../types/eventsTypes'
 
 export default abstract class AbstractImage {
 	private _canvas: HTMLCanvasElement

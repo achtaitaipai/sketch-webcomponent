@@ -1,5 +1,5 @@
 import createColor from '../Color'
-import { Coordinate } from '../types'
+import { Coordinate } from '../types/eventsTypes'
 import AbstractImage from './AbstractImage'
 
 export default class Drawing extends AbstractImage {
@@ -7,7 +7,6 @@ export default class Drawing extends AbstractImage {
 		this._ctx.clearRect(0, 0, this.width, this.height)
 	}
 
-	// 800 * 800 = 2165.157958984375 ms
 	public bucket(pos: Coordinate, newColor: string) {
 		console.time()
 		const index = pos.y * this.width + pos.x

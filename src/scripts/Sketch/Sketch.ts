@@ -1,9 +1,9 @@
-import { Coordinate } from './types'
 import Camera from './Camera'
 import Drawing from './Images/Drawing'
 import Background from './Images/Background'
 import AbstractImage from './Images/AbstractImage'
 import ToolsManager from './Tools/ToolsManager'
+import { Coordinate } from './types/eventsTypes'
 
 export default class Sketch extends HTMLElement {
 	public _canvas: HTMLCanvasElement

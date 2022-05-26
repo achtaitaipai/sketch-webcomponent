@@ -1,4 +1,4 @@
-import { Coordinate } from './types'
+import { Coordinate } from './types/eventsTypes'
 
 export default class Camera {
 	private _zoomValue: number = 1
