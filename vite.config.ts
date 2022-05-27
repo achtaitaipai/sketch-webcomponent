@@ -4,5 +4,5 @@ export default defineConfig({
 	build: {
 		outDir: 'docs/',
 	},
-	base: '/sketch-webcomponent/',
+	base: '/pixynth/',
 })

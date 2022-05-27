@@ -15,11 +15,13 @@
 			content: '';
 			position: absolute;
 			inset: 2px;
-			border: 1px solid black;
+			border: 1px solid white;
 			background-color: var(--clr);
 		}
 	}
-	&_radio:checked + &_label {
-		border: 2px solid $accent;
+	&_radio:checked + &_label,
+	&_label:hover::after {
+		transform: scale(1.2);
+		z-index: 2;
 	}
 }
