@@ -11,51 +11,30 @@
 		<main class="main">
 			<div class="settings"></div>
 			<div class="tools" id="tools-js">
-				<div class="tool paint">
-					<input type="radio" class="tool_radio" name="tool" id="paint" value="paint" checked />
-					<label for="paint" class="tool_label"><img src="/assets/icons/tools/crayon.png" alt="paint" class="tool_img" /></label>
-				</div>
-				<div class="tool erase">
-					<input type="radio" class="tool_radio" name="tool" id="erase" value="erase" />
-					<label for="erase" class="tool_label"><img src="/assets/icons/tools/gomme.png" alt="erase" class="tool_img" /></label>
-				</div>
-				<div class="tool line">
-					<input type="radio" class="tool_radio" name="tool" id="line" value="line" />
-					<label for="line" class="tool_label"><img src="/assets/icons/tools/ligne.png" alt="line" class="tool_img" /></label>
-				</div>
-				<div class="tool rect">
-					<input type="radio" class="tool_radio" name="tool" id="rect" value="rect" />
-					<label for="rect" class="tool_label"><img src="/assets/icons/tools/rectangle.png" alt="rect" class="tool_img" /></label>
-				</div>
-				<div class="tool circle">
-					<input type="radio" class="tool_radio" name="tool" id="circle" value="circle" />
-					<label for="circle" class="tool_label"><img src="/assets/icons/tools/cercle.png" alt="circle" class="tool_img" /></label>
-				</div>
-				<div class="tool bucket">
-					<input type="radio" class="tool_radio" name="tool" id="bucket" value="bucket" />
-					<label for="bucket" class="tool_label"><img src="/assets/icons/tools/pot.png" alt="bucket" class="tool_img" /></label>
-				</div>
-				<div class="tool drag">
-					<input type="radio" class="tool_radio" name="tool" id="drag" value="drag" />
-					<label for="drag" class="tool_label"><img src="/assets/icons/tools/move.png" alt="drag" class="tool_img" /></label>
-				</div>
-				<div class="tool crop">
-					<input type="radio" class="tool_radio" name="tool" id="crop" value="crop" />
-					<label for="crop" class="tool_label"><img src="/assets/icons/tools/recadrer.png" alt="crop" class="tool_img" /></label>
-				</div>
-				<div class="tool zoom">
-					<input type="radio" class="tool_radio" name="tool" id="zoom" value="zoom" />
-					<label for="zoom" class="tool_label"><img src="/assets/icons/tools/zoom.png" alt="zoom" class="tool_img" /></label>
-				</div>
-				<div class="tool unzoom">
-					<input type="radio" class="tool_radio" name="tool" id="unzoom" value="unzoom" />
-					<label for="unzoom" class="tool_label"><img src="/assets/icons/tools/dezoom.png" alt="unzoom" class="tool_img" /></label>
-				</div>
-				<div class="tool handle">
-					<input type="radio" class="tool_radio" name="tool" id="handle" value="handle" />
-					<label for="handle" class="tool_label"><img src="/assets/icons/tools/handle.png" alt="handle" class="tool_img" /></label>
-				</div>
+				<input type="radio" class="tools_radio" name="tool" id="paint" value="paint" checked />
+				<label for="paint" class="tools_label"> <img src="/assets/icons/tools/crayon.png" alt="paint" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="erase" value="erase" />
+				<label for="erase" class="tools_label"><img src="/assets/icons/tools/gomme.png" alt="erase" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="line" value="line" />
+				<label for="line" class="tools_label"><img src="/assets/icons/tools/ligne.png" alt="line" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="rect" value="rect" />
+				<label for="rect" class="tools_label"><img src="/assets/icons/tools/rectangle.png" alt="rect" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="circle" value="circle" />
+				<label for="circle" class="tools_label"><img src="/assets/icons/tools/cercle.png" alt="circle" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="bucket" value="bucket" />
+				<label for="bucket" class="tools_label"><img src="/assets/icons/tools/pot.png" alt="bucket" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="drag" value="drag" />
+				<label for="drag" class="tools_label"><img src="/assets/icons/tools/move.png" alt="drag" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="crop" value="crop" />
+				<label for="crop" class="tools_label"><img src="/assets/icons/tools/recadrer.png" alt="crop" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="zoom" value="zoom" />
+				<label for="zoom" class="tools_label"><img src="/assets/icons/tools/zoom.png" alt="zoom" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="unzoom" value="unzoom" />
+				<label for="unzoom" class="tools_label"><img src="/assets/icons/tools/dezoom.png" alt="unzoom" class="tools_img" /></label>
+				<input type="radio" class="tools_radio" name="tool" id="handle" value="handle" />
+				<label for="handle" class="tools_label"><img src="/assets/icons/tools/handle.png" alt="handle" class="tool_img" /></label>
 			</div>
+			<div class="colors" id="colors-js"></div>
 			<sketch-app width="30" height="30" class="sketch"></sketch-app>
 		</main>
 		<script type="module" src="/src/main.ts"></script>
