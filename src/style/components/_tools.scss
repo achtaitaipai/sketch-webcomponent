@@ -1,6 +1,5 @@
 .tools {
-	grid-row: 2 / -2;
-	grid-column: 1;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -15,7 +14,7 @@
 		position: relative;
 		cursor: pointer;
 		overflow: hidden;
-		padding: 0.3125rem;
+		padding: 0.125rem;
 		background-color: $primary-200;
 	}
 	&_label:hover {

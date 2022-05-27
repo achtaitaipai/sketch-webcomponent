@@ -19,16 +19,9 @@ export default class Crop extends Tool {
 		const to = this._sketch.gridCoordinate({ x: Math.max(initPos.x, newPos.x), y: Math.max(initPos.y, newPos.y) })
 		const x = Math.max(from.x, 0)
 		const y = Math.max(from.y, 0)
-		const w = Math.min(to.x - from.x, this._drawing.width - from.x)
-		const h = Math.min(to.y - from.y, this._drawing.height - from.y)
+		const w = Math.min(to.x - x, this._drawing.width - x)
+		const h = Math.min(to.y - y, this._drawing.height - y)
 		this._cursor.clear()
 		this._sketch.crop(x, y, w, h)
 	}
-
-	// public move(e: PointerMove): void {
-	// 	this._cursor.actif = true
-	// 	this._cursor.clear()
-	// 	this._cursor.paint(this._sketch.gridCoordinate(e.newPos), this._sketch.size, this._sketch.color)
-	// 	this._sketch.updatePreview()
-	// }
 }

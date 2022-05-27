@@ -1,0 +1,38 @@
+.sizes {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	&_radio {
+		display: none;
+	}
+	&_label {
+		height: calc(100% / 8);
+		width: auto;
+		aspect-ratio: 1 / 1;
+		position: relative;
+		cursor: pointer;
+		overflow: hidden;
+		&::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 50%;
+			height: auto;
+			aspect-ratio: 69 / 69;
+			transform: translate(-50%, -50%);
+			background-color: white;
+		}
+	}
+	&_radio:checked + &_label {
+		border: 2px solid $accent;
+	}
+}
+
+@for $i from 1 to 9 {
+	.sizes_label:nth-of-type(#{$i}) {
+		&::after {
+			width: calc(15% + #{$i * 8%});
+		}
+	}
+}

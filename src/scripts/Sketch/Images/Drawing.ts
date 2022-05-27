@@ -8,7 +8,6 @@ export default class Drawing extends AbstractImage {
 	}
 
 	public bucket(pos: Coordinate, newColor: string) {
-		console.time()
 		const index = pos.y * this.width + pos.x
 		const datas = this.getImgData().data
 		const startColor = createColor([...datas.slice(4 * index, 4 * index + 4)])
@@ -30,7 +29,6 @@ export default class Drawing extends AbstractImage {
 			}
 			val = values.next()
 		}
-		console.timeEnd()
 	}
 
 	public line(pos0: Coordinate, pos1: Coordinate, size: number, color: string) {
