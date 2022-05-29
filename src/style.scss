@@ -2,7 +2,9 @@
 @import './style/base/reset';
 @import './style/layout/app';
 @import './style/layout/leftBlock';
+@import './style/layout/rightBlock';
 @import './style/components/tools';
 @import './style/components/colors';
 @import './style/components/sizes';
-@import './style/components/settings';
+@import './style/components/helper';
+@import './style/components/actions';

@@ -1,0 +1,47 @@
+.helper {
+	font-size: 0.6rem;
+	background-color: $accent;
+	color: white;
+	padding: 0.2rem 0.3rem;
+	position: relative;
+	transform: translate(5px, -50%);
+	border-radius: 2px;
+	opacity: 1;
+	animation: helperAppear 0.2s both;
+	pointer-events: none;
+	&--left {
+		transform: translate(calc(-100% - 5px), -50%);
+	}
+	&--right::before {
+		content: '';
+		position: absolute;
+		right: 99%;
+		width: 0;
+		height: 0;
+		top: 50%;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+
+		border-right: 5px solid $accent;
+		transform: translateY(-50%);
+	}
+	&--left::before {
+		content: '';
+		position: absolute;
+		left: 99%;
+		width: 0;
+		height: 0;
+		top: 50%;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+
+		border-left: 5px solid $accent;
+		transform: translateY(-50%);
+	}
+}
+
+@keyframes helperAppear {
+	from {
+		opacity: 0;
+	}
+}

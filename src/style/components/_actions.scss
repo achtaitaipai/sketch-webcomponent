@@ -1,0 +1,27 @@
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	&_btn {
+		width: calc(100% / 4 - 2px);
+		height: auto;
+		aspect-ratio: 69 / 69;
+		display: grid;
+		place-items: center;
+		background-color: transparent;
+		border: 0;
+		cursor: pointer;
+		padding: 0;
+		height: fit-content;
+		img {
+			width: 90%;
+			transition: transform 0.2s;
+		}
+		&:hover {
+			border: 1px solid $accent;
+			img {
+				transform: scale(1.2);
+			}
+		}
+	}
+}

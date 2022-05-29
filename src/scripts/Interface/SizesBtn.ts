@@ -1,4 +1,4 @@
-import Sketch from '../Sketch/Sketch'
+import Sketch from '../Sketch/Index'
 
 export default class SizesBtn {
 	static init(selector: string, sketch: Sketch) {

@@ -1,5 +1,5 @@
 import Drawing from '../Images/Drawing'
-import Sketch from '../Sketch'
+import Sketch from '../Index'
 import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType } from '../types/eventsTypes'
 
 export default abstract class Tool {

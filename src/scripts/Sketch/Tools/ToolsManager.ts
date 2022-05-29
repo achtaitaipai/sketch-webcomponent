@@ -1,6 +1,6 @@
 import EventsManager from '../Events/EventsManager'
 import Drawing from '../Images/Drawing'
-import Sketch from '../Sketch'
+import Sketch from '../Index'
 import { Coordinate, DragEventType, PointerMove, ZoomEventType } from '../types/eventsTypes'
 import Bucket from './Bucket'
 import Handle from './Handle'

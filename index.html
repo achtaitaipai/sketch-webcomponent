@@ -5,11 +5,10 @@
 		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-		<title>Vite App</title>
+		<title>Pixynth</title>
 	</head>
 	<body>
 		<main class="main">
-			<div class="settings"></div>
 			<div class="leftBlock">
 				<!-- TOOLS -->
 				<div class="tools" id="tools-js">
@@ -132,6 +131,18 @@
 				</div>
 			</div>
 			<sketch-app width="30" height="30" class="sketch"></sketch-app>
+			<div class="rightBlock">
+				<div class="actions">
+					<button id="fit" class="actions_btn"><img src="/assets/icons/actions/adapter.png" alt="fit" /></button>
+					<button id="undo" class="actions_btn"><img src="/assets/icons/actions/retour.png" alt="undo" /></button>
+					<button id="redo" class="actions_btn"><img src="/assets/icons/actions/avant.png" alt="redo" /></button>
+					<button id="clear" class="actions_btn"><img src="/assets/icons/actions/effacer.png" alt="clear" /></button>
+					<button id="resize" class="actions_btn"><img src="/assets/icons/actions/adapter.png" alt="resize" /></button>
+					<button id="open" class="actions_btn"><img src="/assets/icons/actions/ouvrir.png" alt="open" /></button>
+					<button id="save" class="actions_btn"><img src="/assets/icons/actions/enregistrer.png" alt="save" /></button>
+					<button id="download" class="actions_btn"><img src="/assets/icons/actions/telecharger.png" alt="download" /></button>
+				</div>
+			</div>
 		</main>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
