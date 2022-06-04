@@ -1,7 +1,7 @@
 class Color {
 	public rgba: number[] = [0, 0, 0, 255]
 	public get hex(): string {
-		return '#' + this.rgba.map(n => ('0' + n.toString(16)).slice(-2)).join('')
+		return '#' + this.rgba.map(n => ('00' + n.toString(16)).slice(-2)).join('')
 	}
 }
 

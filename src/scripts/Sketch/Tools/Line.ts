@@ -9,7 +9,7 @@ export default class Line extends Tool {
 		this._sketch.updatePreview()
 	}
 	public unClick({ initPos, newPos }: PointerUpType): void {
-		this.drawing.line(this._sketch.gridCoordinate(initPos), this._sketch.gridCoordinate(newPos), this._sketch.size, this._sketch.color)
+		this.drawing?.line(this._sketch.gridCoordinate(initPos), this._sketch.gridCoordinate(newPos), this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
 	}
 	public move(e: PointerMove): void {

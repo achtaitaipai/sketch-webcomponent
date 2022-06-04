@@ -19,8 +19,8 @@ export default class Crop extends Tool {
 		const to = this._sketch.gridCoordinate({ x: Math.max(initPos.x, newPos.x), y: Math.max(initPos.y, newPos.y) })
 		const x = Math.max(from.x, 0)
 		const y = Math.max(from.y, 0)
-		const w = Math.min(to.x - x, this.drawing.width - x)
-		const h = Math.min(to.y - y, this.drawing.height - y)
+		const w = Math.min(to.x - x, this.drawing?.width || 0 - x)
+		const h = Math.min(to.y - y, this.drawing?.height || 0 - y)
 		this._cursor.clear()
 		if (w > 0 && h > 0) this._sketch.crop(x, y, w, h)
 	}

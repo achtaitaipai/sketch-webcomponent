@@ -26,6 +26,15 @@ export default class LayersManager {
 		this.layers = this.layers.filter(layer => layer.id !== id)
 	}
 
+	public sortLayer(list: number[]) {
+		const layers: layerType[] = []
+		list.forEach(id => {
+			const layer = this.layers.find(layer => layer.id === id)
+			if (layer) layers.push(layer)
+		})
+		this.layers = layers
+	}
+
 	public currentLayer() {
 		return this.layers.find(layer => layer.id === this._layerIndex)?.drawing
 	}

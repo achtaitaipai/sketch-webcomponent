@@ -118,7 +118,6 @@ export default class Sketch extends HTMLElement {
 	}
 
 	public updatePreview() {
-		console.log('upi')
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
 		this._ctx.drawImage(this._background.canvas, 0, 0)
 		for (let i = this.layers.layers.length - 1; i >= 0; i--) {

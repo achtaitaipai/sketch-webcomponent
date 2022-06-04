@@ -18,7 +18,7 @@ export default abstract class Tool {
 	public init() {}
 	public click(_: Coordinate) {}
 	public rightClick(e: Coordinate): void {
-		this.drawing.erase(this._sketch.gridCoordinate(e), this._sketch.size)
+		this.drawing?.erase(this._sketch.gridCoordinate(e), this._sketch.size)
 		this._sketch.updatePreview()
 		this._cursor.actif = false
 		this._cursor.clear()

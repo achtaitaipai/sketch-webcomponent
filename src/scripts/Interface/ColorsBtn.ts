@@ -11,7 +11,6 @@ export default class ColorsBtn {
 		})
 
 		picker?.addEventListener('color-change', ((e: CustomEvent) => {
-			console.log(e.detail)
 			sketch.color = e.detail
 			if (colorBtn) colorBtn.style.backgroundColor = e.detail
 		}) as EventListener)
