@@ -35,103 +35,22 @@
 					<input type="radio" class="tools_radio" name="tool" id="handle" value="handle" />
 					<label for="handle" class="tools_label"><img src="/assets/icons/tools/handle.png" alt="handle" class="tool_img" /></label>
 				</div>
-				<!-- COLORS -->
-				<div class="colors" id="colors-js">
-					<input type="radio" name="colors" class="colors_radio" id="#000000" value="#000000" checked /><label
-						for="#000000"
-						class="colors_label"
-						style="--clr: #000000"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#1D2B53" value="#1D2B53" /><label
-						for="#1D2B53"
-						class="colors_label"
-						style="--clr: #1d2b53"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#7E2553" value="#7E2553" /><label
-						for="#7E2553"
-						class="colors_label"
-						style="--clr: #7e2553"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#008751" value="#008751" /><label
-						for="#008751"
-						class="colors_label"
-						style="--clr: #008751"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#AB5236" value="#AB5236" /><label
-						for="#AB5236"
-						class="colors_label"
-						style="--clr: #ab5236"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#5F574F" value="#5F574F" /><label
-						for="#5F574F"
-						class="colors_label"
-						style="--clr: #5f574f"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#C2C3C7" value="#C2C3C7" /><label
-						for="#C2C3C7"
-						class="colors_label"
-						style="--clr: #c2c3c7"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#FFF1E8" value="#FFF1E8" /><label
-						for="#FFF1E8"
-						class="colors_label"
-						style="--clr: #fff1e8"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#FF004D" value="#FF004D" /><label
-						for="#FF004D"
-						class="colors_label"
-						style="--clr: #ff004d"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#FFA300" value="#FFA300" /><label
-						for="#FFA300"
-						class="colors_label"
-						style="--clr: #ffa300"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#FFEC27" value="#FFEC27" /><label
-						for="#FFEC27"
-						class="colors_label"
-						style="--clr: #ffec27"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#00E436" value="#00E436" /><label
-						for="#00E436"
-						class="colors_label"
-						style="--clr: #00e436"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#29ADFF" value="#29ADFF" /><label
-						for="#29ADFF"
-						class="colors_label"
-						style="--clr: #29adff"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#83769C" value="#83769C" /><label
-						for="#83769C"
-						class="colors_label"
-						style="--clr: #83769c"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#FF77A8" value="#FF77A8" /><label
-						for="#FF77A8"
-						class="colors_label"
-						style="--clr: #ff77a8"
-					></label
-					><input type="radio" name="colors" class="colors_radio" id="#FFCCAA" value="#FFCCAA" /><label
-						for="#FFCCAA"
-						class="colors_label"
-						style="--clr: #ffccaa"
-					></label>
-				</div>
 				<!-- SIZES -->
 				<div class="sizes" id="sizes-js">
 					<input type="radio" name="size" id="1" value="1" class="sizes_radio" checked /><label for="1" class="sizes_label"></label
 					><input type="radio" name="size" id="2" value="2" class="sizes_radio" /><label for="2" class="sizes_label"></label
 					><input type="radio" name="size" id="3" value="3" class="sizes_radio" /><label for="3" class="sizes_label"></label
-					><input type="radio" name="size" id="4" value="4" class="sizes_radio" /><label for="4" class="sizes_label"></label
-					><input type="radio" name="size" id="5" value="5" class="sizes_radio" /><label for="5" class="sizes_label"></label
-					><input type="radio" name="size" id="6" value="6" class="sizes_radio" /><label for="6" class="sizes_label"></label
-					><input type="radio" name="size" id="7" value="7" class="sizes_radio" /><label for="7" class="sizes_label"></label
-					><input type="radio" name="size" id="8" value="8" class="sizes_radio" /><label for="8" class="sizes_label"></label>
+					><input type="radio" name="size" id="4" value="4" class="sizes_radio" /><label for="4" class="sizes_label"></label>
 				</div>
+				<!-- COLORS -->
+				<button class="color" label="color" id="colorBtn-js"></button>
+				<color-picker
+					pallet='["#000000","#1D2B53","#7E2553","#008751","#AB5236","#5F574F","#C2C3C7","#FFF1E8","#FF004D","#FFA300","#FFEC27","#00E436","#29ADFF","#83769C","#FF77A8","#FFCCAA"]'
+				></color-picker>
 			</div>
 			<sketch-app width="30" height="30" class="sketch"></sketch-app>
 			<div class="rightBlock">
+				<!-- ACTIONS -->
 				<div class="actions">
 					<button id="fit" class="actions_btn"><img src="/assets/icons/actions/adapter.png" alt="fit" /></button>
 					<button id="undo" class="actions_btn"><img src="/assets/icons/actions/retour.png" alt="undo" /></button>
@@ -141,6 +60,17 @@
 					<button id="open" class="actions_btn"><img src="/assets/icons/actions/ouvrir.png" alt="open" /></button>
 					<button id="save" class="actions_btn"><img src="/assets/icons/actions/enregistrer.png" alt="save" /></button>
 					<button id="download" class="actions_btn"><img src="/assets/icons/actions/telecharger.png" alt="download" /></button>
+				</div>
+				<!-- LAYERS -->
+				<div class="layers" id="layers-js">
+					<h4 class="layers_title">layers</h4>
+					<ul class="layers_list">
+						<li class="layers_item selected" data-id="1">Layer 1</li>
+					</ul>
+					<div class="layers_control">
+						<button class="layers_btn" id="newLayer-js">+</button>
+						<button class="layers_btn" id="deleteLayer-js">-</button>
+					</div>
 				</div>
 			</div>
 		</main>

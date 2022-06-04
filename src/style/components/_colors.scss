@@ -1,27 +1,10 @@
-.colors {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	&_radio {
-		display: none;
-	}
-	&_label {
-		height: calc(100% / 16);
-		width: auto;
-		aspect-ratio: 1 / 1;
-		position: relative;
-		cursor: pointer;
-		&::after {
-			content: '';
-			position: absolute;
-			inset: 2px;
-			border: 1px solid white;
-			background-color: var(--clr);
-		}
-	}
-	&_radio:checked + &_label,
-	&_label:hover::after {
-		transform: scale(1.2);
-		z-index: 2;
-	}
+.color {
+	width: min(80%, 3rem);
+	height: auto;
+	aspect-ratio: 69 / 69;
+	cursor: pointer;
+	outline: 0;
+	border: 0;
+	background-color: black;
+	outline: 1px solid white;
 }

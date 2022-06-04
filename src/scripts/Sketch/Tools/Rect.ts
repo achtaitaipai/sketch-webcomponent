@@ -13,7 +13,7 @@ export default class Rect extends Tool {
 	public unClick({ initPos, newPos }: PointerUpType): void {
 		const from = this._sketch.gridCoordinate(initPos)
 		const to = this._sketch.gridCoordinate(newPos)
-		this._drawing.rect(from, to.x - from.x, to.y - from.y, this._sketch.size, this._sketch.color)
+		this.drawing.rect(from, to.x - from.x, to.y - from.y, this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
 	}
 

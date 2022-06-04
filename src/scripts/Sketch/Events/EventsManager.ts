@@ -47,7 +47,7 @@ export default class EventsManager {
 		document.addEventListener('pointercancel', e => {
 			this._handleOut(e)
 		})
-		document.addEventListener('wheel', e => {
+		el.addEventListener('wheel', e => {
 			const pos = { x: e.clientX, y: e.clientY }
 			const dir = -Math.sign(e.deltaY)
 			this._zoomObservers.notify({ pos, dir })

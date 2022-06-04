@@ -1,13 +1,15 @@
 .sizes {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
+	margin-bottom: 1rem;
+	margin-top: 3rem;
 	&_radio {
 		display: none;
 	}
 	&_label {
-		height: calc(100% / 8);
-		width: auto;
+		width: 2rem;
+		height: auto;
 		aspect-ratio: 1 / 1;
 		position: relative;
 		cursor: pointer;

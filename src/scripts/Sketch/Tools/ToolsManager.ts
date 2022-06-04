@@ -14,6 +14,7 @@ import Rect from './Rect'
 import Circle from './Circle'
 import Drag from './Drag'
 import Crop from './Crop'
+import LayersManager from '../LayersManager'
 
 export default class ToolsManager {
 	private _eventsManager: EventsManager
@@ -22,21 +23,21 @@ export default class ToolsManager {
 	private _sketch
 	private _cursor
 
-	constructor(sketch: Sketch, drawing: Drawing, cursor: Drawing) {
+	constructor(sketch: Sketch, layers: LayersManager, cursor: Drawing) {
 		this._sketch = sketch
 		this._cursor = cursor
 		this._tools = {
-			paint: new Paint(sketch, drawing, cursor),
-			erase: new Erase(sketch, drawing, cursor),
-			line: new Line(sketch, drawing, cursor),
-			rect: new Rect(sketch, drawing, cursor),
-			circle: new Circle(sketch, drawing, cursor),
-			bucket: new Bucket(sketch, drawing, cursor),
-			crop: new Crop(sketch, drawing, cursor),
-			zoom: new Zoom(sketch, drawing, cursor),
-			unzoom: new unZoom(sketch, drawing, cursor),
-			drag: new Drag(sketch, drawing, cursor),
-			handle: new Handle(sketch, drawing, cursor),
+			paint: new Paint(sketch, layers, cursor),
+			erase: new Erase(sketch, layers, cursor),
+			line: new Line(sketch, layers, cursor),
+			rect: new Rect(sketch, layers, cursor),
+			circle: new Circle(sketch, layers, cursor),
+			bucket: new Bucket(sketch, layers, cursor),
+			crop: new Crop(sketch, layers, cursor),
+			zoom: new Zoom(sketch, layers, cursor),
+			unzoom: new unZoom(sketch, layers, cursor),
+			drag: new Drag(sketch, layers, cursor),
+			handle: new Handle(sketch, layers, cursor),
 		}
 		this._currentTool = this._tools.paint
 		this._eventsManager = new EventsManager(sketch)

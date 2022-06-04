@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@achtaitaipai/color-picker@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@achtaitaipai/color-picker/-/color-picker-1.0.5.tgz#59e60e9d13a8d9c38280aaddd40afad39b711b09"
+  integrity sha512-MNlwxYI/Or4unLfdX3iW+GE9/ZYgj+U9rwIKu5e3dv2zOH8OzMaFKB0xAnZemsbtsXtVE3AK2ohKG51sVSYrPA==
+
 "@fortawesome/fontawesome-free@^6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.1.1.tgz#bf5d45611ab74890be386712a0e5d998c65ee2a1"
@@ -11,6 +16,11 @@
   version "1.10.11"
   resolved "https://registry.yarnpkg.com/@interactjs/types/-/types-1.10.11.tgz#29be25d503f9c7842df062fa3cda5b044a47cf2a"
   integrity sha512-YRsVFWjL8Gkkvlx3qnjeaxW4fnibSJ9791g8BA7Pv5ANByI64WmtR1vU7A2rXcrOn8XvyCEfY0ss1s8NhZP+MA==
+
+"@types/sortablejs@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@types/sortablejs/-/sortablejs-1.13.0.tgz#870223438f8f2cd81157b128a4c0261adbcaa946"
+  integrity sha512-C3064MH72iEfeGCYEGCt7FCxXoAXaMPG0QPnstcxvPmbl54erpISu06d++FY37Smja64iWy5L8wOyHHBghWbJQ==
 
 anymatch@~3.1.2:
   version "3.1.2"
@@ -312,6 +322,11 @@ sass@^1.52.1:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
+
+sortablejs@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.0.tgz#53230b8aa3502bb77a29e2005808ffdb4a5f7e2a"
+  integrity sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==
 
 "source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.0.2:
   version "1.0.2"

@@ -4,11 +4,12 @@ import Background from './Images/Background'
 import AbstractImage from './Images/AbstractImage'
 import ToolsManager from './Tools/ToolsManager'
 import { Coordinate } from './types/eventsTypes'
+import LayersManager from './LayersManager'
 
 export default class Sketch extends HTMLElement {
 	public _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
-	private _drawing: Drawing
+	public layers: LayersManager
 	private _cursor: Drawing
 	private _background: AbstractImage
 	public camera: Camera
@@ -20,12 +21,13 @@ export default class Sketch extends HTMLElement {
 		super()
 		this._canvas = this._createCanvas()!
 		this._ctx = this._canvas.getContext('2d')!
-		this._drawing = new Drawing()
+
+		this.layers = new LayersManager()
 		this._cursor = new Drawing()
 		this._background = new Background()
 		this.camera = new Camera(this, this._canvas)
 
-		this._tools = new ToolsManager(this, this._drawing, this._cursor)
+		this._tools = new ToolsManager(this, this.layers, this._cursor)
 	}
 
 	connectedCallback() {
@@ -68,7 +70,7 @@ export default class Sketch extends HTMLElement {
 	public crop(x: number, y: number, width: number, height: number) {
 		this._canvas.width = width
 		this._canvas.height = height
-		this._drawing.crop(x, y, width, height)
+		this.layers.crop(x, y, width, height)
 		this._cursor.resize(width, height)
 		this._background.resize(width, height)
 		this._background.clear()
@@ -78,7 +80,7 @@ export default class Sketch extends HTMLElement {
 	public resize(width: number, height: number, hAlign: number, vAlign: number) {
 		this._canvas.width = width
 		this._canvas.height = height
-		this._drawing.resize(width, height, hAlign, vAlign)
+		this.layers.resize(width, height, hAlign, vAlign)
 		this._cursor.resize(width, height)
 		this._background.resize(width, height)
 		this._background.clear()
@@ -93,7 +95,7 @@ export default class Sketch extends HTMLElement {
 			case 'width':
 				if (value >= 1) {
 					this._canvas.width = value
-					this._drawing.resize(value, this._canvas.height)
+					this.layers.resize(value, this._canvas.height)
 					this._cursor.resize(value, this._canvas.height)
 					this._background.resize(value, this._canvas.height)
 					this._background.clear()
@@ -103,7 +105,7 @@ export default class Sketch extends HTMLElement {
 				break
 			case 'height':
 				this._canvas.height = value
-				this._drawing.resize(this._canvas.width, value)
+				this.layers.resize(this._canvas.width, value)
 				this._cursor.resize(this._canvas.width, value)
 				this._background.resize(this._canvas.width, value)
 				this._background.clear()
@@ -116,15 +118,19 @@ export default class Sketch extends HTMLElement {
 	}
 
 	public updatePreview() {
+		console.log('upi')
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
 		this._ctx.drawImage(this._background.canvas, 0, 0)
-		this._ctx.drawImage(this._drawing.canvas, 0, 0)
+		for (let i = this.layers.layers.length - 1; i >= 0; i--) {
+			const layer = this.layers.layers[i]
+			this._ctx.drawImage(layer.drawing.canvas, 0, 0)
+		}
 		this._ctx.drawImage(this._cursor.canvas, 0, 0)
 	}
 
 	public clear() {
 		this._background.clear()
-		this._drawing.clear()
+		this.layers.clear()
 		this._cursor.clear()
 		this.updatePreview()
 	}

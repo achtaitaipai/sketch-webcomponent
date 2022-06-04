@@ -1,46 +1,19 @@
+import { ColorPicker } from '@achtaitaipai/color-picker'
 import Sketch from '../Sketch/Index'
 
 export default class ColorsBtn {
-	private static _sketch: Sketch | null = null
-
 	static init(selector: string, sketch: Sketch) {
-		this._sketch = sketch
-		const btns = document.querySelectorAll<HTMLInputElement>(selector)
-		btns.forEach(btn => {
-			const label = btn.nextElementSibling as HTMLLabelElement
+		const colorBtn = document.querySelector<HTMLButtonElement>(selector)
+		const picker = document.querySelector<ColorPicker>('color-picker')
 
-			btn.addEventListener('click', _ => {
-				this._handleClick(btn)
-			})
-			label.addEventListener('dblclick', _ => {
-				const inputColor = document.createElement('input')
-				inputColor.type = 'color'
-				inputColor.value = btn.value
-				inputColor.style.display = 'none'
-				inputColor.click()
-				inputColor.addEventListener('input', _ => {
-					ColorsBtn._handleNewClr(inputColor, btn, label)
-				})
-
-				label.appendChild(inputColor)
-			})
+		colorBtn?.addEventListener('click', _ => {
+			picker?.open()
 		})
-	}
 
-	private static _handleNewClr(inputColor: HTMLInputElement, radio: HTMLInputElement, label: HTMLLabelElement) {
-		const clr = inputColor.value
-		radio.id = clr
-		radio.value = clr
-		label.setAttribute('for', clr)
-		label.style.setProperty('--clr', clr)
-		if (this._sketch) {
-			this._sketch.color = radio.value
-		}
-	}
-
-	private static _handleClick(radio: HTMLInputElement) {
-		if (this._sketch) {
-			this._sketch.color = radio.value
-		}
+		picker?.addEventListener('color-change', ((e: CustomEvent) => {
+			console.log(e.detail)
+			sketch.color = e.detail
+			if (colorBtn) colorBtn.style.backgroundColor = e.detail
+		}) as EventListener)
 	}
 }

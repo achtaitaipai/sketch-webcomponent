@@ -1,20 +1,24 @@
 import Drawing from '../Images/Drawing'
 import Sketch from '../Index'
+import LayersManager from '../LayersManager'
 import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType } from '../types/eventsTypes'
 
 export default abstract class Tool {
 	protected _sketch: Sketch
-	protected _drawing: Drawing
+	protected _layers: LayersManager
 	protected _cursor: Drawing
-	constructor(sketch: Sketch, drawing: Drawing, cursor: Drawing) {
+	constructor(sketch: Sketch, layers: LayersManager, cursor: Drawing) {
 		this._sketch = sketch
-		this._drawing = drawing
+		this._layers = layers
 		this._cursor = cursor
+	}
+	get drawing() {
+		return this._layers.currentLayer()
 	}
 	public init() {}
 	public click(_: Coordinate) {}
 	public rightClick(e: Coordinate): void {
-		this._drawing.erase(this._sketch.gridCoordinate(e), this._sketch.size)
+		this.drawing.erase(this._sketch.gridCoordinate(e), this._sketch.size)
 		this._sketch.updatePreview()
 		this._cursor.actif = false
 		this._cursor.clear()

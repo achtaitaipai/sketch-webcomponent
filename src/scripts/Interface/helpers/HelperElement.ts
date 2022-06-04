@@ -23,10 +23,8 @@ export default class HelperElement {
 		})
 
 		const colorsData = helpersDatas.colors
-		const colorsBtn = document.querySelectorAll('.colors_label')
-		colorsBtn.forEach(el => {
-			new HelperElement(el, 'right', colorsData[lang].title, colorsData[lang].description)
-		})
+		const colorsBtn = document.getElementById('colorBtn-js')
+		if (colorsBtn) new HelperElement(colorsBtn, 'right', colorsData[lang].title)
 
 		const sizesData = helpersDatas.sizes
 		const sizesBtn = document.querySelectorAll('.sizes_label')

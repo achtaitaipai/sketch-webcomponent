@@ -8,6 +8,9 @@ export const helpersDatas = {
 			fr: {
 				title: 'Pinceau',
 			},
+			de: {
+				title: 'Malerei',
+			},
 		},
 		{
 			for: 'erase',
@@ -16,6 +19,9 @@ export const helpersDatas = {
 			},
 			fr: {
 				title: 'Gomme',
+			},
+			de: {
+				title: 'Radiergummi',
 			},
 		},
 		{
@@ -26,6 +32,9 @@ export const helpersDatas = {
 			fr: {
 				title: 'Ligne',
 			},
+			de: {
+				title: 'Linie',
+			},
 		},
 		{
 			for: 'rect',
@@ -34,6 +43,9 @@ export const helpersDatas = {
 			},
 			fr: {
 				title: 'Rectangle',
+			},
+			de: {
+				title: 'Rechteck',
 			},
 		},
 		{
@@ -44,6 +56,9 @@ export const helpersDatas = {
 			fr: {
 				title: 'Cercle',
 			},
+			de: {
+				title: 'Kreis',
+			},
 		},
 		{
 			for: 'bucket',
@@ -52,6 +67,9 @@ export const helpersDatas = {
 			},
 			fr: {
 				title: 'Pot de peinture',
+			},
+			de: {
+				title: 'Pflaster',
 			},
 		},
 		{
@@ -62,6 +80,9 @@ export const helpersDatas = {
 			fr: {
 				title: "Déplacer l'image",
 			},
+			de: {
+				title: 'Bild verschieben',
+			},
 		},
 		{
 			for: 'crop',
@@ -71,6 +92,9 @@ export const helpersDatas = {
 			fr: {
 				title: "Recadrer l'image",
 			},
+			de: {
+				title: 'Bild zuschneiden',
+			},
 		},
 		{
 			for: 'zoom',
@@ -78,6 +102,9 @@ export const helpersDatas = {
 				title: 'Zoom Tool',
 			},
 			fr: {
+				title: 'Zoom',
+			},
+			de: {
 				title: 'Zoom',
 			},
 		},
@@ -89,6 +116,9 @@ export const helpersDatas = {
 			fr: {
 				title: 'Dézoom',
 			},
+			de: {
+				title: 'Dekrom',
+			},
 		},
 		{
 			for: 'handle',
@@ -98,16 +128,20 @@ export const helpersDatas = {
 			fr: {
 				title: "Déplacer l'image",
 			},
+			de: {
+				title: 'Bild verschieben',
+			},
 		},
 	],
 	colors: {
 		en: {
-			title: 'define current color',
-			description: 'double click to modify color',
+			title: 'Current color',
 		},
 		fr: {
-			title: 'Définir la couleur',
-			description: 'Double-cliquez pour modifier la couleur',
+			title: 'Couleur actuelle',
+		},
+		de: {
+			title: 'Aktuelle Farbe',
 		},
 	},
 	sizes: {
@@ -116,6 +150,9 @@ export const helpersDatas = {
 		},
 		fr: {
 			title: 'Définir la taille à',
+		},
+		de: {
+			title: 'Definieren Sie die aktuelle Größe auf',
 		},
 	},
 	actions: [
@@ -127,6 +164,9 @@ export const helpersDatas = {
 			fr: {
 				title: 'Sauvegarder',
 			},
+			de: {
+				title: 'Speichern',
+			},
 		},
 		{
 			id: 'open',
@@ -135,6 +175,9 @@ export const helpersDatas = {
 			},
 			fr: {
 				title: 'Ouvrir',
+			},
+			de: {
+				title: 'Öffnen',
 			},
 		},
 		{
@@ -145,6 +188,9 @@ export const helpersDatas = {
 			fr: {
 				title: 'Effacer',
 			},
+			de: {
+				title: 'Löschen',
+			},
 		},
 		{
 			id: 'undo',
@@ -153,6 +199,9 @@ export const helpersDatas = {
 			},
 			fr: {
 				title: 'Annuler',
+			},
+			de: {
+				title: 'Rückgängig',
 			},
 		},
 		{
@@ -163,6 +212,9 @@ export const helpersDatas = {
 			fr: {
 				title: 'Rétablir',
 			},
+			de: {
+				title: 'Wiederholen',
+			},
 		},
 		{
 			id: 'download',
@@ -171,6 +223,9 @@ export const helpersDatas = {
 			},
 			fr: {
 				title: 'Télécharger',
+			},
+			de: {
+				title: 'Herunterladen',
 			},
 		},
 		{
@@ -181,6 +236,9 @@ export const helpersDatas = {
 			fr: {
 				title: "Ajuster à l'écran",
 			},
+			de: {
+				title: 'An Bildschirm anpassen',
+			},
 		},
 		{
 			id: 'resize',
@@ -189,6 +247,9 @@ export const helpersDatas = {
 			},
 			fr: {
 				title: 'Redimensionner',
+			},
+			de: {
+				title: 'Größe ändern',
 			},
 		},
 	],
