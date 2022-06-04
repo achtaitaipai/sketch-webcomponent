@@ -1,0 +1,55 @@
+.resizeForm {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	&_label {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex flex-start;
+		gap: 0.4rem;
+	}
+	&_input {
+		width: 2.5rem;
+		text-align: right;
+	}
+	&_input::-webkit-outer-spin-button,
+	&_input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	&_input[type='number'] {
+		-moz-appearance: textfield;
+	}
+}
+
+.align {
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	grid-template-rows: repeat(3, auto);
+	gap: 0.25rem;
+	justify-content: center;
+	align-content: center;
+	&_input {
+		display: none;
+	}
+	&_label {
+		width: 1.75rem;
+		height: 1.75rem;
+		line-height: 1.5rem;
+		border: 1px solid black;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 0.2rem;
+		cursor: pointer;
+		color: white;
+		background-color: $primary-200;
+		&:focus {
+			outline: 2px solid black;
+		}
+	}
+	&_input:checked + &_label {
+		background-color: $primary-0;
+		outline: 2px solid black;
+	}
+}

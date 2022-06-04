@@ -9,6 +9,8 @@ import HelperElement from './scripts/Interface/helpers/HelperElement'
 import ActionsBtns from './scripts/Interface/ActionsBtns'
 import ColorsBtn from './scripts/Interface/ColorsBtn'
 import LayersWindow from './scripts/Interface/Layers'
+import MicroModal from 'micromodal'
+import Translate from './scripts/Interface/translate/Translate'
 
 customElements.define('sketch-app', Sketch)
 
@@ -20,5 +22,21 @@ ActionsBtns.init('.actions_btn', sketch)
 ColorsBtn.init('#colorBtn-js', sketch)
 LayersWindow.init('#layers-js', sketch)
 HelperElement.init()
+Translate.init()
+
+const resizeForm = document.querySelector('#resizeForm-js')
+const width = document.querySelector<HTMLInputElement>('#width-js')
+const height = document.querySelector<HTMLInputElement>('#height-js')
+resizeForm?.addEventListener('submit', e => {
+	e.preventDefault()
+	const w = width?.valueAsNumber
+	const h = height?.valueAsNumber
+	const align = document.querySelector<HTMLInputElement>('#align-js input:checked')?.value
+	let va = 0
+	let ha = 0
+	if (align) [va, ha] = JSON.parse(align)
+	if (w && h) sketch.resize(w, h, va, ha)
+	MicroModal.close('resize-modal')
+})
 
 sketch.camera.fitSketch()

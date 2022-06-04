@@ -1,89 +1,55 @@
-.helper {
-	font-size: 0.6rem;
-	background-color: $accent;
-	color: white;
-	padding: 0.2rem 0.3rem;
-	position: relative;
-	transform: translate(5px, -50%);
-	border-radius: 2px;
-	opacity: 1;
-	animation: helperAppear 0.2s both;
-	pointer-events: none;
-	&--left {
-		transform: translate(calc(-100% - 5px), -50%);
-	}
-	&--right::before {
-		content: '';
-		position: absolute;
-		right: 99%;
-		width: 0;
-		height: 0;
-		top: 50%;
-		border-top: 5px solid transparent;
-		border-bottom: 5px solid transparent;
-
-		border-right: 5px solid $accent;
-		transform: translateY(-50%);
-	}
-	&--left::before {
-		content: '';
-		position: absolute;
-		left: 99%;
-		width: 0;
-		height: 0;
-		top: 50%;
-		border-top: 5px solid transparent;
-		border-bottom: 5px solid transparent;
-
-		border-left: 5px solid $accent;
-		transform: translateY(-50%);
-	}
-}
-
 [helper] {
 	position: relative;
 	&::before {
-		content: attr(helper);
+		content: attr(helper-text);
 		font-size: 0.8rem;
+		color: white;
 		position: absolute;
-		top: 0%;
-		left: 50%;
-		transform: translateX(-50%) translateY(calc(-100% - 5px));
+		top: 50%;
+		left: 0%;
+		transform: translate(calc(-100% - 5px), -50%);
 		background-color: $accent;
 		padding: 0.2rem 0.3rem;
 		border-radius: 2px;
 		opacity: 0;
 		font-weight: bold;
+		pointer-events: none;
+		z-index: 2;
+		white-space: nowrap;
 	}
 	&::after {
 		content: '';
 		position: absolute;
-		top: 0%;
-		left: 50%;
-		transform: translateX(-50%) translateY(-100%);
+		top: 50%;
+		left: 0%;
+		transform: translate(-100%, -50%);
 
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		border-top: 5px solid $accent;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+		border-left: 5px solid $accent;
 		opacity: 0;
+		pointer-events: none;
+		z-index: 2;
 	}
 	&:hover::after,
 	&:hover::before {
 		opacity: 0.9;
 		transition: opacity 0.2s;
 	}
-	&[helper-btm] {
+	&[helper-right] {
 		&::before {
-			top: 100%;
-			transform: translateX(-50%) translateY(5px);
+			top: 50%;
+			left: 100%;
+			transform: translate(calc(5px), -50%);
 		}
 		&::after {
-			top: 100%;
-			transform: translateX(-50%) translateY(0);
-			border-left: 5px solid transparent;
-			border-right: 5px solid transparent;
-			border-top: 0;
-			border-bottom: 5px solid $accent;
+			top: 50%;
+			left: 100%;
+			transform: translate(0%, -50%);
+			border-top: 5px solid transparent;
+			border-bottom: 5px solid transparent;
+			border-left: 0;
+			border-right: 5px solid $accent;
 		}
 	}
 }

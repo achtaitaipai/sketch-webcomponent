@@ -13,8 +13,7 @@
 		aspect-ratio: 1 / 1;
 		position: relative;
 		cursor: pointer;
-		overflow: hidden;
-		&::after {
+		& span {
 			content: '';
 			position: absolute;
 			left: 50%;
@@ -33,7 +32,7 @@
 
 @for $i from 1 to 9 {
 	.sizes_label:nth-of-type(#{$i}) {
-		&::after {
+		& span {
 			width: calc(15% + #{$i * 8%});
 		}
 	}

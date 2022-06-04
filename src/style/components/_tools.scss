@@ -10,12 +10,11 @@
 		display: none;
 	}
 	&_label {
-		width: 80%;
-		height: auto;
+		width: 2.5rem;
+		height: 2.5rem;
 		aspect-ratio: 1 / 1;
 		position: relative;
 		cursor: pointer;
-		overflow: hidden;
 		padding: 0.125rem;
 		// background-color: $primary-200;
 	}
@@ -31,7 +30,6 @@
 	}
 	&_radio:checked + &_label,
 	&_label:hover::after {
-		transform: scale(1.2);
 		z-index: 2;
 		border: 2px solid $accent;
 	}

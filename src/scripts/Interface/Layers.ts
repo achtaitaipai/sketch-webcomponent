@@ -5,6 +5,7 @@ export default class LayersWindow {
 	private static _sketch: Sketch
 	private static _window: HTMLDivElement | null
 	private static _layers: HTMLUListElement | null
+	private static _sortable: Sortable | null = null
 
 	static init(selector: string, sketch: Sketch) {
 		this._window = document.querySelector(selector)
@@ -14,7 +15,7 @@ export default class LayersWindow {
 
 		this._layers = this._window?.querySelector<HTMLUListElement>('ul') || null
 		if (this._layers) {
-			Sortable.create(this._layers, {
+			this._sortable = Sortable.create(this._layers, {
 				animation: 100,
 				dataIdAttr: 'data-id',
 				onEnd: this._moveLayer.bind(this),
@@ -71,8 +72,9 @@ export default class LayersWindow {
 		}
 	}
 
-	private static _moveLayer(e: Sortable.SortableEvent) {
-		console.log(e)
+	private static _moveLayer() {
+		this._sketch.layers.sortLayer(this._sortable?.toArray().map(Number) || [])
+		this._sketch.updatePreview()
 	}
 
 	private static _layerClick(e: MouseEvent) {

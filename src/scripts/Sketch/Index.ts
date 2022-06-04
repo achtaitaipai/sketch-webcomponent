@@ -22,7 +22,7 @@ export default class Sketch extends HTMLElement {
 		this._canvas = this._createCanvas()!
 		this._ctx = this._canvas.getContext('2d')!
 
-		this.layers = new LayersManager()
+		this.layers = new LayersManager(this)
 		this._cursor = new Drawing()
 		this._background = new Background()
 		this.camera = new Camera(this, this._canvas)

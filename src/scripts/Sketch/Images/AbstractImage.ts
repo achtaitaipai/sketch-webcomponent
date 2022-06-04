@@ -5,9 +5,11 @@ export default abstract class AbstractImage {
 	public actif = true
 	protected _ctx: CanvasRenderingContext2D
 
-	constructor() {
+	constructor(width?: number, height?: number) {
 		this._canvas = document.createElement('canvas')
 		this._ctx = this._canvas.getContext('2d')!
+		if (width) this._canvas.width = width
+		if (height) this._canvas.height = height
 	}
 
 	set width(w: number) {

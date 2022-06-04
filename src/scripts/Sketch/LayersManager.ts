@@ -1,3 +1,4 @@
+import Sketch from '.'
 import Drawing from './Images/Drawing'
 
 type layerType = {
@@ -8,13 +9,15 @@ type layerType = {
 export default class LayersManager {
 	public layers: layerType[]
 	private _layerIndex: number = 1
+	private _sketch: Sketch
 
-	constructor() {
+	constructor(sketch: Sketch) {
 		this.layers = [{ id: 1, drawing: new Drawing() }]
+		this._sketch = sketch
 	}
 
 	public newLayer(id: number, pos: number) {
-		const newLayer = { id: id, drawing: new Drawing() }
+		const newLayer = { id: id, drawing: new Drawing(this._sketch.width, this._sketch.height) }
 		this.layers.splice(pos, 0, newLayer)
 	}
 
@@ -44,7 +47,9 @@ export default class LayersManager {
 	}
 
 	public resize(width: number, height: number, hAlign: number = -1, vAlign: number = -1) {
-		this.layers.forEach(layer => layer.drawing.resize(width, height, hAlign, vAlign))
+		this.layers.forEach(layer => {
+			layer.drawing.resize(width, height, hAlign, vAlign)
+		})
 	}
 
 	public crop(x: number, y: number, width: number, height: number) {

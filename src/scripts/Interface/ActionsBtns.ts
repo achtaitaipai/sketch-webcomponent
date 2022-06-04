@@ -1,3 +1,4 @@
+import MicroModal from 'micromodal'
 import Sketch from '../Sketch'
 
 export default class ActionsBtns {
@@ -12,6 +13,9 @@ export default class ActionsBtns {
 						break
 					case 'clear':
 						sketch.clear()
+						break
+					case 'resize':
+						MicroModal.show('resize-modal')
 						break
 				}
 			})
