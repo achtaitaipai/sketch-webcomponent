@@ -1,4 +1,4 @@
-[helper] {
+[helper-text] {
 	position: relative;
 	&::before {
 		content: attr(helper-text);

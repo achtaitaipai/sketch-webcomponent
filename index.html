@@ -13,48 +13,62 @@
 				<!-- TOOLS -->
 				<div class="tools" id="tools-js">
 					<input type="radio" class="tools_radio" name="tool" id="paint" value="paint" checked />
-					<label for="paint" class="tools_label" helper="paint" helper-right> <img src="/assets/icons/tools/crayon.png" alt="paint" class="tools_img" /></label>
+					<label for="paint" class="tools_label" helper-text="pencil" helper-right>
+						<img src="/assets/icons/tools/crayon.png" alt="paint" class="tools_img"
+					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="erase" value="erase" />
-					<label for="erase" class="tools_label" helper="eraser" helper-right><img src="/assets/icons/tools/gomme.png" alt="erase" class="tools_img" /></label>
+					<label for="erase" class="tools_label" helper-text="eraser" helper-right
+						><img src="/assets/icons/tools/gomme.png" alt="erase" class="tools_img"
+					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="line" value="line" />
-					<label for="line" class="tools_label" helper="line" helper-right><img src="/assets/icons/tools/ligne.png" alt="line" class="tools_img" /></label>
+					<label for="line" class="tools_label" helper-text="line" helper-right><img src="/assets/icons/tools/ligne.png" alt="line" class="tools_img" /></label>
 					<input type="radio" class="tools_radio" name="tool" id="rect" value="rect" />
-					<label for="rect" class="tools_label" helper="rect" helper-right><img src="/assets/icons/tools/rectangle.png" alt="rect" class="tools_img" /></label>
+					<label for="rect" class="tools_label" helper-text="rect" helper-right
+						><img src="/assets/icons/tools/rectangle.png" alt="rect" class="tools_img"
+					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="circle" value="circle" />
-					<label for="circle" class="tools_label" helper="circle" helper-right
+					<label for="circle" class="tools_label" helper-text="circle" helper-right
 						><img src="/assets/icons/tools/cercle.png" alt="circle" class="tools_img"
 					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="bucket" value="bucket" />
-					<label for="bucket" class="tools_label" helper="bucket" helper-right><img src="/assets/icons/tools/pot.png" alt="bucket" class="tools_img" /></label>
+					<label for="bucket" class="tools_label" helper-text="bucket" helper-right
+						><img src="/assets/icons/tools/pot.png" alt="bucket" class="tools_img"
+					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="drag" value="drag" />
-					<label for="drag" class="tools_label" helper="move" helper-right><img src="/assets/icons/tools/move.png" alt="drag" class="tools_img" /></label>
+					<label for="drag" class="tools_label" helper-text="move" helper-right><img src="/assets/icons/tools/move.png" alt="drag" class="tools_img" /></label>
 					<input type="radio" class="tools_radio" name="tool" id="crop" value="crop" />
-					<label for="crop" class="tools_label" helper="crop" helper-right><img src="/assets/icons/tools/recadrer.png" alt="crop" class="tools_img" /></label>
+					<label for="crop" class="tools_label" helper-text="crop" helper-right
+						><img src="/assets/icons/tools/recadrer.png" alt="crop" class="tools_img"
+					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="zoom" value="zoom" />
-					<label for="zoom" class="tools_label" helper="zoom" helper-right><img src="/assets/icons/tools/zoom.png" alt="zoom" class="tools_img" /></label>
+					<label for="zoom" class="tools_label" helper-text="zoom" helper-right><img src="/assets/icons/tools/zoom.png" alt="zoom" class="tools_img" /></label>
 					<input type="radio" class="tools_radio" name="tool" id="unzoom" value="unzoom" />
-					<label for="unzoom" class="tools_label" helper="unzoom" helper-right
+					<label for="unzoom" class="tools_label" helper-text="unzoom" helper-right
 						><img src="/assets/icons/tools/dezoom.png" alt="unzoom" class="tools_img"
 					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="handle" value="handle" />
-					<label for="handle" class="tools_label" helper="handle" helper-right
+					<label for="handle" class="tools_label" helper-text="handle" helper-right
 						><img src="/assets/icons/tools/handle.png" alt="handle" class="tool_img"
 					/></label>
 				</div>
 				<!-- SIZES -->
 				<div class="sizes" id="sizes-js">
-					<input type="radio" name="size" id="1" value="1" class="sizes_radio" checked /><label for="1" class="sizes_label" helper="size1" helper-right
+					<input type="radio" name="size" id="1" value="1" class="sizes_radio" checked /><label
+						for="1"
+						class="sizes_label"
+						helper-text="Set size to 1px"
+						helper-right
 						><span></span></label
-					><input type="radio" name="size" id="2" value="2" class="sizes_radio" /><label for="2" class="sizes_label" helper="size2" helper-right
+					><input type="radio" name="size" id="2" value="2" class="sizes_radio" /><label for="2" class="sizes_label" helper-text="Set size to 2px" helper-right
 						><span></span></label
-					><input type="radio" name="size" id="3" value="3" class="sizes_radio" /><label for="3" class="sizes_label" helper="size3" helper-right
+					><input type="radio" name="size" id="3" value="3" class="sizes_radio" /><label for="3" class="sizes_label" helper-text="Set size to 3px" helper-right
 						><span></span></label
-					><input type="radio" name="size" id="4" value="4" class="sizes_radio" /><label for="4" class="sizes_label" helper="size4" helper-right
+					><input type="radio" name="size" id="4" value="4" class="sizes_radio" /><label for="4" class="sizes_label" helper-text="Set size to 4px" helper-right
 						><span></span
 					></label>
 				</div>
 				<!-- COLORS -->
-				<button class="color" label="color" id="colorBtn-js" helper="color" helper-right></button>
+				<button class="color" label="color" id="colorBtn-js" helper-text="Choose a color" helper-right></button>
 				<color-picker
 					pallet='["#000000","#1D2B53","#7E2553","#008751","#AB5236","#5F574F","#C2C3C7","#FFF1E8","#FF004D","#FFA300","#FFEC27","#00E436","#29ADFF","#83769C","#FF77A8","#FFCCAA"]'
 				></color-picker>
@@ -63,24 +77,24 @@
 			<div class="rightBlock">
 				<!-- ACTIONS -->
 				<div class="actions">
-					<button id="fit" class="actions_btn" helper="fit"><img src="/assets/icons/actions/adapter.png" alt="fit" /></button>
-					<button id="undo" class="actions_btn" helper="undo"><img src="/assets/icons/actions/retour.png" alt="undo" /></button>
-					<button id="redo" class="actions_btn" helper="redo"><img src="/assets/icons/actions/avant.png" alt="redo" /></button>
-					<button id="clear" class="actions_btn" helper="clear"><img src="/assets/icons/actions/effacer.png" alt="clear" /></button>
-					<button id="resize" class="actions_btn" data-custom-open="resize-modal" helper="resize">
+					<button id="fit" class="actions_btn" helper-text="fit to screen size"><img src="/assets/icons/actions/adapter.png" alt="fit" /></button>
+					<button id="undo" class="actions_btn" helper-text="undo"><img src="/assets/icons/actions/retour.png" alt="undo" /></button>
+					<button id="redo" class="actions_btn" helper-text="redo"><img src="/assets/icons/actions/avant.png" alt="redo" /></button>
+					<button id="clear" class="actions_btn" helper-text="clear"><img src="/assets/icons/actions/effacer.png" alt="clear" /></button>
+					<button id="resize" class="actions_btn" data-custom-open="resize-modal" helper-text="resize">
 						<img src="/assets/icons/actions/adapter.png" alt="resize" />
 					</button>
-					<button id="open" class="actions_btn" helper="open"><img src="/assets/icons/actions/ouvrir.png" alt="open" /></button>
-					<button id="save" class="actions_btn" helper="save"><img src="/assets/icons/actions/enregistrer.png" alt="save" /></button>
-					<button id="download" class="actions_btn" helper="download"><img src="/assets/icons/actions/telecharger.png" alt="download" /></button>
+					<button id="open" class="actions_btn" helper-text="open"><img src="/assets/icons/actions/ouvrir.png" alt="open" /></button>
+					<button id="save" class="actions_btn" helper-text="save"><img src="/assets/icons/actions/enregistrer.png" alt="save" /></button>
+					<button id="download" class="actions_btn" helper-text="download"><img src="/assets/icons/actions/telecharger.png" alt="download" /></button>
 				</div>
 				<!-- LAYERS -->
 				<div class="layers" id="layers-js">
 					<h4 class="layers_title">layers</h4>
 					<ul class="layers_list"></ul>
 					<div class="layers_control">
-						<button class="layers_btn" id="newLayer-js" helper="addLayer">+</button>
-						<button class="layers_btn" id="deleteLayer-js" helper="removeLayer">-</button>
+						<button class="layers_btn" id="newLayer-js" helper-text="add layer">+</button>
+						<button class="layers_btn" id="deleteLayer-js" helper-text="remove layer">-</button>
 					</div>
 				</div>
 			</div>

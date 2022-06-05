@@ -5,12 +5,12 @@ import Sketch from './scripts/Sketch/'
 
 import ToolsBtn from './scripts/Interface/ToolsBtn'
 import SizesBtn from './scripts/Interface/SizesBtn'
-import HelperElement from './scripts/Interface/helpers/HelperElement'
+import ToolTips from './scripts/Interface/Helpers/Tooltips'
 import ActionsBtns from './scripts/Interface/ActionsBtns'
 import ColorsBtn from './scripts/Interface/ColorsBtn'
 import LayersWindow from './scripts/Interface/Layers'
 import MicroModal from 'micromodal'
-import Translate from './scripts/Interface/translate/Translate'
+import ContentTranslate from './scripts/Interface/ContentTranslate/ContentTranslate'
 
 customElements.define('sketch-app', Sketch)
 
@@ -21,8 +21,8 @@ SizesBtn.init('#sizes-js input[type=radio]', sketch)
 ActionsBtns.init('.actions_btn', sketch)
 ColorsBtn.init('#colorBtn-js', sketch)
 LayersWindow.init('#layers-js', sketch)
-HelperElement.init()
-Translate.init()
+ToolTips.init()
+ContentTranslate.init()
 
 const resizeForm = document.querySelector('#resizeForm-js')
 const width = document.querySelector<HTMLInputElement>('#width-js')
