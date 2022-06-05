@@ -10,9 +10,13 @@
 		overflow-y: auto;
 	}
 	&_item {
+		display: flex;
+		align-items: center;
+		gap: 0.2rem;
 		padding: 0.2rem 0.4rem;
 		list-style: none;
 		margin-block: 0.2rem;
+
 		cursor: pointer;
 		&.selected {
 			background-color: $accent;

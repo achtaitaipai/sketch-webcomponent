@@ -39,11 +39,16 @@
 	line-height: 1.25;
 	color: $accent;
 	box-sizing: border-box;
+	&--error {
+		color: $error;
+	}
 }
 
 .modal__close {
 	background: transparent;
 	border: 0;
+	margin-left: 1rem;
+	cursor: pointer;
 }
 
 .modal__header .modal__close:before {

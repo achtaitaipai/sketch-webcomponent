@@ -15,6 +15,7 @@ import Circle from './Circle'
 import Drag from './Drag'
 import Crop from './Crop'
 import LayersManager from '../LayersManager'
+import Inactif from './Inactif'
 
 export default class ToolsManager {
 	private _eventsManager: EventsManager
@@ -38,6 +39,7 @@ export default class ToolsManager {
 			unzoom: new unZoom(sketch, layers, cursor),
 			drag: new Drag(sketch, layers, cursor),
 			handle: new Handle(sketch, layers, cursor),
+			inactif: new Inactif(sketch, layers, cursor),
 		}
 		this._currentTool = this._tools.paint
 		this._eventsManager = new EventsManager(sketch)
@@ -52,16 +54,20 @@ export default class ToolsManager {
 		}
 	}
 
+	get currentTool() {
+		return this._sketch.actif ? this._currentTool : this._tools.inactif
+	}
+
 	private _addEvents() {
 		this._eventsManager.addObserver('click', (e: Coordinate) => {
-			this._currentTool.click(e)
+			this.currentTool.click(e)
 		})
 
 		this._eventsManager.addObserver('rightClick', (e: Coordinate) => {
-			this._currentTool.rightClick(e)
+			this.currentTool.rightClick(e)
 		})
 		this._eventsManager.addObserver('pointerUp', (e: DragEventType) => {
-			this._currentTool.unClick(e)
+			this.currentTool.unClick(e)
 		})
 		this._eventsManager.addObserver('drag', (e: DragEventType) => {
 			const { button, oldPos, newPos } = e
@@ -70,22 +76,22 @@ export default class ToolsManager {
 					this._sketch.camera.drag(oldPos, newPos)
 					break
 				case 2:
-					this._currentTool.rightClick(newPos)
+					this.currentTool.rightClick(newPos)
 					break
 				default:
-					this._currentTool.drag(e)
+					this.currentTool.drag(e)
 					break
 			}
 		})
 		this._eventsManager.addObserver('pointerMove', (e: PointerMove) => {
-			this._currentTool.move(e)
+			this.currentTool.move(e)
 		})
 		this._eventsManager.addObserver('pointerOut', () => {
 			this._cursor.actif = false
 			this._sketch.updatePreview()
 		})
 		this._eventsManager.addObserver('zoom', (e: ZoomEventType) => {
-			this._currentTool.zoom(e)
+			this.currentTool.zoom(e)
 		})
 	}
 }

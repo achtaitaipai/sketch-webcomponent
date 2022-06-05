@@ -8,11 +8,9 @@ export default class Translate {
 		if (lang !== 'en') {
 			const toTranslate = document.querySelectorAll('[translate]')
 			toTranslate.forEach(element => {
-				console.log(element)
 				const key = element.getAttribute('translate')
 				if (key) {
 					const data = translateDatas[key]
-					console.log(data)
 					if (data) element.textContent = data[lang]
 				}
 			})

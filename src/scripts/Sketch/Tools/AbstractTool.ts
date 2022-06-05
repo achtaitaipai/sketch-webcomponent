@@ -13,7 +13,7 @@ export default abstract class Tool {
 		this._cursor = cursor
 	}
 	get drawing() {
-		return this._layers.currentLayer()
+		return this._layers.currentDrawing()
 	}
 	public init() {}
 	public click(_: Coordinate) {}

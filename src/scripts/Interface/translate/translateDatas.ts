@@ -17,4 +17,10 @@ export const translateDatas: translateType = {
 	px: {
 		fr: 'px',
 	},
+	activLayerNotVisible: {
+		fr: 'Calque actuel inactif. ',
+	},
+	inactiveClick: {
+		fr: 'Activez-le pour pouvoir le modifier.',
+	},
 }

@@ -4,7 +4,7 @@ une application de dessins avec peu de pixels
 
 [la v1](http://achtaitaipai.free.fr/dessin/)
 
-dans un monde parfait :
+## objectifs :
 
 - possibilité de créer des anims
 - utilisable sur tablette ou téléphone (avec moins de fonctionnalités)
@@ -15,7 +15,7 @@ dans un monde parfait :
 
 ---
 
-prochaines étapes :
+## prochaines étapes :
 
 - système d'animations
 - historique
@@ -23,6 +23,12 @@ prochaines étapes :
 
 ---
 
-à voir plus tard :
+## todo :
+
+### Bugs :
 
 - bug bizarre au chargement parfois, comme si le js se lançait avant le chargement
+
+### Calques :
+
+- renommer les calques ?

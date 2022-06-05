@@ -63,6 +63,10 @@ export default class Sketch extends HTMLElement {
 		this._tools.tool = value
 	}
 
+	get actif() {
+		return this.layers.actif
+	}
+
 	static get observedAttributes() {
 		return ['width', 'height']
 	}
@@ -122,7 +126,7 @@ export default class Sketch extends HTMLElement {
 		this._ctx.drawImage(this._background.canvas, 0, 0)
 		for (let i = this.layers.layers.length - 1; i >= 0; i--) {
 			const layer = this.layers.layers[i]
-			this._ctx.drawImage(layer.drawing.canvas, 0, 0)
+			if (layer.drawing.actif) this._ctx.drawImage(layer.drawing.canvas, 0, 0)
 		}
 		this._ctx.drawImage(this._cursor.canvas, 0, 0)
 	}

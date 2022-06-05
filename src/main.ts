@@ -39,4 +39,6 @@ resizeForm?.addEventListener('submit', e => {
 	MicroModal.close('resize-modal')
 })
 
+sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-modal'))
+
 sketch.camera.fitSketch()

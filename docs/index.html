@@ -6,8 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 		<title>Pixynth</title>
-		<script type="module" crossorigin src="/pixynth/assets/index.fefd7411.js"></script>
-		<link rel="stylesheet" href="/pixynth/assets/index.4d7be655.css">
+		<script type="module" crossorigin src="/pixynth/assets/index.092c3cec.js"></script>
+		<link rel="stylesheet" href="/pixynth/assets/index.18ba6490.css">
 	</head>
 	<body>
 		<main class="main">
@@ -79,9 +79,7 @@
 				<!-- LAYERS -->
 				<div class="layers" id="layers-js">
 					<h4 class="layers_title">layers</h4>
-					<ul class="layers_list">
-						<li class="layers_item selected" data-id="1">Layer 1</li>
-					</ul>
+					<ul class="layers_list"></ul>
 					<div class="layers_control">
 						<button class="layers_btn" id="newLayer-js" helper="addLayer">+</button>
 						<button class="layers_btn" id="deleteLayer-js" helper="removeLayer">-</button>
@@ -132,6 +130,21 @@
 								</div>
 								<button class="modal__btn modal__btn-primary" id="resizeConfirm-js">Ok</button>
 							</form>
+						</main>
+					</div>
+				</div>
+			</div>
+
+			<!-- inactif click modal -->
+			<div class="modal micromodal-slide" id="inactifClick-modal" aria-hidden="true">
+				<div class="modal__overlay" tabindex="-1" data-micromodal-close>
+					<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="inactifClick-modal-title">
+						<header class="modal__header">
+							<h2 class="modal__title modal__title--error" id="inactifClick-modal-title" translate="activLayerNotVisible">Active layer inactiv</h2>
+							<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+						</header>
+						<main class="modal__content" id="inactifClick-modal-content">
+							<p translate="inactiveClick">Activate it to be able to modify it</p>
 						</main>
 					</div>
 				</div>

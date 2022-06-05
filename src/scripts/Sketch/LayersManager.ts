@@ -16,6 +16,10 @@ export default class LayersManager {
 		this._sketch = sketch
 	}
 
+	get actif() {
+		return this.layers.find(layer => layer.id === this._layerIndex)?.drawing.actif ?? false
+	}
+
 	public newLayer(id: number, pos: number) {
 		const newLayer = { id: id, drawing: new Drawing(this._sketch.width, this._sketch.height) }
 		this.layers.splice(pos, 0, newLayer)
@@ -38,7 +42,13 @@ export default class LayersManager {
 		this.layers = layers
 	}
 
-	public currentLayer() {
+	public setLayerVisible(id: number, visible: boolean) {
+		const layer = this.layers.find(layer => layer.id === id)
+		if (layer) layer.drawing.actif = visible
+		this._sketch.updatePreview()
+	}
+
+	public currentDrawing() {
 		return this.layers.find(layer => layer.id === this._layerIndex)?.drawing
 	}
 
