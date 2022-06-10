@@ -10,14 +10,19 @@ une application de dessins avec peu de pixels
 - utilisable sur tablette ou téléphone (avec moins de fonctionnalités)
 - utilisable au clavier
 - possibilité d'exporter en json, png, spritesheet png, gif
-- possibilité d'ouvrir les png et les json
+- possibilité d'ouvrir les png, les json et les spriteSheets
 - un chouille moins moche qu'actuellement
 
 ---
 
 ## prochaines étapes :
 
-- système d'animations
+- système d'animations :
+  - previews frames
+  - dupliquer frame
+  - oignon
+  - play / pause
+  - fps
 - historique
 - ...
 

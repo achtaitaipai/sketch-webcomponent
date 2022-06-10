@@ -14,8 +14,8 @@ import Rect from './Rect'
 import Circle from './Circle'
 import Drag from './Drag'
 import Crop from './Crop'
-import LayersManager from '../LayersManager'
 import Inactif from './Inactif'
+import FramesManager from '../FramesManagers'
 
 export default class ToolsManager {
 	private _eventsManager: EventsManager
@@ -24,22 +24,22 @@ export default class ToolsManager {
 	private _sketch
 	private _cursor
 
-	constructor(sketch: Sketch, layers: LayersManager, cursor: Drawing) {
+	constructor(sketch: Sketch, frames: FramesManager, cursor: Drawing) {
 		this._sketch = sketch
 		this._cursor = cursor
 		this._tools = {
-			paint: new Paint(sketch, layers, cursor),
-			erase: new Erase(sketch, layers, cursor),
-			line: new Line(sketch, layers, cursor),
-			rect: new Rect(sketch, layers, cursor),
-			circle: new Circle(sketch, layers, cursor),
-			bucket: new Bucket(sketch, layers, cursor),
-			crop: new Crop(sketch, layers, cursor),
-			zoom: new Zoom(sketch, layers, cursor),
-			unzoom: new unZoom(sketch, layers, cursor),
-			drag: new Drag(sketch, layers, cursor),
-			handle: new Handle(sketch, layers, cursor),
-			inactif: new Inactif(sketch, layers, cursor),
+			paint: new Paint(sketch, frames, cursor),
+			erase: new Erase(sketch, frames, cursor),
+			line: new Line(sketch, frames, cursor),
+			rect: new Rect(sketch, frames, cursor),
+			circle: new Circle(sketch, frames, cursor),
+			bucket: new Bucket(sketch, frames, cursor),
+			crop: new Crop(sketch, frames, cursor),
+			zoom: new Zoom(sketch, frames, cursor),
+			unzoom: new unZoom(sketch, frames, cursor),
+			drag: new Drag(sketch, frames, cursor),
+			handle: new Handle(sketch, frames, cursor),
+			inactif: new Inactif(sketch, frames, cursor),
 		}
 		this._currentTool = this._tools.paint
 		this._eventsManager = new EventsManager(sketch)

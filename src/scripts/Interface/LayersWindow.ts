@@ -7,7 +7,7 @@ export default class LayersWindow {
 	private static _layers: HTMLUListElement | null
 	private static _sortable: Sortable | null = null
 
-	static init(selector: string, sketch: Sketch) {
+	public static init(selector: string, sketch: Sketch) {
 		this._window = document.querySelector(selector)
 		this._sketch = sketch
 		const newBtn = this._window?.querySelector('#newLayer-js')
@@ -22,39 +22,53 @@ export default class LayersWindow {
 			})
 		}
 		this._layers?.addEventListener('click', this._layerClick.bind(this))
-		newBtn?.addEventListener('click', this._addLayer.bind(this))
+		newBtn?.addEventListener('click', () => this._addLayer())
 		deleteBtn?.addEventListener('click', this._removeLayer.bind(this))
+	}
 
-		this._addLayer()
+	public static updateLayers() {
+		if (this._layers) this._layers.innerHTML = ''
+		for (const layer of this._sketch.frames.currentLayers.layers) {
+			const newLayer = this._newLayer(layer.id, layer.drawing.actif)
+			this._layers?.appendChild(newLayer)
+		}
+		const selectedIndex = this._sketch.frames.currentLayers.layerIndex
+		this._layers?.querySelector(`[data-id="${selectedIndex}"`)?.classList.add('selected')
 	}
 
 	private static _addLayer() {
 		const selected = this._layers?.querySelector('.selected')
 
-		const newLayer = document.createElement('li')
-		const id = this.newId()
-		newLayer.classList.add('layers_item')
+		const newId = this.newId()
+		const newLayer = this._newLayer(newId, true)
 		newLayer.classList.add('selected')
-		newLayer.setAttribute('data-id', id.toString())
-		newLayer.textContent = 'Layer ' + id
+		selected?.classList.remove('selected')
 		if (selected) this._layers?.insertBefore(newLayer, selected)
 		else this._layers?.appendChild(newLayer)
-		selected?.classList.remove('selected')
-
-		const checkbox = document.createElement('input')
-		checkbox.setAttribute('type', 'checkbox')
-		checkbox.checked = true
-		checkbox.setAttribute('name', 'visible')
-		checkbox.classList.add('layers_checkbox')
-		checkbox.addEventListener('change', this._checkBoxChange.bind(this))
-		newLayer.insertAdjacentElement('afterbegin', checkbox)
 
 		const layers = Array.from(this._layers?.querySelectorAll('li') || [])
 		const pos = layers.indexOf(newLayer)
 
-		this._sketch.layers.newLayer(id, pos)
+		this._sketch.frames.currentLayers.newLayer(newId, pos)
 		this._updateSelectedLayer()
 		this._sketch.updatePreview()
+	}
+
+	private static _newLayer(id: number, actif: boolean) {
+		const newLayer = document.createElement('li')
+		const newId = id
+		newLayer.classList.add('layers_item')
+		newLayer.setAttribute('data-id', newId.toString())
+		newLayer.textContent = 'Layer ' + newId
+
+		const checkbox = document.createElement('input')
+		checkbox.setAttribute('type', 'checkbox')
+		checkbox.checked = actif
+		checkbox.setAttribute('name', 'visible')
+		checkbox.classList.add('layers_checkbox')
+		checkbox.addEventListener('change', this._checkBoxChange.bind(this))
+		newLayer.insertAdjacentElement('afterbegin', checkbox)
+		return newLayer
 	}
 
 	private static _removeLayer() {
@@ -68,7 +82,7 @@ export default class LayersWindow {
 
 		const id = Number(selected?.getAttribute('data-id'))
 		if (id) {
-			this._sketch.layers.removeLayer(id)
+			this._sketch.frames.currentLayers.removeLayer(id)
 		}
 		this._updateSelectedLayer()
 		this._sketch.updatePreview()
@@ -83,13 +97,13 @@ export default class LayersWindow {
 		if (selected) {
 			const id = Number(selected?.getAttribute('data-id'))
 			if (id) {
-				this._sketch.layers.selectLayer(id)
+				this._sketch.frames.currentLayers.selectLayer(id)
 			}
 		}
 	}
 
 	private static _moveLayer(e: SortableEvent) {
-		this._sketch.layers.sortLayer(this._sortable?.toArray().map(Number) || [])
+		this._sketch.frames.currentLayers.sortLayers(this._sortable?.toArray().map(Number) || [])
 		this._sketch.updatePreview()
 		const item = e.item
 		if (item) {
@@ -113,7 +127,7 @@ export default class LayersWindow {
 		const li = target.closest('li')
 		const id = Number(li?.getAttribute('data-id'))
 		const visible = target.checked
-		if (id) this._sketch.layers.setLayerVisible(id, visible)
+		if (id) this._sketch.frames.currentLayers.setLayerVisible(id, visible)
 	}
 
 	private static newId() {

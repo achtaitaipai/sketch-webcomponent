@@ -1,14 +1,14 @@
 import Sketch from '.'
 import Drawing from './Images/Drawing'
 
-type layerType = {
+interface iLayer {
 	drawing: Drawing
 	id: number
 }
 
 export default class LayersManager {
-	public layers: layerType[]
-	private _layerIndex: number = 1
+	public layers: iLayer[]
+	public layerIndex: number = 1
 	private _sketch: Sketch
 
 	constructor(sketch: Sketch) {
@@ -17,7 +17,7 @@ export default class LayersManager {
 	}
 
 	get actif() {
-		return this.layers.find(layer => layer.id === this._layerIndex)?.drawing.actif ?? false
+		return this.layers.find(layer => layer.id === this.layerIndex)?.drawing.actif ?? false
 	}
 
 	public newLayer(id: number, pos: number) {
@@ -26,15 +26,15 @@ export default class LayersManager {
 	}
 
 	public selectLayer(index: number) {
-		this._layerIndex = index
+		this.layerIndex = index
 	}
 
 	public removeLayer(id: number) {
 		this.layers = this.layers.filter(layer => layer.id !== id)
 	}
 
-	public sortLayer(list: number[]) {
-		const layers: layerType[] = []
+	public sortLayers(list: number[]) {
+		const layers: iLayer[] = []
 		list.forEach(id => {
 			const layer = this.layers.find(layer => layer.id === id)
 			if (layer) layers.push(layer)
@@ -49,7 +49,7 @@ export default class LayersManager {
 	}
 
 	public currentDrawing() {
-		return this.layers.find(layer => layer.id === this._layerIndex)?.drawing
+		return this.layers.find(layer => layer.id === this.layerIndex)?.drawing
 	}
 
 	public clear() {

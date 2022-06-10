@@ -1,19 +1,19 @@
+import FramesManager from '../FramesManagers'
 import Drawing from '../Images/Drawing'
 import Sketch from '../Index'
-import LayersManager from '../LayersManager'
 import { Coordinate, DragEventType, PointerMove, PointerUpType, ZoomEventType } from '../types/eventsTypes'
 
 export default abstract class Tool {
 	protected _sketch: Sketch
-	protected _layers: LayersManager
+	protected _frames: FramesManager
 	protected _cursor: Drawing
-	constructor(sketch: Sketch, layers: LayersManager, cursor: Drawing) {
+	constructor(sketch: Sketch, frames: FramesManager, cursor: Drawing) {
 		this._sketch = sketch
-		this._layers = layers
+		this._frames = frames
 		this._cursor = cursor
 	}
 	get drawing() {
-		return this._layers.currentDrawing()
+		return this._frames.currentDrawing()
 	}
 	public init() {}
 	public click(_: Coordinate) {}
