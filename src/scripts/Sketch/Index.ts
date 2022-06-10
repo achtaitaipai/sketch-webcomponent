@@ -41,7 +41,9 @@ export default class Sketch extends HTMLElement {
 		const style = document.createElement('style')
 		style.textContent = /*css*/ `
         canvas{
+			-webkit-optimize-contrast: pixelated;
 			-ms-interpolation-mode: nearest-neighbor;
+			image-rendering: crisp-edges;  
 			image-rendering: pixelated;    
 			background-color: #ffff;
 			cursor:crosshair;

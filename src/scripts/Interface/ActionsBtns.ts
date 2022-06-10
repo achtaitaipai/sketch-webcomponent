@@ -1,5 +1,6 @@
 import MicroModal from 'micromodal'
 import Sketch from '../Sketch'
+import ResizeForm from './ResizeForm'
 
 export default class ActionsBtns {
 	static init(selector: string, sketch: Sketch) {
@@ -16,6 +17,7 @@ export default class ActionsBtns {
 						break
 					case 'resize':
 						MicroModal.show('resize-modal')
+						ResizeForm.update()
 						break
 				}
 			})

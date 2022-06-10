@@ -5,12 +5,15 @@ import Sketch from './scripts/Sketch/'
 
 import ToolsBtn from './scripts/Interface/ToolsBtn'
 import SizesBtn from './scripts/Interface/SizesBtn'
-import ToolTips from './scripts/Interface/Helpers/Tooltips'
+import ToolTips from './scripts/Interface/Tooltips'
 import ActionsBtns from './scripts/Interface/ActionsBtns'
 import ColorsBtn from './scripts/Interface/ColorsBtn'
-import LayersWindow from './scripts/Interface/Layers'
+import LayersWindow from './scripts/Interface/LayersWindow'
 import MicroModal from 'micromodal'
-import ContentTranslate from './scripts/Interface/ContentTranslate/ContentTranslate'
+import ContentTranslate from './scripts/Interface/Translate'
+import Sortable from 'sortablejs'
+import ResizeForm from './scripts/Interface/ResizeForm'
+import AnimWindow from './scripts/Interface/AnimWindow'
 
 customElements.define('sketch-app', Sketch)
 
@@ -21,24 +24,12 @@ SizesBtn.init('#sizes-js input[type=radio]', sketch)
 ActionsBtns.init('.actions_btn', sketch)
 ColorsBtn.init('#colorBtn-js', sketch)
 LayersWindow.init('#layers-js', sketch)
+AnimWindow.init('#anim-js', sketch)
+ResizeForm.init('#resizeForm-js', sketch)
 ToolTips.init()
 ContentTranslate.init()
 
-const resizeForm = document.querySelector('#resizeForm-js')
-const width = document.querySelector<HTMLInputElement>('#width-js')
-const height = document.querySelector<HTMLInputElement>('#height-js')
-resizeForm?.addEventListener('submit', e => {
-	e.preventDefault()
-	const w = width?.valueAsNumber
-	const h = height?.valueAsNumber
-	const align = document.querySelector<HTMLInputElement>('#align-js input:checked')?.value
-	let va = 0
-	let ha = 0
-	if (align) [va, ha] = JSON.parse(align)
-	if (w && h) sketch.resize(w, h, va, ha)
-	MicroModal.close('resize-modal')
-})
-
+Sortable.create(document.querySelector('#anim-js')!)
 sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-modal'))
 
-sketch.camera.fitSketch()
+sketch.onload = () => sketch.camera.fitSketch()

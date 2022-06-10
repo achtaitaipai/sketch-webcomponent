@@ -1,5 +1,6 @@
 @import './style/base/variables';
 @import './style/base/reset';
+@import './style/base/scrollbar';
 @import './style/layout/app';
 @import './style/layout/leftBlock';
 @import './style/layout/rightBlock';
@@ -7,8 +8,9 @@
 @import './style/components/colors';
 @import './style/components/colorpicker';
 @import './style/components/sizes';
-@import './style/components/helper';
+@import './style/components/tooltips';
 @import './style/components/actions';
 @import './style/components/layers';
+@import './style/components/anim';
 @import './style/components/modals';
 @import './style/components/resize';

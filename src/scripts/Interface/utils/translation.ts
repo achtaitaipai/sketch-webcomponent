@@ -97,6 +97,12 @@ export const translateDatas: translateType = {
 	'remove layer': {
 		fr: 'Supprimer un calque',
 	},
+	'add frame': {
+		fr: 'Nouvelle image',
+	},
+	'remove frame': {
+		fr: "Supprimer l'image",
+	},
 }
 
 const queryString = window.location.search

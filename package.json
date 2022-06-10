@@ -17,7 +17,7 @@
 		"vite": "^2.9.5"
 	},
 	"dependencies": {
-		"@achtaitaipai/color-picker": "^1.0.5",
+		"@achtaitaipai/color-picker": "^1.0.6",
 		"@fortawesome/fontawesome-free": "^6.1.1",
 		"interactjs": "^1.10.11",
 		"micromodal": "^0.4.10",

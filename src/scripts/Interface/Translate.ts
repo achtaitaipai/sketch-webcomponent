@@ -1,4 +1,4 @@
-import translate from '../utils/translateDatas'
+import translate from './utils/translation'
 
 export default class ContentTranslate {
 	static init() {
