@@ -1,0 +1,86 @@
+.anim {
+	grid-column: 2 / -2;
+	border: 2px solid $primary-200;
+	max-height: 15vh;
+	width: 80%;
+	margin-inline: auto;
+	&_frameList {
+		width: 100%;
+		height: calc(100% - 1rem);
+		gap: 1rem;
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		padding: 0.25rem 2rem;
+		scrollbar-gutter: auto stable;
+		overflow-x: scroll;
+		scroll-behavior: smooth;
+	}
+	&_frame {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 3.5rem;
+		width: 3.5rem;
+		list-style: none;
+		position: relative;
+		flex-shrink: 0;
+		border: 1px solid white;
+		background-image: url('https://picsum.photos/300/200');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		cursor: pointer;
+		&-btn {
+			order: 1;
+			background-image: none;
+		}
+		&.selected {
+			border: 1px solid $accent;
+		}
+	}
+	&_delete {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 1rem;
+		height: 1rem;
+		background-color: $primary-200;
+		border: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 0;
+		transition: opacity 0.2s ease-in-out;
+		cursor: pointer;
+		transition: background-color 0.2s;
+		&:hover {
+			background-color: $error;
+		}
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&_frame:hover &_delete {
+		opacity: 1;
+	}
+	&_btn {
+		width: 100%;
+		height: 100%;
+		font-size: 2rem;
+		background-color: transparent;
+		border: 0;
+		color: white;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		&:hover {
+			background-color: $accent;
+		}
+	}
+	&_tools {
+		width: 100%;
+		height: 1rem;
+		background-color: $primary-200;
+	}
+}

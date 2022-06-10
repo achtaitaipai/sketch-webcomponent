@@ -1,6 +1,7 @@
 .layers {
 	color: white;
 	outline: 1px solid $primary-200;
+	width: max(90%, 9rem);
 	&_title {
 		border-bottom: 1px solid $primary-200;
 		padding: 0.4rem;
@@ -27,13 +28,14 @@
 		background-color: $primary-200;
 		display: flex;
 		justify-content: flex-end;
+		align-items: center;
 		padding: 0.1rem;
 		gap: 0.5rem;
+		height: 1.5rem;
 	}
 	&_btn {
 		height: 1rem;
-		width: auto;
-		aspect-ratio: 69 / 69;
+		width: 1rem;
 		display: inline-grid;
 		text-align: center;
 		line-height: 1;

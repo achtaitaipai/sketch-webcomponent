@@ -2,13 +2,14 @@
 	height: 100%;
 	width: 100%;
 	display: grid;
-	grid-template-rows: 1rem 80vh 1fr;
+	grid-template-rows: 8fr 2fr;
 	grid-template-columns: repeat(12, 1fr);
 	background-color: $primary-0;
 }
 
 .sketch {
-	grid-row: 2;
+	margin: 1rem;
+	grid-row: 1;
 	grid-column: 3 / -3;
 	background-color: $primary-200;
 	overflow: hidden;

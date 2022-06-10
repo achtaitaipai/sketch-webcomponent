@@ -9,8 +9,7 @@
 	}
 	&_label {
 		width: 2rem;
-		height: auto;
-		aspect-ratio: 1 / 1;
+		height: 2rem;
 		position: relative;
 		cursor: pointer;
 		& span {
@@ -18,9 +17,6 @@
 			position: absolute;
 			left: 50%;
 			top: 50%;
-			width: 50%;
-			height: auto;
-			aspect-ratio: 69 / 69;
 			transform: translate(-50%, -50%);
 			background-color: white;
 		}
@@ -33,7 +29,8 @@
 @for $i from 1 to 9 {
 	.sizes_label:nth-of-type(#{$i}) {
 		& span {
-			width: calc(15% + #{$i * 8%});
+			width: calc(0.3rem + #{$i * 8%});
+			height: calc(0.3rem + #{$i * 8%});
 		}
 	}
 }
