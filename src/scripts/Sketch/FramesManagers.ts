@@ -1,11 +1,6 @@
 import Sketch from '.'
 import Frame from './Frame'
 
-interface Iframe {
-	id: number
-	frame: Frame
-}
-
 export default class FramesManager {
 	public frames: Frame[]
 	public _frameIndex: number = 1
