@@ -119,11 +119,24 @@
 
 			<div class="anim" id="anim-js">
 				<ul class="anim_frameList" id="frameList-js">
-					<li class="anim_frame anim_frame-btn">
-						<button class="anim_btn" tooltip-text="add frame" id="newFrame-js">+</button>
+					<li class="anim_frame anim_frame-new">
+						<button class="anim_new" tooltip-text="add frame" id="newFrame-js">+</button>
 					</li>
 				</ul>
-				<div class="anim_tools"></div>
+				<div class="anim_tools">
+					<label for="fps" class="anim_label">fps : </label>
+					<input type="number" class="anim_fps" id="fps" value="5" required min="1" max="24" step="1" />
+					<input type="checkbox" class="anim_checkbox" name="play" id="play" value="play" />
+					<label for="play" class="anim_labelBtn">
+						<img src="./assets/icons/play.png" alt="" class="inactive" />
+						<img src="./assets/icons/pause.png" alt="" class="active"
+					/></label>
+					<input type="checkbox" class="anim_checkbox" name="oignon" id="oignon" value="oignon" />
+					<label for="oignon" class="anim_labelBtn">
+						<img src="./assets/icons/oignon.png" alt="" class="active" />
+						<img src="./assets/icons/pasoignon.png" alt="" class="inactive"
+					/></label>
+				</div>
 			</div>
 
 			<!-- resize modal -->
@@ -179,11 +192,11 @@
 				<div class="modal__overlay" tabindex="-1" data-micromodal-close>
 					<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="inactifClick-modal-title">
 						<header class="modal__header">
-							<h2 class="modal__title modal__title--error" id="inactifClick-modal-title" translate="activLayerNotVisible">Active layer inactiv</h2>
+							<h2 class="modal__title modal__title--error" id="inactifClick-modal-title" translate="Edition Impossible">Edition impossible</h2>
 							<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
 						</header>
 						<main class="modal__content" id="inactifClick-modal-content">
-							<p translate="inactiveClick">Activate it to be able to modify it</p>
+							<p translate="inactiveClick">The current layer should be activ and the animation should be paused.</p>
 						</main>
 					</div>
 				</div>

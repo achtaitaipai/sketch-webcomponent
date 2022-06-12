@@ -15,6 +15,7 @@ export default class Rect extends Tool {
 		const to = this._sketch.gridCoordinate(newPos)
 		this.drawing?.rect(from, to.x - from.x, to.y - from.y, this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
+		this._sketch.dispatchUpdate()
 	}
 
 	public move(e: PointerMove): void {

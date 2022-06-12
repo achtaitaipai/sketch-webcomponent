@@ -16,11 +16,12 @@ export const translateDatas: translateType = {
 	px: {
 		fr: 'px',
 	},
-	activLayerNotVisible: {
-		fr: 'Calque actuel inactif. ',
+	'Edition impossible': {
+		fr: 'Edition impossible',
 	},
 	inactiveClick: {
-		fr: 'Activez-le pour pouvoir le modifier.',
+		fr: "Pour pouvoir utiliser cette fonctionnalité le calque doit être actif et l'animation doit être stoppée.",
+		en: 'To use this feature the layer must be active and the animation must be stopped.',
 	},
 	pencil: {
 		fr: 'Crayon',
@@ -102,6 +103,9 @@ export const translateDatas: translateType = {
 	},
 	'remove frame': {
 		fr: "Supprimer l'image",
+	},
+	'If you leave before saving, your changes will be lost.': {
+		fr: "Si vous quittez avant d'enregistrer, vos modifications seront perdues.",
 	},
 }
 

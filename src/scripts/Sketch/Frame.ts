@@ -26,7 +26,7 @@ export default class Frame {
 
 		for (let i = this.layers.length - 1; i >= 0; i--) {
 			const layer = this.layers[i]
-			ctx.drawImage(layer.drawing.canvas, 0, 0)
+			if (layer.drawing.actif) ctx.drawImage(layer.drawing.canvas, 0, 0)
 		}
 		return canvas
 	}
@@ -46,6 +46,7 @@ export default class Frame {
 
 	public removeLayer(id: number) {
 		this.layers = this.layers.filter(layer => layer.id !== id)
+		this._sketch.dispatchUpdate()
 	}
 
 	public sortLayers(list: number[]) {
@@ -55,12 +56,14 @@ export default class Frame {
 			if (layer) layers.push(layer)
 		})
 		this.layers = layers
+		this._sketch.dispatchUpdate()
 	}
 
 	public setLayerVisible(id: number, visible: boolean) {
 		const layer = this.layers.find(layer => layer.id === id)
 		if (layer) layer.drawing.actif = visible
 		this._sketch.updatePreview()
+		this._sketch.dispatchUpdate()
 	}
 
 	public currentLayer() {

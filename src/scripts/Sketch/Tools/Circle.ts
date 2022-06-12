@@ -9,7 +9,10 @@ export default class Circle extends Tool {
 		this._ellipse(initPos, newPos, this._cursor)
 	}
 	public unClick({ initPos, newPos }: PointerUpType): void {
-		if (this.drawing) this._ellipse(initPos, newPos, this.drawing)
+		if (this.drawing) {
+			this._ellipse(initPos, newPos, this.drawing)
+			this._sketch.dispatchUpdate()
+		}
 	}
 	public move(e: PointerMove): void {
 		this._cursor.actif = true

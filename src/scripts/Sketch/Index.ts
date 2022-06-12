@@ -18,6 +18,14 @@ export default class Sketch extends HTMLElement {
 	public color: string = '#000000'
 	private _tools: ToolsManager
 
+	private _animationFrame: number | null = null
+	private _nextFrame: number | null = null
+
+	public playing = false
+	private _savedFrame: number | null = null
+
+	public fps = 5
+
 	constructor() {
 		super()
 		this._canvas = this._createCanvas()!
@@ -68,7 +76,7 @@ export default class Sketch extends HTMLElement {
 	}
 
 	get actif() {
-		return this.frameManager.actif
+		return this.frameManager.actif && !this.playing
 	}
 
 	static get observedAttributes() {
@@ -84,6 +92,7 @@ export default class Sketch extends HTMLElement {
 		this._background.clear()
 		this.camera.fitSketch()
 		this.updatePreview()
+		this.dispatchUpdate()
 	}
 	public resize(width: number, height: number, hAlign: number, vAlign: number) {
 		this._canvas.width = width
@@ -94,6 +103,7 @@ export default class Sketch extends HTMLElement {
 		this._background.clear()
 		this.camera.fitSketch()
 		this.updatePreview()
+		this.dispatchUpdate()
 	}
 
 	attributeChangedCallback(name: string, _: string, val: string) {
@@ -128,12 +138,8 @@ export default class Sketch extends HTMLElement {
 	public updatePreview() {
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
 		this._ctx.drawImage(this._background.canvas, 0, 0)
-		// for (const layer of [...this.frames.currentFrame.layers].reverse()) {
-		// 	if (layer.drawing.actif) this._ctx.drawImage(layer.drawing.canvas, 0, 0)
-		// }
-		this._ctx.drawImage(this.frameManager.currentFrame!.preview, 0, 0)
+		if (this.frameManager.currentFrame) this._ctx.drawImage(this.frameManager.currentFrame.preview, 0, 0)
 		this._ctx.drawImage(this._cursor.canvas, 0, 0)
-		this.dispatchEvent(new CustomEvent('update'))
 	}
 
 	public clear() {
@@ -141,6 +147,7 @@ export default class Sketch extends HTMLElement {
 		this.frameManager.clear()
 		this._cursor.clear()
 		this.updatePreview()
+		this.dispatchUpdate()
 	}
 
 	public gridCoordinate({ x, y }: Coordinate): Coordinate {
@@ -148,5 +155,36 @@ export default class Sketch extends HTMLElement {
 		const px = (x - left) / this.camera.zoomValue
 		const py = (y - top) / this.camera.zoomValue
 		return { x: Math.floor(px), y: Math.floor(py) }
+	}
+
+	public dispatchUpdate() {
+		this.dispatchEvent(new CustomEvent('update'))
+	}
+
+	public stop() {
+		if (this._animationFrame) {
+			cancelAnimationFrame(this._animationFrame)
+			if (this._savedFrame) this.frameManager.selectFrame(this._savedFrame)
+			this.updatePreview()
+		}
+		this.playing = false
+	}
+
+	public play() {
+		this._nextFrame = window.performance.now()
+		this._savedFrame = this.frameManager.currentFrame?.id ?? 1
+		this._loop()
+		this.playing = true
+	}
+
+	private _loop() {
+		this._animationFrame = requestAnimationFrame(() => this._loop())
+		const now = window.performance.now()
+		this._nextFrame = this._nextFrame ?? now
+		if (now < this._nextFrame) return
+		this.frameManager.nextFrame()
+		this.updatePreview()
+		this._nextFrame += 1000 / this.fps
+		this.updatePreview()
 	}
 }

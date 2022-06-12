@@ -11,6 +11,7 @@ export default class Line extends Tool {
 	public unClick({ initPos, newPos }: PointerUpType): void {
 		this.drawing?.line(this._sketch.gridCoordinate(initPos), this._sketch.gridCoordinate(newPos), this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
+		this._sketch.dispatchUpdate()
 	}
 	public move(e: PointerMove): void {
 		this._cursor.actif = true

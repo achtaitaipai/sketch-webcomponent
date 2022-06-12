@@ -23,5 +23,6 @@ export default class Crop extends Tool {
 		const h = Math.min(to.y - y, this.drawing?.height || 0 - y)
 		this._cursor.clear()
 		if (w > 0 && h > 0) this._sketch.crop(x, y, w, h)
+		this._sketch.dispatchUpdate()
 	}
 }

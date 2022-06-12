@@ -1,6 +1,7 @@
 import Sortable from 'sortablejs'
 import Sketch from '../Sketch'
 import deleteImgUrl from '../../../assets/icons/actions/effacer.png'
+import MicroModal from 'micromodal'
 
 export default class AnimWindow {
 	private static _sketch: Sketch
@@ -13,10 +14,10 @@ export default class AnimWindow {
 		this._frameList = this._element.querySelector('#frameList-js')!
 		this._sketch = sketch
 		this._updateLayers = updateLayers
-		console.log(this._sketch)
 		const newFrameBtn = this._element.querySelector('#newFrame-js')
 		newFrameBtn?.addEventListener('click', this._addFrame.bind(this))
 		Sortable.create(this._frameList, {
+			onStart: this._onSortStart.bind(this),
 			onSort: this._onSort.bind(this),
 		})
 		this._addFrame()
@@ -24,6 +25,10 @@ export default class AnimWindow {
 		this._sketch.addEventListener('update', this._onSketchChange.bind(this))
 	}
 	private static _handleClick(e: MouseEvent) {
+		if (this._sketch.playing) {
+			MicroModal.show('inactifClick-modal')
+			return
+		}
 		const target = e.target as HTMLElement
 		const frame = target?.closest('.anim_frame')!
 		const btn = target?.closest('.anim_delete')
@@ -35,15 +40,31 @@ export default class AnimWindow {
 			this._removeFrame(frame)
 		}
 	}
+
+	private static _onSortStart(e: Sortable.SortableEvent) {
+		if (this._sketch.playing) {
+			MicroModal.show('inactifClick-modal')
+			e.preventDefault
+		}
+	}
+
 	private static _onSort(e: Sortable.SortableEvent) {
-		const frames = Array.from(this._frameList.querySelectorAll('.anim_frame:not(.anim_frame-btn)'))
+		const frames = Array.from(this._frameList.querySelectorAll('.anim_frame:not(.anim_frame-new)'))
 		const ids = frames.map(el => Number(el.getAttribute('data-id')))
 		const frame = e.item
-		this._selectFrame(frame)
 		this._sketch.frameManager.sortFrames(ids)
+		if (this._sketch.playing) {
+			MicroModal.show('inactifClick-modal')
+			return
+		}
+		this._selectFrame(frame)
 	}
 
 	private static _addFrame() {
+		if (this._sketch.playing) {
+			MicroModal.show('inactifClick-modal')
+			return
+		}
 		const frame = document.createElement('li')
 		frame.classList.add('anim_frame')
 		const id = this.newId()
@@ -66,6 +87,10 @@ export default class AnimWindow {
 	}
 
 	private static _removeFrame(frame: Element) {
+		if (this._sketch.playing) {
+			MicroModal.show('inactifClick-modal')
+			return
+		}
 		const frames = this._frameList.querySelectorAll('.anim_frame')
 		if (frames?.length > 2) {
 			const selected = frame.classList.contains('selected')
@@ -99,10 +124,11 @@ export default class AnimWindow {
 	}
 
 	private static _onSketchChange() {
-		const items = Array.from(this._frameList.querySelectorAll<HTMLElement>('.anim_frame:not(.anim_frame-btn)'))
+		const items = Array.from(this._frameList.querySelectorAll<HTMLElement>('.anim_frame:not(.anim_frame-new)'))
 		items.forEach(itm => {
 			const id = Number(itm.getAttribute('data-id'))
 			const frame = this._sketch.frameManager.frames.find(f => f.id === id)
+
 			itm.style.backgroundImage = `url(${frame!.preview.toDataURL()})`
 		})
 	}

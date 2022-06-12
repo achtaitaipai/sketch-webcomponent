@@ -18,10 +18,8 @@ une application de dessins avec peu de pixels
 ## prochaines étapes :
 
 - système d'animations :
-  - dupliquer frame
   - oignon
-  - play / pause
-  - fps
+  - dupliquer frame
 - historique
 - ...
 
@@ -36,6 +34,7 @@ une application de dessins avec peu de pixels
 ### Calques :
 
 - renommer les calques ?
+- fusionner les calques !
 
 ### Outils :
 
@@ -45,4 +44,6 @@ une application de dessins avec peu de pixels
 ### Autres :
 
 - fullscreen ?
-- optimiser le rafraichissement des frames ? ne raffraichir que celui qui change ?
+- zoom :
+  - maximum, minimum en fonction de la taille de l'image
+  - zoom et dézoom proportionnel au zoom actuel

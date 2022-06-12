@@ -2,20 +2,20 @@ import Sketch from '.'
 import Frame from './Frame'
 
 export default class FramesManager {
-	public frames: Frame[]
+	public frames: Frame[] = []
 	public _frameIndex: number = 1
 	private _sketch: Sketch
 
 	constructor(sketch: Sketch) {
 		this._sketch = sketch
-		this.frames = [new Frame(this._sketch, 1)]
+		// this.frames = [new Frame(this._sketch, 1)]
 	}
 
 	get actif() {
 		return this.currentFrame?.actif ?? false
 	}
 	get currentFrame() {
-		return this.frames.find(frame => frame.id === this._frameIndex)!
+		return this.frames.find(frame => frame.id === this._frameIndex)
 	}
 	public newFrame(id: number) {
 		this.frames.push(new Frame(this._sketch, id))
@@ -25,6 +25,11 @@ export default class FramesManager {
 		this._frameIndex = index
 	}
 
+	public nextFrame() {
+		let cursor = this.frames.findIndex(f => f.id === this._frameIndex)
+		cursor = (cursor + 1) % this.frames.length
+		this.selectFrame(this.frames[cursor].id)
+	}
 	public removeFrame(id: number) {
 		this.frames = this.frames.filter(frame => frame.id !== id)
 	}

@@ -6,8 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 		<title>Pixynth</title>
-		<script type="module" crossorigin src="/pixynth/assets/index.87381538.js"></script>
-		<link rel="stylesheet" href="/pixynth/assets/index.fbf1e2e8.css">
+		<script type="module" crossorigin src="/pixynth/assets/index.36ffb64f.js"></script>
+		<link rel="stylesheet" href="/pixynth/assets/index.53a89613.css">
 	</head>
 	<body>
 		<main class="main">
@@ -121,11 +121,24 @@
 
 			<div class="anim" id="anim-js">
 				<ul class="anim_frameList" id="frameList-js">
-					<li class="anim_frame anim_frame-btn">
-						<button class="anim_btn" tooltip-text="add frame" id="newFrame-js">+</button>
+					<li class="anim_frame anim_frame-new">
+						<button class="anim_new" tooltip-text="add frame" id="newFrame-js">+</button>
 					</li>
 				</ul>
-				<div class="anim_tools"></div>
+				<div class="anim_tools">
+					<label for="fps" class="anim_label">fps : </label>
+					<input type="number" class="anim_fps" id="fps" value="5" required min="1" max="24" step="1" />
+					<input type="checkbox" class="anim_checkbox" name="play" id="play" value="play" />
+					<label for="play" class="anim_labelBtn">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAACWklEQVR4nO2awY7DIAwFndX+/y9nL0FiUQJJWsyA30g9VWkrT5/BCdu+7yY4/Iz+AeI/EgJDQmBICAwJgSEhMCQEhoTAkBAYEgJDQmBICAwJgSEhMCQEhoTAkBAYEgLjt+NnXz0b3jp+5/SMSMhu17LC0zMhLXIpSs0BZQ1Rag68hGzZq0Z4KSMS0hITWsrIllVLTVgpXkLeFDikFMqiXktKKDE9hbzZyl5dE0YMJSE5oRd8ohCzwFJGTuotkpQzActO+dSE5NyZW5ZJjaeQT4sWYsqfISE5y6elt5Be/X3Z2y+zJaSkJmbKtMwuJLFMG1tFiNkibYw8h7xl6vllpYSUTLkjWzEhJZvVC1++NzQ5EYSY/S9yKxVDjy9FEZJTW2NquIiKKCRRFvLtepKu+4qYyEJKagOmGxLSxvUQxsrb3p50W+C9heD2/S9RQkCcyfhaYiTkGV1lmPkIQd4zeoFLu1VC7uE2vWvbW6eWii7Jl5BzWu1pmW3vDAyTYaaE5Li3pzMkZHAiSiILQYlIeAih3S5BikisnpAnfwbEALuakDdpRIhI9BbS+wDBJ+0QJSIxa0KeikAW/4zZhNwVMY2AEk8hnxYJvTv6FjMkBDFBe+EpZLdnBQwlIkF8pt46c7usDLP+CWmdq80JsUa08GhZTw87n10fhtGLetjWdMUIIUpEhdEJyQktIkF5hCsZB6MTIhEFXkJU+JtQWpY4kBAYEgJDQmBICAwJgSEhMCQEhoTAkBAYEgJDQmBICAwJgSEhMCQEhoTAkBAYEgJDQmBICAwJgSEhMP4AsPhSBKtGf4AAAAAASUVORK5CYII=" alt="" class="inactive" />
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABYklEQVR4nO3dUWqEMBRAUad0/1u2X4UWxI/WGc+b3LOCwCUJMYqPfd+3OD7uHkB+KwimIJiCYAqCKQimIJiCYAqCKQimIJiCYAqCKQimIJjPuwdw4OiC5vHyUdxEDHLkO9Jfw4yJPG3JuvJ6k7wqnRbk7a0ehJslqwfhFARTEExBMNOCkGeHK00L8vYKgikIpiCYFYJwp/EzKwQZpSDYDCoIpiCYgmAKgikIpiCYgmAKgikIpiCYgmAKgikIpiCYgmAKgikIpiCYgmAKgikIpiDYC9wFwRQEUxBMQTCTgjxj86U29G2bFWQJBcEUBFMQTEEwBcEUBFMQzApBzg5/1PeF27ZGkFEKgikIZkqQ/zwE5PaJM1OCLKMgmIJgCoIpCKYgGP3vCNyd97OJQZaL8FNLFqYgGHHJutqoJbAZgikIpiCYgmAKgikIpiCYgmAKgikIpiCYgmAKgikIpiCYgmC+AJWUDdHaRolwAAAAAElFTkSuQmCC" alt="" class="active"
+					/></label>
+					<input type="checkbox" class="anim_checkbox" name="oignon" id="oignon" value="oignon" />
+					<label for="oignon" class="anim_labelBtn">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAERElEQVR4nO2c2ZalIAxFD736/3/ZfiitRmQIGJODst9q1XWobJNwESps24YFD3+8b2BxZgkhYwkhYwkhYwkhYwkhYwkhYwkhYwkhYwkhYwkhYwkh46/VhUIIVpe6sF1nUMPI/VhMxL4+QzIyqHm9kNl4tZDZsgMw7CFStOr9rMyQIUMP+ozZAcwhBNCNL3W6zSIE6JAya3YAnEJqT7BKrJl7EqMQ4EdKKWpVKTNnB0AoRPj0jsadNzV26Ia9wH8p27YFAOLI382OxvEmMimFJJSkHPELIQSxjEg2ZWmjK1kxUfkaafTpMb8/s8oAgGB1b3dGNsk9jt5wV/mLjjGFOkMOEpmSIOU+0yOjNsp7lBl6CIBT7W9+9O6lctcVXvs2U2RIzB6gak/BvbL2ex2PL5DTZMjDFLPCmukyZEezOdPIAN6TIa0mXhJ4KlEMzJohGtDJAN6RIT9dPglqZUREVaJSvpwhdDKAd2SIJLDUWRHzlQyhnbtKeUWGSGHOjIPpMuTGTO22o3o/2kwnpIOhV8DeTCVEMZK0Uuh7yOhr1f0t4vH70htHulWRtEKUH2HRa2AG6EpWR+fNfkM/feA8hT68tMgSKiGCqATUA5s/SPbGkWIURiNE0CsugewpM7NkC0UPqUTgloTsCX+afXx+jlq14y5EKmNURHL+EGfK0dBxleI2AqMpWQnpu4otQu8i9XVfLqXLVUjhLz7JUI7K5XSNLDCX4ibEQUYRwUoWM1yESGTYX/58D8LPq0PXQxqLoUdMiY4RriN+HBYhzW/daARqO9M6Nuu7IsUsS8yFZP6yrrW6OWnVGlSW3JLiAkuGpGto8/sLBoPV27Q/v3JREgCHIF3KlsVFvYU8EeXsOQtZ4j6ZmOItRMLTqVHrJd/bsPNEKSqdk+kLYAl3IRI6pamVoddPLjIU7J5e4nG/U2SIAOoy1MNbhHTB3Es8hUgD0qwcRrXe5CKfzBDAf4qkhKsQ1qB4Yiakc8Ry9xs1w4BuiM+WLFZjlEIG551U65+XMEohDtA0M1ohhYZffHB7Bgis5QqwFTLSqM2e3DuvjzWhzRBPPDPITEhvCYqOET2dkiAWVkD0rkp5FOsMcVv3xNw3YlhKlkqzjg8TnTyz/Gg0g7QwFdIoQa0Vha2NOr2beS6fY8girwx5/KmrZNZJmmR0ZTnn5vJfSaNrFkuJZhAk5bBWqjr+3+NtXDJEsI5WfS9Ien2pcOsZabcdVMnWshLbprCTqXW89krJO7huaRNs7gfO8VLfZqa4yl4FlmEvIBshqZYyNhkAgZBMPTcR05zLd3qb6b4L9yAzkokjUitnXWWsIcJ8mJtCI+SgMMSs9RlRjxGkE8U7ETohB4XvLQH1bQGjZcxqf2MTWiExmY3+gM5+jXPzIlgF497Uexho/sVTpccyyAAMp04WMqbKkC+whJCxhJCxhJCxhJCxhJCxhJDxD7JPF9VC381JAAAAAElFTkSuQmCC" alt="" class="active" />
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEyklEQVR4nO2d63LjIAyF5Z19/1f2/mi8dQg3iSPpeMKZ6bRNbGzzISRAJMd5nrLFoz/ZN7D1rg2ETBsImTYQMm0gZNpAyLSBkGkDIdMGQqYNhEwbCJk2EDL9RRV0HAeqKLjOzxnUY/Z+FZOv9wPNlQEDUjz09AN7qwLD5TKogry6rKB6oBD0QWEWUtF5nqe7mfQsMaBV1MpfemakhdRuxFIhZ/HDKjgMEXyX5WERJijO1uECQwQI5NZ1lDeGqBhk5Xo0GliZUAvp9OehUIKtAwrYK8pa8Se9B4RU9EJI7u7TPEfqq1BatdYtw9E63PzGXd5TJ6jIC1WGtQJDYIj4jkMuHfL5QKfMPVDt3KZWrUNxvtv4KgKIiLJiJ889RURug08NONXxlftxU+Rs70o4bHH05Tn3/ylhiORPv2uhaBx96zVaGCLxQBBOftb3rF5He02IonzIXStOfrZ8pH6nIPBrKB/K6rJWW/DIp6DGIuGLOpk+xGuMYhHHaprkO3XkQM16nVZYnQIpw4eUKivE4k9G1tYLjWlgiORbSEsRXRcdDBEeIF6zw63jKWGI8AARiXXylDBEuICI+EE5hNwyLrEBEfGBcha/R9dLEyMQkbhKooIhwgtEpD07bLUW17VwlJiB1ISaXqEVO5BHVuqK2IGMtAKMMiuSYeqkJVRkNXMMjSUyWohm+rx1XCu8NaUWRYoNyKhiZlryaKzRg5IOhglIrzLurbuXLDE78KO1FhYfMps5gj5/JT3JRXAg2rzZTnLaW0H3cl+5WLPd22jvn/cav0osFlLqLbHg/FH5Xg+KZUqeAkqqD2lYxweMThHaCtN2T+HdWRoQAAwRXdg7EsVYJAXIDIyZYozvay0u1ErgPgSxPaOTDN1LrO4tPmknJdMiL5ZxiCY9VFPprakR7QA0DFAGEMu6hAVG63qj11PFYiGlZrPZNQNHCqc9EiuQUloYHln2IR8Xkg3E2mpnYFgnIlOVDcQiDcRVKN81Ug/SI3zHpacBQayHUCsaCOu2MprQmNFCLC3cuu+QTmxAvLsbeihMW9qiug2PUBsmFguJ7qvTZ3VbYgDymI2eEZ+0GglEsyNqdbYVlZAdrmwLycxIpwl178oEgl6TQMJMS5rLtpC7MkNSmnCYBchqQpxWtNMrkXlZlg2X0evb3XscrYcgorDsKIuiVRb6ig8OWIlokN1ZzVlTLWRFALHmT6EVsQFoWd5AVjfeTKnSdx/X66/3ujnA13GDY5fvc0bRyda9dJ5eZojH9PrH8ZNZDK4ZLJ4W0uur3R1nJ+J5m5oZREatjT1uluJlIbPOurYF4HpPpYmK7Z5T+56q4u+Q7QoeQDThrTYFFCLjeCFkTAQFMspqtxS5eP7PDQwAKD9ivNzTCG00MB+yAKO3AVPkd+zg0joBjQh6X9FfVzE6fnQOFIwRhquTj/xCF8257mAWE3XdokSkD/kcnRmcZ2Vzp0h/6kV1kZk9i6/tdKOiXJy828DQOvN5nVdUSHdAeYfYuu6ERVhumDfsRScAFGOE/y/LYGrD2BNp9ze6iXWf+psKq+lZi7ro2nXKvyPFsmI4paKSZpx/s6jy3GzLuHR80ZcIP0KPspBv0AZCpg2ETBsImTYQMm0gZNpAyPQPwRF46WUiZ8EAAAAASUVORK5CYII=" alt="" class="inactive"
+					/></label>
+				</div>
 			</div>
 
 			<!-- resize modal -->
@@ -181,11 +194,11 @@
 				<div class="modal__overlay" tabindex="-1" data-micromodal-close>
 					<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="inactifClick-modal-title">
 						<header class="modal__header">
-							<h2 class="modal__title modal__title--error" id="inactifClick-modal-title" translate="activLayerNotVisible">Active layer inactiv</h2>
+							<h2 class="modal__title modal__title--error" id="inactifClick-modal-title" translate="Edition Impossible">Edition impossible</h2>
 							<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
 						</header>
 						<main class="modal__content" id="inactifClick-modal-content">
-							<p translate="inactiveClick">Activate it to be able to modify it</p>
+							<p translate="inactiveClick">The current layer should be activ and the animation should be paused.</p>
 						</main>
 					</div>
 				</div>

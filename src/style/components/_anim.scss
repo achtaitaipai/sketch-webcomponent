@@ -1,12 +1,12 @@
 .anim {
 	grid-column: 2 / -2;
 	border: 2px solid $primary-200;
-	max-height: 15vh;
+	max-height: 16vh;
 	width: 80%;
 	margin-inline: auto;
 	&_frameList {
 		width: 100%;
-		height: calc(100% - 1rem);
+		height: calc(100% - 1.5rem);
 		gap: 1rem;
 		display: flex;
 		flex-direction: row;
@@ -34,7 +34,7 @@
 		background-repeat: no-repeat;
 		background-position: center;
 		cursor: pointer;
-		&-btn {
+		&-new {
 			order: 1;
 			background-image: none;
 		}
@@ -68,7 +68,7 @@
 	&_frame:hover &_delete {
 		opacity: 1;
 	}
-	&_btn {
+	&_new {
 		width: 100%;
 		height: 100%;
 		font-size: 2rem;
@@ -82,8 +82,70 @@
 		}
 	}
 	&_tools {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
 		width: 100%;
-		height: 1rem;
+		height: 1.5rem;
 		background-color: $primary-200;
+		gap: 0.5rem;
+		padding-inline: 0.5rem;
+	}
+	&_labelBtn {
+		width: 1.5rem;
+		height: 1.5rem;
+		background-color: transparent;
+		border: 1px solid white;
+		color: white;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		&:hover {
+			background-color: $accent;
+		}
+		img {
+			width: 100%;
+		}
+	}
+	&_checkbox {
+		display: none;
+	}
+	&_checkbox + &_labelBtn {
+		.active {
+			display: none;
+		}
+		.inactive {
+			display: inline-block;
+		}
+	}
+	&_checkbox:checked + &_labelBtn {
+		.active {
+			display: inline-block;
+		}
+		.inactive {
+			display: none;
+		}
+	}
+
+	&_label {
+		color: white;
+	}
+	// style input number
+	&_fps {
+		width: 3rem;
+		border: 1px solid white;
+		border-radius: 0.25rem;
+		background-color: transparent;
+		color: white;
+		text-align: center;
+		font-size: 1rem;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		&:hover {
+			background-color: $accent;
+		}
+	}
+	&_fps::-webkit-inner-spin-button {
+		-webkit-appearance: none;
 	}
 }

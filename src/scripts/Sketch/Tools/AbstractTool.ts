@@ -25,10 +25,12 @@ export default abstract class Tool {
 	}
 	public drag(_: DragEventType) {}
 	public move(_: PointerMove) {}
-	public unClick(_: PointerUpType) {}
 	public out(_: Coordinate) {}
 	public zoom(e: ZoomEventType) {
 		this._sketch.camera.zoom(this._sketch.gridCoordinate(e.pos), e.dir, e.factor)
+	}
+	public unClick(_: PointerUpType): void {
+		this._sketch.dispatchUpdate()
 	}
 	public exit() {}
 }
