@@ -26,7 +26,10 @@
 		position: relative;
 		flex-shrink: 0;
 		border: 1px solid white;
-		background-image: url('https://picsum.photos/300/200');
+		-webkit-optimize-contrast: pixelated;
+		-ms-interpolation-mode: nearest-neighbor;
+		image-rendering: crisp-edges;
+		image-rendering: pixelated;
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center;

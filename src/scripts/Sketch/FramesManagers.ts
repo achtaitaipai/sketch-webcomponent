@@ -1,30 +1,29 @@
 import Sketch from '.'
-import LayersManager from './LayersManager'
+import Frame from './Frame'
 
 interface Iframe {
 	id: number
-	layersManager: LayersManager
+	frame: Frame
 }
 
 export default class FramesManager {
-	public frames: Iframe[]
-	private _frameIndex: number = 1
+	public frames: Frame[]
+	public _frameIndex: number = 1
 	private _sketch: Sketch
 
 	constructor(sketch: Sketch) {
 		this._sketch = sketch
-		this.frames = [{ id: 1, layersManager: new LayersManager(this._sketch) }]
+		this.frames = [new Frame(this._sketch, 1)]
 	}
 
 	get actif() {
-		return this.currentLayers?.actif ?? false
+		return this.currentFrame?.actif ?? false
 	}
-	get currentLayers() {
-		return this.frames.find(frame => frame.id === this._frameIndex)!.layersManager
+	get currentFrame() {
+		return this.frames.find(frame => frame.id === this._frameIndex)!
 	}
 	public newFrame(id: number) {
-		const newFrame = { id, layersManager: new LayersManager(this._sketch) }
-		this.frames.push(newFrame)
+		this.frames.push(new Frame(this._sketch, id))
 	}
 
 	public selectFrame(index: number) {
@@ -36,7 +35,7 @@ export default class FramesManager {
 	}
 
 	public sortFrames(list: number[]) {
-		const frames: Iframe[] = []
+		const frames: Frame[] = []
 		list.forEach(id => {
 			const frame = this.frames.find(frame => frame.id === id)
 			if (frame) frames.push(frame)
@@ -45,18 +44,18 @@ export default class FramesManager {
 	}
 
 	public currentDrawing() {
-		return this.currentLayers?.currentDrawing()
+		return this.currentFrame?.currentLayer()
 	}
 
 	public clear() {
-		this.currentLayers?.clear()
+		this.currentFrame?.clear()
 	}
 
 	public resize(width: number, height: number, hAlign: number = -1, vAlign: number = -1) {
-		this.frames.forEach(frame => frame.layersManager.resize(width, height, hAlign, vAlign))
+		this.frames.forEach(frame => frame.resize(width, height, hAlign, vAlign))
 	}
 
 	public crop(x: number, y: number, width: number, height: number) {
-		this.frames.forEach(frame => frame.layersManager.crop(x, y, width, height))
+		this.frames.forEach(frame => frame.crop(x, y, width, height))
 	}
 }

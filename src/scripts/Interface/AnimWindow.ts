@@ -20,6 +20,8 @@ export default class AnimWindow {
 			onSort: this._onSort.bind(this),
 		})
 		this._addFrame()
+
+		this._sketch.addEventListener('update', this._onSketchChange.bind(this))
 	}
 	private static _handleClick(e: MouseEvent) {
 		const target = e.target as HTMLElement
@@ -38,7 +40,7 @@ export default class AnimWindow {
 		const ids = frames.map(el => Number(el.getAttribute('data-id')))
 		const frame = e.item
 		this._selectFrame(frame)
-		this._sketch.frames.sortFrames(ids)
+		this._sketch.frameManager.sortFrames(ids)
 	}
 
 	private static _addFrame() {
@@ -58,7 +60,7 @@ export default class AnimWindow {
 		this._frameList.appendChild(frame)
 		this._frameList.scrollTo(this._frameList.scrollWidth, 0)
 		frame.addEventListener('click', this._handleClick.bind(this))
-		this._sketch.frames.newFrame(id)
+		this._sketch.frameManager.newFrame(id)
 		this._selectFrame(frame)
 		this._updateLayers()
 	}
@@ -78,7 +80,7 @@ export default class AnimWindow {
 				}
 			}
 			const id = Number(frame.getAttribute('data-id'))
-			this._sketch.frames.removeFrame(id)
+			this._sketch.frameManager.removeFrame(id)
 			frame.remove()
 		}
 	}
@@ -87,7 +89,7 @@ export default class AnimWindow {
 		selected?.classList.remove('selected')
 		frame.classList.add('selected')
 		const id = Number(frame.getAttribute('data-id'))
-		this._sketch.frames.selectFrame(id)
+		this._sketch.frameManager.selectFrame(id)
 		this._sketch.updatePreview()
 	}
 	private static newId() {
@@ -95,6 +97,13 @@ export default class AnimWindow {
 		const maxId = Math.max(...items.map(item => Number(item.getAttribute('data-id'))))
 		return maxId > 0 ? maxId + 1 : 1
 	}
-}
 
-// on sort
+	private static _onSketchChange() {
+		const items = Array.from(this._frameList.querySelectorAll<HTMLElement>('.anim_frame:not(.anim_frame-btn)'))
+		items.forEach(itm => {
+			const id = Number(itm.getAttribute('data-id'))
+			const frame = this._sketch.frameManager.frames.find(f => f.id === id)
+			itm.style.backgroundImage = `url(${frame!.preview.toDataURL()})`
+		})
+	}
+}

@@ -10,7 +10,7 @@ export default class Sketch extends HTMLElement {
 	public _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
 	// public layers: LayersManager
-	public frames: FramesManager
+	public frameManager: FramesManager
 	private _cursor: Drawing
 	private _background: AbstractImage
 	public camera: Camera
@@ -24,12 +24,12 @@ export default class Sketch extends HTMLElement {
 		this._ctx = this._canvas.getContext('2d')!
 
 		// this.layers = new LayersManager(this)
-		this.frames = new FramesManager(this)
+		this.frameManager = new FramesManager(this)
 		this._cursor = new Drawing()
 		this._background = new Background()
 		this.camera = new Camera(this, this._canvas)
 
-		this._tools = new ToolsManager(this, this.frames, this._cursor)
+		this._tools = new ToolsManager(this, this.frameManager, this._cursor)
 	}
 
 	connectedCallback() {
@@ -68,7 +68,7 @@ export default class Sketch extends HTMLElement {
 	}
 
 	get actif() {
-		return this.frames.actif
+		return this.frameManager.actif
 	}
 
 	static get observedAttributes() {
@@ -78,7 +78,7 @@ export default class Sketch extends HTMLElement {
 	public crop(x: number, y: number, width: number, height: number) {
 		this._canvas.width = width
 		this._canvas.height = height
-		this.frames.crop(x, y, width, height)
+		this.frameManager.crop(x, y, width, height)
 		this._cursor.resize(width, height)
 		this._background.resize(width, height)
 		this._background.clear()
@@ -88,7 +88,7 @@ export default class Sketch extends HTMLElement {
 	public resize(width: number, height: number, hAlign: number, vAlign: number) {
 		this._canvas.width = width
 		this._canvas.height = height
-		this.frames.resize(width, height, hAlign, vAlign)
+		this.frameManager.resize(width, height, hAlign, vAlign)
 		this._cursor.resize(width, height)
 		this._background.resize(width, height)
 		this._background.clear()
@@ -103,7 +103,7 @@ export default class Sketch extends HTMLElement {
 			case 'width':
 				if (value >= 1) {
 					this._canvas.width = value
-					this.frames.resize(value, this._canvas.height)
+					this.frameManager.resize(value, this._canvas.height)
 					this._cursor.resize(value, this._canvas.height)
 					this._background.resize(value, this._canvas.height)
 					this._background.clear()
@@ -113,7 +113,7 @@ export default class Sketch extends HTMLElement {
 				break
 			case 'height':
 				this._canvas.height = value
-				this.frames.resize(this._canvas.width, value)
+				this.frameManager.resize(this._canvas.width, value)
 				this._cursor.resize(this._canvas.width, value)
 				this._background.resize(this._canvas.width, value)
 				this._background.clear()
@@ -128,15 +128,17 @@ export default class Sketch extends HTMLElement {
 	public updatePreview() {
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
 		this._ctx.drawImage(this._background.canvas, 0, 0)
-		for (const layer of [...this.frames.currentLayers.layers].reverse()) {
-			if (layer.drawing.actif) this._ctx.drawImage(layer.drawing.canvas, 0, 0)
-		}
+		// for (const layer of [...this.frames.currentFrame.layers].reverse()) {
+		// 	if (layer.drawing.actif) this._ctx.drawImage(layer.drawing.canvas, 0, 0)
+		// }
+		this._ctx.drawImage(this.frameManager.currentFrame!.preview, 0, 0)
 		this._ctx.drawImage(this._cursor.canvas, 0, 0)
+		this.dispatchEvent(new CustomEvent('update'))
 	}
 
 	public clear() {
 		this._background.clear()
-		this.frames.clear()
+		this.frameManager.clear()
 		this._cursor.clear()
 		this.updatePreview()
 	}

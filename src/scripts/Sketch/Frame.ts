@@ -6,14 +6,29 @@ interface iLayer {
 	id: number
 }
 
-export default class LayersManager {
+export default class Frame {
 	public layers: iLayer[]
 	public layerIndex: number = 1
 	private _sketch: Sketch
+	public id: number
 
-	constructor(sketch: Sketch) {
+	constructor(sketch: Sketch, id: number) {
 		this.layers = [{ id: 1, drawing: new Drawing() }]
 		this._sketch = sketch
+		this.id = id
+	}
+
+	get preview() {
+		const canvas = document.createElement('canvas')
+		canvas.width = this._sketch.width
+		canvas.height = this._sketch.height
+		const ctx = canvas.getContext('2d')!
+
+		for (let i = this.layers.length - 1; i >= 0; i--) {
+			const layer = this.layers[i]
+			ctx.drawImage(layer.drawing.canvas, 0, 0)
+		}
+		return canvas
 	}
 
 	get actif() {
@@ -48,7 +63,7 @@ export default class LayersManager {
 		this._sketch.updatePreview()
 	}
 
-	public currentDrawing() {
+	public currentLayer() {
 		return this.layers.find(layer => layer.id === this.layerIndex)?.drawing
 	}
 

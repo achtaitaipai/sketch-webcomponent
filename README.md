@@ -18,7 +18,6 @@ une application de dessins avec peu de pixels
 ## prochaines étapes :
 
 - système d'animations :
-  - previews frames
   - dupliquer frame
   - oignon
   - play / pause
@@ -46,3 +45,4 @@ une application de dessins avec peu de pixels
 ### Autres :
 
 - fullscreen ?
+- optimiser le rafraichissement des frames ? ne raffraichir que celui qui change ?
