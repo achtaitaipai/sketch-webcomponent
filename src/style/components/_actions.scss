@@ -2,21 +2,23 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	justify-content: center;
 	&_btn {
-		width: calc(100% / 4 - 2px);
-		display: grid;
-		place-items: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		position: relative;
+		cursor: pointer;
+		padding: 0.125rem;
 		background-color: transparent;
 		border: 0;
-		cursor: pointer;
-		padding: 0;
-		height: fit-content;
 		img {
-			width: 90%;
 			transition: transform 0.2s;
+			object-fit: cover;
+			height: 100%;
 		}
 		&:hover {
-			border: 1px solid $accent;
+			border: 2px solid $accent;
+			box-shadow: $boxShadow;
 			img {
 				transform: scale(1.2);
 			}

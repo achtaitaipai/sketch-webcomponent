@@ -1,9 +1,11 @@
 .tools {
-	display: grid;
+	display: flex;
+	flex-wrap: wrap;
 	grid-template-columns: 3rem 3rem;
-	width: 100%;
-	justify-content: center;
-	justify-items: center;
+	width: min(100%, 6rem);
+	margin: 0 auto;
+	justify-content: flex-start;
+	// justify-items: center;
 	gap: 1rem;
 
 	&_radio {
@@ -18,18 +20,19 @@
 		// background-color: $primary-200;
 	}
 	&_label:hover {
+		border: 2px solid $accent;
+		box-shadow: $boxShadow;
 		img {
 			transform: scale(1.2);
 		}
-		border: 1px solid darken($accent, 10);
 	}
 	img {
 		object-fit: cover;
 		height: 100%;
 	}
-	&_radio:checked + &_label,
-	&_label:hover::after {
+	&_radio:checked + &_label {
 		z-index: 2;
 		border: 2px solid $accent;
+		box-shadow: $boxShadow;
 	}
 }

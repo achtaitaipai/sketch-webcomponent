@@ -21,7 +21,7 @@ customElements.define('sketch-app', Sketch)
 const sketch = <Sketch>document.querySelector('sketch-app')
 
 ToolsBtn.init('#tools-js input[type=radio]', sketch)
-SizesBtn.init('#sizes-js input[type=radio]', sketch)
+SizesBtn.init('#size-js', sketch)
 ActionsBtns.init('.actions_btn', sketch)
 ColorsBtn.init('#colorBtn-js', sketch)
 LayersWindow.init('#layers-js', sketch)

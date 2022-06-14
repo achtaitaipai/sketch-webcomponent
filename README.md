@@ -6,7 +6,6 @@ une application de dessins avec peu de pixels
 
 ## objectifs :
 
-- possibilité de créer des anims
 - utilisable sur tablette ou téléphone (avec moins de fonctionnalités)
 - utilisable au clavier
 - possibilité d'exporter en json, png, spritesheet png, gif
@@ -21,7 +20,7 @@ une application de dessins avec peu de pixels
   - oignon
   - dupliquer frame
 - historique
-- ...
+- gestion des fichiers
 
 ---
 
@@ -29,7 +28,7 @@ une application de dessins avec peu de pixels
 
 ### Bugs :
 
-- bug bizarre au chargement parfois, comme si le js se lançait avant le chargement
+- bug bizarre au chargement parfois, on dirait que `fitScreen()` s'exécute trop tôt
 
 ### Calques :
 
@@ -47,3 +46,4 @@ une application de dessins avec peu de pixels
 - zoom :
   - maximum, minimum en fonction de la taille de l'image
   - zoom et dézoom proportionnel au zoom actuel
+- définir une dimension maximum au delà de laquelle pixynth fonctionne bof ?

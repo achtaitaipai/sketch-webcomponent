@@ -47,6 +47,11 @@ export default class FramesManager {
 		return this.currentFrame?.currentLayer()
 	}
 
+	get previousFrame() {
+		const index = this.frames.findIndex(frame => frame.id === this._frameIndex)
+		return this.frames[index - 1] ?? null
+	}
+
 	public clear() {
 		this.currentFrame?.clear()
 	}

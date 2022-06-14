@@ -17,6 +17,7 @@ export default class Sketch extends HTMLElement {
 	public size = 1
 	public color: string = '#000000'
 	private _tools: ToolsManager
+	public onion = false
 
 	private _animationFrame: number | null = null
 	private _nextFrame: number | null = null
@@ -136,8 +137,13 @@ export default class Sketch extends HTMLElement {
 	}
 
 	public updatePreview() {
+		const onionImg = this.frameManager.previousFrame?.preview
+
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
 		this._ctx.drawImage(this._background.canvas, 0, 0)
+		this._ctx.globalAlpha = 0.4
+		if (this.onion && onionImg && !this.playing) this._ctx.drawImage(onionImg, 0, 0)
+		this._ctx.globalAlpha = 1
 		if (this.frameManager.currentFrame) this._ctx.drawImage(this.frameManager.currentFrame.preview, 0, 0)
 		this._ctx.drawImage(this._cursor.canvas, 0, 0)
 	}

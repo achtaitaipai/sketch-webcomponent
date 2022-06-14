@@ -38,6 +38,7 @@ export default class AnimWindow {
 			this._updateLayers()
 		} else {
 			this._removeFrame(frame)
+			this._updateLayers()
 		}
 	}
 
@@ -58,6 +59,7 @@ export default class AnimWindow {
 			return
 		}
 		this._selectFrame(frame)
+		this._updateLayers()
 	}
 
 	private static _addFrame() {
@@ -95,12 +97,16 @@ export default class AnimWindow {
 		if (frames?.length > 2) {
 			const selected = frame.classList.contains('selected')
 			if (selected) {
-				const index = Array.prototype.indexOf.call(this._frameList.children, frame)
-				if (index > 1) {
-					const toSelect = this._frameList.children[index - 1]
+				const childrens = Array.from(this._frameList.querySelectorAll('.anim_frame:not(.anim_frame-new)'))
+				// const index = Array.prototype.indexOf.call(this._frameList.children, frame)
+				const index = childrens.indexOf(frame)
+				if (index >= 1) {
+					const toSelect = childrens[index - 1]
+					console.log(index, toSelect)
 					this._selectFrame(toSelect)
 				} else {
-					const toSelect = this._frameList.children[index + 1]
+					console.log(index)
+					const toSelect = childrens[1]
 					this._selectFrame(toSelect)
 				}
 			}

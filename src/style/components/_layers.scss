@@ -1,7 +1,7 @@
 .layers {
 	color: white;
 	outline: 1px solid $primary-200;
-	width: max(90%, 9rem);
+	width: 80%;
 	&_title {
 		border-bottom: 1px solid $primary-200;
 		padding: 0.4rem;
@@ -43,5 +43,9 @@
 		border: 1px solid white;
 		cursor: pointer;
 		color: white;
+		transition: background-color 0.2s;
+		&:hover {
+			background-color: $accent;
+		}
 	}
 }
