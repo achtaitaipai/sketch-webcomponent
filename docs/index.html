@@ -6,8 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 		<title>Pixynth</title>
-		<script type="module" crossorigin src="/pixynth/assets/index.36ffb64f.js"></script>
-		<link rel="stylesheet" href="/pixynth/assets/index.53a89613.css">
+		<script type="module" crossorigin src="/pixynth/assets/index.109eb9a4.js"></script>
+		<link rel="stylesheet" href="/pixynth/assets/index.2cf60d99.css">
 	</head>
 	<body>
 		<main class="main">
@@ -60,33 +60,11 @@
 					/></label>
 				</div>
 				<!-- SIZES -->
-				<div class="sizes" id="sizes-js">
-					<input type="radio" name="size" id="1" value="1" class="sizes_radio" checked /><label
-						for="1"
-						class="sizes_label"
-						tooltip-text="Set size to 1px"
-						tooltip-right
-						><span></span></label
-					><input type="radio" name="size" id="2" value="2" class="sizes_radio" /><label
-						for="2"
-						class="sizes_label"
-						tooltip-text="Set size to 2px"
-						tooltip-right
-						><span></span></label
-					><input type="radio" name="size" id="3" value="3" class="sizes_radio" /><label
-						for="3"
-						class="sizes_label"
-						tooltip-text="Set size to 3px"
-						tooltip-right
-						><span></span></label
-					><input type="radio" name="size" id="4" value="4" class="sizes_radio" /><label
-						for="4"
-						class="sizes_label"
-						tooltip-text="Set size to 4px"
-						tooltip-right
-						><span></span
-					></label>
+				<div class="size" id="size-js">
+					<label for="sizepx" class="size_label">size : <i>1 px</i></label
+					><input type="range" name="sizepx" id="sizepx" class="size_input" min="1" max="16" value="1" />
 				</div>
+
 				<!-- COLORS -->
 				<button class="color" label="color" id="colorBtn-js" tooltip-text="Choose a color" tooltip-right></button>
 				<color-picker
@@ -94,6 +72,7 @@
 				></color-picker>
 			</div>
 			<sketch-app width="30" height="30" class="sketch"></sketch-app>
+
 			<div class="rightBlock">
 				<!-- ACTIONS -->
 				<div class="actions">
