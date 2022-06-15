@@ -12,6 +12,7 @@ export default class LayersWindow {
 		this._sketch = sketch
 		const newBtn = this._window?.querySelector('#newLayer-js')
 		const deleteBtn = this._window?.querySelector('#deleteLayer-js')
+		const mergeBtn = this._window?.querySelector('#mergeLayer-js')
 
 		this._layers = this._window?.querySelector<HTMLUListElement>('ul') || null
 		if (this._layers) {
@@ -24,6 +25,7 @@ export default class LayersWindow {
 		this._layers?.addEventListener('click', this._layerClick.bind(this))
 		newBtn?.addEventListener('click', () => this._addLayer())
 		deleteBtn?.addEventListener('click', this._removeLayer.bind(this))
+		mergeBtn?.addEventListener('click', this._mergeLayer.bind(this))
 	}
 
 	public static updateLayers() {
@@ -92,9 +94,16 @@ export default class LayersWindow {
 		this._sketch.updatePreview()
 	}
 
-	/**
-	 * Update selected layer side layerManager
-	 */
+	private static _mergeLayer() {
+		const selected = this._layers?.querySelector('.selected')
+		const id1 = Number(selected?.getAttribute('data-id'))
+		const next = selected?.nextSibling as HTMLElement
+		const id2 = Number(next?.getAttribute('data-id'))
+		if (id1 && id2 && selected && next) {
+			this._sketch.frameManager.currentFrame?.mergeLayer(id1, id2)
+			next.remove()
+		}
+	}
 
 	private static _updateSelectedLayer() {
 		const selected = this._layers?.querySelector('.selected')

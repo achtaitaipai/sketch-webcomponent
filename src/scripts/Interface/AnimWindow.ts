@@ -1,6 +1,7 @@
 import Sortable from 'sortablejs'
 import Sketch from '../Sketch'
 import deleteImgUrl from '../../../assets/icons/actions/effacer.png'
+import duplicateImgUrl from '../../../assets/icons/duplicate.png'
 import MicroModal from 'micromodal'
 
 export default class AnimWindow {
@@ -31,13 +32,15 @@ export default class AnimWindow {
 		}
 		const target = e.target as HTMLElement
 		const frame = target?.closest('.anim_frame')!
-		const btn = target?.closest('.anim_delete')
-		//select a layer
-		if (btn === null) {
-			this._selectFrame(frame)
+		const deleteBtn = target?.closest('.anim_delete')
+		const duplicateBtn = target?.closest('.anim_duplicate')
+		if (duplicateBtn !== null) {
+			this._duplicateFrame(frame)
+		} else if (deleteBtn !== null) {
+			this._removeFrame(frame)
 			this._updateLayers()
 		} else {
-			this._removeFrame(frame)
+			this._selectFrame(frame)
 			this._updateLayers()
 		}
 	}
@@ -67,22 +70,11 @@ export default class AnimWindow {
 			MicroModal.show('inactifClick-modal')
 			return
 		}
-		const frame = document.createElement('li')
-		frame.classList.add('anim_frame')
 		const id = this.newId()
-		frame.setAttribute('data-id', id.toString())
-		const button = document.createElement('button')
-		button.classList.add('anim_delete')
-		button.setAttribute('tooltip-text', 'remove frame')
-		button.setAttribute('tooltip-right', 'true')
-		const img = document.createElement('img')
-		img.src = deleteImgUrl
-		img.setAttribute('alt', 'remove frame')
-		button.appendChild(img)
-		frame.appendChild(button)
+		const frame = this._createEl(id)
+
 		this._frameList.appendChild(frame)
 		this._frameList.scrollTo(this._frameList.scrollWidth, 0)
-		frame.addEventListener('click', this._handleClick.bind(this))
 		this._sketch.frameManager.newFrame(id)
 		this._selectFrame(frame)
 		this._updateLayers()
@@ -105,7 +97,6 @@ export default class AnimWindow {
 					console.log(index, toSelect)
 					this._selectFrame(toSelect)
 				} else {
-					console.log(index)
 					const toSelect = childrens[1]
 					this._selectFrame(toSelect)
 				}
@@ -123,6 +114,47 @@ export default class AnimWindow {
 		this._sketch.frameManager.selectFrame(id)
 		this._sketch.updatePreview()
 	}
+
+	private static _duplicateFrame(frameEl: Element) {
+		const id = Number(frameEl.getAttribute('data-id'))
+		const newId = this.newId()
+		const newFrame = this._createEl(newId)
+		this._sketch.frameManager.duplicate(id, newId)
+		const frame = this._sketch.frameManager.frames.find(f => f.id === newId)
+		newFrame.style.backgroundImage = `url(${frame!.preview.toDataURL()})`
+		this._frameList.appendChild(newFrame)
+		this._frameList.scrollTo(this._frameList.scrollWidth, 0)
+		this._selectFrame(newFrame)
+		this._updateLayers()
+	}
+
+	private static _createEl(id: number) {
+		const frame = document.createElement('li')
+		frame.classList.add('anim_frame')
+		frame.setAttribute('data-id', id.toString())
+		const removeBtn = document.createElement('button')
+		removeBtn.classList.add('anim_delete')
+		removeBtn.setAttribute('tooltip-text', 'remove frame')
+		removeBtn.setAttribute('tooltip-right', 'true')
+		const img = document.createElement('img')
+		img.src = deleteImgUrl
+		img.setAttribute('alt', 'remove frame')
+		removeBtn.appendChild(img)
+		frame.appendChild(removeBtn)
+
+		const duplicateBtn = document.createElement('button')
+		duplicateBtn.classList.add('anim_duplicate')
+		duplicateBtn.setAttribute('tooltip-text', 'duplicate frame')
+		duplicateBtn.setAttribute('tooltip-right', 'true')
+		const img2 = document.createElement('img')
+		img2.src = duplicateImgUrl
+		img2.setAttribute('alt', 'duplicate frame')
+		duplicateBtn.appendChild(img2)
+		frame.appendChild(duplicateBtn)
+		frame.addEventListener('click', this._handleClick.bind(this))
+		return frame
+	}
+
 	private static newId() {
 		const items = Array.from(this._frameList.querySelectorAll('.anim_frame') || [])
 		const maxId = Math.max(...items.map(item => Number(item.getAttribute('data-id'))))

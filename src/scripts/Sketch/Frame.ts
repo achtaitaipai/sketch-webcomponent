@@ -7,15 +7,23 @@ interface iLayer {
 }
 
 export default class Frame {
-	public layers: iLayer[]
+	public layers: iLayer[] = []
 	public layerIndex: number = 1
 	private _sketch: Sketch
 	public id: number
 
-	constructor(sketch: Sketch, id: number) {
-		this.layers = [{ id: 1, drawing: new Drawing() }]
+	constructor(sketch: Sketch, id: number, frame?: Frame) {
 		this._sketch = sketch
 		this.id = id
+		if (!frame) this.layers = [{ id: 1, drawing: new Drawing() }]
+		else {
+			frame.layers.forEach(itm => {
+				console.log(itm)
+				const layer = new Drawing(this._sketch.width, this._sketch.height)
+				layer.drawImg(itm.drawing.canvas)
+				this.layers.push({ id: itm.id, drawing: layer })
+			})
+		}
 	}
 
 	get preview() {
@@ -47,6 +55,7 @@ export default class Frame {
 	public removeLayer(id: number) {
 		this.layers = this.layers.filter(layer => layer.id !== id)
 		this._sketch.dispatchUpdate()
+		this._sketch.updatePreview()
 	}
 
 	public sortLayers(list: number[]) {
@@ -64,6 +73,15 @@ export default class Frame {
 		if (layer) layer.drawing.actif = visible
 		this._sketch.updatePreview()
 		this._sketch.dispatchUpdate()
+	}
+
+	public mergeLayer(id: number, id2: number) {
+		const layer1 = this.layers.find(layer => layer.id === id)
+		const layer2 = this.layers.find(layer => layer.id === id2)
+		if (layer1 && layer2) {
+			layer1?.drawing.drawImg(layer2?.drawing.canvas)
+			this.removeLayer(id2)
+		}
 	}
 
 	public currentLayer() {

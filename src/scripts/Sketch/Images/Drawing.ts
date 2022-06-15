@@ -153,4 +153,8 @@ export default class Drawing extends AbstractImage {
 		this.height = h
 		this._ctx.putImageData(img, x, y)
 	}
+
+	public drawImg(img: HTMLCanvasElement) {
+		this._ctx.drawImage(img, 0, 0)
+	}
 }

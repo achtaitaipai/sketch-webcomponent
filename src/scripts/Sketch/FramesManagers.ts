@@ -43,6 +43,12 @@ export default class FramesManager {
 		this.frames = frames
 	}
 
+	public duplicate(id: number, newId: number) {
+		const original = this.frames.find(frame => frame.id === id)
+		if (original) this.frames.push(new Frame(this._sketch, newId, original))
+		this._sketch.dispatchUpdate()
+	}
+
 	public currentDrawing() {
 		return this.currentFrame?.currentLayer()
 	}
