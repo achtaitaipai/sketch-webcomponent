@@ -19,8 +19,8 @@ export default class Frame {
 		else {
 			frame.layers.forEach(itm => {
 				console.log(itm)
-				const layer = new Drawing(this._sketch.width, this._sketch.height)
-				layer.drawImg(itm.drawing.canvas)
+				const layer = new Drawing(this._sketch.width, this._sketch.height, itm.drawing.canvas)
+				// layer.drawImg(itm.drawing.canvas)
 				this.layers.push({ id: itm.id, drawing: layer })
 			})
 		}

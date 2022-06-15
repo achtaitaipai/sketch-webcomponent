@@ -16,9 +16,6 @@ une application de dessins avec peu de pixels
 
 ## prochaines étapes :
 
-- système d'animations :
-  - oignon
-  - dupliquer frame
 - historique
 - gestion des fichiers
 

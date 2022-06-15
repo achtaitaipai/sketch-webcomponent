@@ -5,7 +5,7 @@ export default abstract class AbstractImage {
 	public actif = true
 	protected _ctx: CanvasRenderingContext2D
 
-	constructor(width?: number, height?: number, img?: HTMLCanvasElement | ImageData) {
+	constructor(width?: number, height?: number, img?: HTMLCanvasElement) {
 		this._canvas = document.createElement('canvas')
 		this._ctx = this._canvas.getContext('2d')!
 		if (width) this._canvas.width = width
