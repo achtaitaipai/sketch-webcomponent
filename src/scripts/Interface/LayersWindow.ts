@@ -101,7 +101,7 @@ export default class LayersWindow {
 		const id2 = Number(next?.getAttribute('data-id'))
 		if (id1 && id2 && selected && next) {
 			this._sketch.frameManager.currentFrame?.mergeLayer(id1, id2)
-			next.remove()
+			selected.remove()
 		}
 	}
 

@@ -27,14 +27,9 @@ une application de dessins avec peu de pixels
 
 - bug bizarre au chargement parfois, on dirait que `fitScreen()` s'exécute trop tôt
 
-### Frames :
-
-- dupliquer frame
-
 ### Calques :
 
 - renommer les calques ?
-- fusionner les calques !
 
 ### Outils :
 
