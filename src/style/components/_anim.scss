@@ -71,13 +71,13 @@
 	}
 	&_delete {
 		top: 0;
-		left: 0;
+		right: 0;
 	}
 	&_duplicate {
 		top: 0;
-		right: 0;
+		left: 0;
 		&:hover {
-			background-color: $primary-200;
+			background-color: $accent;
 		}
 	}
 	&_new {

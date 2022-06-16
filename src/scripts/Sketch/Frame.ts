@@ -20,7 +20,6 @@ export default class Frame {
 			frame.layers.forEach(itm => {
 				console.log(itm)
 				const layer = new Drawing(this._sketch.width, this._sketch.height, itm.drawing.canvas)
-				// layer.drawImg(itm.drawing.canvas)
 				this.layers.push({ id: itm.id, drawing: layer })
 			})
 		}
@@ -79,8 +78,9 @@ export default class Frame {
 		const layer1 = this.layers.find(layer => layer.id === id)
 		const layer2 = this.layers.find(layer => layer.id === id2)
 		if (layer1 && layer2) {
-			layer1?.drawing.drawImg(layer2?.drawing.canvas)
-			this.removeLayer(id2)
+			layer2?.drawing.drawImg(layer1?.drawing.canvas)
+			this.removeLayer(id)
+			this.layerIndex = id2
 		}
 	}
 
