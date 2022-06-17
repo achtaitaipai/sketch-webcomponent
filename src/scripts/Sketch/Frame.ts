@@ -25,7 +25,7 @@ export default class Frame {
 	constructor(sketch: Sketch, id: number, frame?: Frame) {
 		this._sketch = sketch
 		this.id = id
-		if (!frame) this.layers = [{ id: 1, drawing: new Drawing() }]
+		if (!frame) this.layers = [{ id: 1, drawing: new Drawing(this._sketch.width, this._sketch.height) }]
 		else {
 			frame.layers.forEach(itm => {
 				const layer = new Drawing(this._sketch.width, this._sketch.height, itm.drawing.canvas)

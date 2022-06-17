@@ -25,7 +25,6 @@ une application de dessins avec peu de pixels
 
 ### Bugs :
 
-- `resize` cassé
 - bug bizarre au chargement parfois, on dirait que `fitScreen()` s'exécute trop tôt
 
 ### Calques :

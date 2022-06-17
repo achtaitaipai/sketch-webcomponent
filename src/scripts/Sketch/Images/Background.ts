@@ -3,8 +3,8 @@ import AbstractImage from './AbstractImage'
 export default class Background extends AbstractImage {
 	private _colors = ['#909090', '#C0C0C0']
 	private _size = 4
-	constructor() {
-		super()
+	constructor(width: number, height: number) {
+		super(width, height)
 		this.clear()
 	}
 	public clear() {

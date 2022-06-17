@@ -141,18 +141,6 @@ export default class Drawing extends AbstractImage {
 			}
 		}
 	}
-	public resize(w: number, h: number, hAlign: number = -1, vAlign: number = -1) {
-		let x = 0
-		let y = 0
-		if (hAlign === 0) x = (w - this.width) / 2
-		else if (hAlign === 1) x = w - this.width
-		if (vAlign === 0) y = (h - this.height) / 2
-		else if (vAlign === 1) y = h - this.height
-		const img = this._ctx.getImageData(0, 0, this.width, this.height)
-		this.width = w
-		this.height = h
-		this._ctx.putImageData(img, x, y)
-	}
 
 	public drawImg(img: HTMLCanvasElement) {
 		this._ctx.drawImage(img, 0, 0)

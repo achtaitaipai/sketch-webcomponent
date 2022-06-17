@@ -36,8 +36,8 @@ export default class Sketch extends HTMLElement {
 
 		// this.layers = new LayersManager(this)
 		this.animation = new Animation(this)
-		this._cursor = new Drawing()
-		this._background = new Background()
+		this._cursor = new Drawing(this.width, this.height)
+		this._background = new Background(this.width, this.height)
 		this.camera = new Camera(this, this._canvas)
 
 		this._tools = new ToolsManager(this, this.animation, this._cursor)
