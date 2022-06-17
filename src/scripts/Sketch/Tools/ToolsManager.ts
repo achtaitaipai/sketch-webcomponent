@@ -15,7 +15,7 @@ import Circle from './Circle'
 import Drag from './Drag'
 import Crop from './Crop'
 import Inactif from './Inactif'
-import FramesManager from '../FramesManagers'
+import Animation from '../Animation'
 
 export default class ToolsManager {
 	private _eventsManager: EventsManager
@@ -24,7 +24,7 @@ export default class ToolsManager {
 	private _sketch
 	private _cursor
 
-	constructor(sketch: Sketch, frames: FramesManager, cursor: Drawing) {
+	constructor(sketch: Sketch, frames: Animation, cursor: Drawing) {
 		this._sketch = sketch
 		this._cursor = cursor
 		this._tools = {

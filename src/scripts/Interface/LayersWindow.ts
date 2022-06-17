@@ -30,7 +30,7 @@ export default class LayersWindow {
 
 	public static updateLayers() {
 		if (this._layers) this._layers.innerHTML = ''
-		const currentFrame = this._sketch.frameManager.currentFrame
+		const currentFrame = this._sketch.animation.currentFrame
 
 		if (currentFrame) {
 			for (const layer of currentFrame.layers) {
@@ -38,7 +38,7 @@ export default class LayersWindow {
 				this._layers?.appendChild(newLayer)
 			}
 		}
-		const selectedIndex = this._sketch.frameManager.currentFrame?.layerIndex
+		const selectedIndex = this._sketch.animation.currentFrame?.layerIndex
 		this._layers?.querySelector(`[data-id="${selectedIndex}"`)?.classList.add('selected')
 	}
 
@@ -55,7 +55,7 @@ export default class LayersWindow {
 		const layers = Array.from(this._layers?.querySelectorAll('li') || [])
 		const pos = layers.indexOf(newLayer)
 
-		this._sketch.frameManager.currentFrame?.newLayer(newId, pos)
+		this._sketch.animation.currentFrame?.newLayer(newId, pos)
 		this._updateSelectedLayer()
 		this._sketch.updatePreview()
 	}
@@ -88,7 +88,7 @@ export default class LayersWindow {
 
 		const id = Number(selected?.getAttribute('data-id'))
 		if (id) {
-			this._sketch.frameManager.currentFrame?.removeLayer(id)
+			this._sketch.animation.currentFrame?.removeLayer(id)
 		}
 		this._updateSelectedLayer()
 		this._sketch.updatePreview()
@@ -100,7 +100,7 @@ export default class LayersWindow {
 		const next = selected?.nextSibling as HTMLElement
 		const id2 = Number(next?.getAttribute('data-id'))
 		if (id1 && id2 && selected && next) {
-			this._sketch.frameManager.currentFrame?.mergeLayer(id1, id2)
+			this._sketch.animation.currentFrame?.mergeLayer(id1, id2)
 			selected.remove()
 			next.classList.add('selected')
 		}
@@ -111,13 +111,13 @@ export default class LayersWindow {
 		if (selected) {
 			const id = Number(selected?.getAttribute('data-id'))
 			if (id) {
-				this._sketch.frameManager.currentFrame?.selectLayer(id)
+				this._sketch.animation.currentFrame?.selectLayer(id)
 			}
 		}
 	}
 
 	private static _moveLayer(e: SortableEvent) {
-		this._sketch.frameManager.currentFrame?.sortLayers(this._sortable?.toArray().map(Number) || [])
+		this._sketch.animation.currentFrame?.sortLayers(this._sortable?.toArray().map(Number) || [])
 		this._sketch.updatePreview()
 		const item = e.item
 		if (item) {
@@ -141,7 +141,7 @@ export default class LayersWindow {
 		const li = target.closest('li')
 		const id = Number(li?.getAttribute('data-id'))
 		const visible = target.checked
-		if (id) this._sketch.frameManager.currentFrame?.setLayerVisible(id, visible)
+		if (id) this._sketch.animation.currentFrame?.setLayerVisible(id, visible)
 	}
 
 	private static newId() {

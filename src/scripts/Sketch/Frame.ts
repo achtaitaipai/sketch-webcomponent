@@ -6,6 +6,16 @@ interface iLayer {
 	id: number
 }
 
+export type FrameDatas = {
+	id: number
+	layerIndex: number
+	layers: {
+		id: number
+		drawing: HTMLCanvasElement
+		actif: boolean
+	}[]
+}
+
 export default class Frame {
 	public layers: iLayer[] = []
 	public layerIndex: number = 1
@@ -18,7 +28,6 @@ export default class Frame {
 		if (!frame) this.layers = [{ id: 1, drawing: new Drawing() }]
 		else {
 			frame.layers.forEach(itm => {
-				console.log(itm)
 				const layer = new Drawing(this._sketch.width, this._sketch.height, itm.drawing.canvas)
 				this.layers.push({ id: itm.id, drawing: layer })
 			})
@@ -42,9 +51,37 @@ export default class Frame {
 		return this.layers.find(layer => layer.id === this.layerIndex)?.drawing.actif ?? false
 	}
 
+	getDatas(): FrameDatas {
+		const layers = this.layers.map(itm => {
+			const id = itm.id
+			const canvas = document.createElement('canvas')
+			canvas.width = this._sketch.width
+			canvas.height = this._sketch.height
+			const ctx = canvas.getContext('2d')!
+			ctx.drawImage(itm.drawing.canvas, 0, 0)
+			const actif = itm.drawing.actif
+			return { id, drawing: canvas, actif }
+		})
+		const id = this.id
+		return { id, layers, layerIndex: this.layerIndex }
+	}
+
+	public loadDatas(datas: FrameDatas) {
+		this.layerIndex = datas.layerIndex
+		this.id = datas.id
+		this.layers = datas.layers.map(layerData => {
+			const id = layerData.id
+			const img = layerData.drawing
+			const drawing = new Drawing(img.width, img.height, img)
+			drawing.actif = layerData.actif
+			return { id, drawing }
+		})
+	}
+
 	public newLayer(id: number, pos: number) {
 		const newLayer = { id: id, drawing: new Drawing(this._sketch.width, this._sketch.height) }
 		this.layers.splice(pos, 0, newLayer)
+		this._sketch.historyPush()
 	}
 
 	public selectLayer(index: number) {
@@ -55,6 +92,7 @@ export default class Frame {
 		this.layers = this.layers.filter(layer => layer.id !== id)
 		this._sketch.dispatchUpdate()
 		this._sketch.updatePreview()
+		this._sketch.historyPush()
 	}
 
 	public sortLayers(list: number[]) {

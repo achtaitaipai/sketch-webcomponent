@@ -24,5 +24,6 @@ export default class Crop extends Tool {
 		this._cursor.clear()
 		if (w > 0 && h > 0) this._sketch.crop(x, y, w, h)
 		this._sketch.dispatchUpdate()
+		this._sketch.historyPush()
 	}
 }

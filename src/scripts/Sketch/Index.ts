@@ -4,19 +4,21 @@ import Background from './Images/Background'
 import AbstractImage from './Images/AbstractImage'
 import ToolsManager from './Tools/ToolsManager'
 import { Coordinate } from './types/eventsTypes'
-import FramesManager from './FramesManagers'
+import Animation from './Animation'
+import HistoryManager from './History'
 
 export default class Sketch extends HTMLElement {
 	public _canvas: HTMLCanvasElement
 	private _ctx: CanvasRenderingContext2D
 	// public layers: LayersManager
-	public frameManager: FramesManager
+	public animation: Animation
 	private _cursor: Drawing
 	private _background: AbstractImage
 	public camera: Camera
 	public size = 1
 	public color: string = '#000000'
 	private _tools: ToolsManager
+	private _history: HistoryManager
 	public onion = false
 
 	private _animationFrame: number | null = null
@@ -33,12 +35,13 @@ export default class Sketch extends HTMLElement {
 		this._ctx = this._canvas.getContext('2d')!
 
 		// this.layers = new LayersManager(this)
-		this.frameManager = new FramesManager(this)
+		this.animation = new Animation(this)
 		this._cursor = new Drawing()
 		this._background = new Background()
 		this.camera = new Camera(this, this._canvas)
 
-		this._tools = new ToolsManager(this, this.frameManager, this._cursor)
+		this._tools = new ToolsManager(this, this.animation, this._cursor)
+		this._history = new HistoryManager(this, this.animation)
 	}
 
 	connectedCallback() {
@@ -49,6 +52,8 @@ export default class Sketch extends HTMLElement {
 	private _createCanvas() {
 		const shadow = this.attachShadow({ mode: 'open' })
 		const canvas = document.createElement('canvas')
+		canvas.width = 30
+		canvas.height = 30
 		const style = document.createElement('style')
 		style.textContent = /*css*/ `
         canvas{
@@ -77,7 +82,7 @@ export default class Sketch extends HTMLElement {
 	}
 
 	get actif() {
-		return this.frameManager.actif && !this.playing
+		return this.animation.actif && !this.playing
 	}
 
 	static get observedAttributes() {
@@ -87,7 +92,7 @@ export default class Sketch extends HTMLElement {
 	public crop(x: number, y: number, width: number, height: number) {
 		this._canvas.width = width
 		this._canvas.height = height
-		this.frameManager.crop(x, y, width, height)
+		this.animation.crop(x, y, width, height)
 		this._cursor.resize(width, height)
 		this._background.resize(width, height)
 		this._background.clear()
@@ -98,7 +103,7 @@ export default class Sketch extends HTMLElement {
 	public resize(width: number, height: number, hAlign: number, vAlign: number) {
 		this._canvas.width = width
 		this._canvas.height = height
-		this.frameManager.resize(width, height, hAlign, vAlign)
+		this.animation.resize(width, height, hAlign, vAlign)
 		this._cursor.resize(width, height)
 		this._background.resize(width, height)
 		this._background.clear()
@@ -114,7 +119,7 @@ export default class Sketch extends HTMLElement {
 			case 'width':
 				if (value >= 1) {
 					this._canvas.width = value
-					this.frameManager.resize(value, this._canvas.height)
+					this.animation.resize(value, this._canvas.height)
 					this._cursor.resize(value, this._canvas.height)
 					this._background.resize(value, this._canvas.height)
 					this._background.clear()
@@ -124,7 +129,7 @@ export default class Sketch extends HTMLElement {
 				break
 			case 'height':
 				this._canvas.height = value
-				this.frameManager.resize(this._canvas.width, value)
+				this.animation.resize(this._canvas.width, value)
 				this._cursor.resize(this._canvas.width, value)
 				this._background.resize(this._canvas.width, value)
 				this._background.clear()
@@ -137,23 +142,37 @@ export default class Sketch extends HTMLElement {
 	}
 
 	public updatePreview() {
-		const onionImg = this.frameManager.previousFrame?.preview
+		const onionImg = this.animation.previousFrame?.preview
 
 		this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
 		this._ctx.drawImage(this._background.canvas, 0, 0)
 		this._ctx.globalAlpha = 0.4
 		if (this.onion && onionImg && !this.playing) this._ctx.drawImage(onionImg, 0, 0)
 		this._ctx.globalAlpha = 1
-		if (this.frameManager.currentFrame) this._ctx.drawImage(this.frameManager.currentFrame.preview, 0, 0)
+		if (this.animation.currentFrame) this._ctx.drawImage(this.animation.currentFrame.preview, 0, 0)
 		this._ctx.drawImage(this._cursor.canvas, 0, 0)
 	}
 
 	public clear() {
 		this._background.clear()
-		this.frameManager.clear()
+		this.animation.clear()
 		this._cursor.clear()
 		this.updatePreview()
 		this.dispatchUpdate()
+	}
+
+	public historyPush() {
+		this._history.push()
+	}
+
+	public undo() {
+		this._history.undo()
+		this.updatePreview()
+	}
+
+	public redo() {
+		this._history.redo()
+		this.updatePreview()
 	}
 
 	public gridCoordinate({ x, y }: Coordinate): Coordinate {
@@ -170,7 +189,7 @@ export default class Sketch extends HTMLElement {
 	public stop() {
 		if (this._animationFrame) {
 			cancelAnimationFrame(this._animationFrame)
-			if (this._savedFrame) this.frameManager.selectFrame(this._savedFrame)
+			if (this._savedFrame) this.animation.selectFrame(this._savedFrame)
 			this.updatePreview()
 		}
 		this.playing = false
@@ -178,7 +197,7 @@ export default class Sketch extends HTMLElement {
 
 	public play() {
 		this._nextFrame = window.performance.now()
-		this._savedFrame = this.frameManager.currentFrame?.id ?? 1
+		this._savedFrame = this.animation.currentFrame?.id ?? 1
 		this._loop()
 		this.playing = true
 	}
@@ -188,7 +207,7 @@ export default class Sketch extends HTMLElement {
 		const now = window.performance.now()
 		this._nextFrame = this._nextFrame ?? now
 		if (now < this._nextFrame) return
-		this.frameManager.nextFrame()
+		this.animation.nextFrame()
 		this.updatePreview()
 		this._nextFrame += 1000 / this.fps
 		this.updatePreview()

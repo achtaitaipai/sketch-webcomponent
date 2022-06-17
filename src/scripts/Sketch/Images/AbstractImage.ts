@@ -1,35 +1,32 @@
 import { Coordinate } from '../types/eventsTypes'
 
 export default abstract class AbstractImage {
-	private _canvas: HTMLCanvasElement
+	public canvas: HTMLCanvasElement
 	public actif = true
 	protected _ctx: CanvasRenderingContext2D
 
 	constructor(width?: number, height?: number, img?: HTMLCanvasElement) {
-		this._canvas = document.createElement('canvas')
-		this._ctx = this._canvas.getContext('2d')!
-		if (width) this._canvas.width = width
-		if (height) this._canvas.height = height
+		this.canvas = document.createElement('canvas')
+		this._ctx = this.canvas.getContext('2d')!
+		if (width) this.canvas.width = width
+		if (height) this.canvas.height = height
 		if (img) this._ctx.drawImage(img, 0, 0)
 	}
 
 	set width(w: number) {
-		this._canvas.width = w
+		this.canvas.width = w
 	}
 
 	get width() {
-		return this._canvas.width
+		return this.canvas.width
 	}
 
 	set height(h: number) {
-		this._canvas.height = h
+		this.canvas.height = h
 	}
 
 	get height() {
-		return this._canvas.height
-	}
-	get canvas() {
-		return this._canvas
+		return this.canvas.height
 	}
 	getImgData(x = 0, y = 0, width = this.width, height = this.height) {
 		return new ImageData(new Uint8ClampedArray(this._ctx.getImageData(x, y, width, height).data), width, height)

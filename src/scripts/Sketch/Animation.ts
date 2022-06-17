@@ -1,37 +1,40 @@
 import Sketch from '.'
 import Frame from './Frame'
+import { InstantType } from './History'
 
-export default class FramesManager {
+export default class Animation {
 	public frames: Frame[] = []
-	public _frameIndex: number = 1
+	public frameIndex: number = 1
 	private _sketch: Sketch
 
 	constructor(sketch: Sketch) {
 		this._sketch = sketch
-		// this.frames = [new Frame(this._sketch, 1)]
 	}
 
 	get actif() {
 		return this.currentFrame?.actif ?? false
 	}
 	get currentFrame() {
-		return this.frames.find(frame => frame.id === this._frameIndex)
-	}
-	public newFrame(id: number) {
-		this.frames.push(new Frame(this._sketch, id))
+		return this.frames.find(frame => frame.id === this.frameIndex)
 	}
 
-	public selectFrame(index: number) {
-		this._frameIndex = index
+	public newFrame(id: number) {
+		this.frames.push(new Frame(this._sketch, id))
+		this._sketch.historyPush()
+	}
+
+	public selectFrame(id: number) {
+		this.frameIndex = id
 	}
 
 	public nextFrame() {
-		let cursor = this.frames.findIndex(f => f.id === this._frameIndex)
+		let cursor = this.frames.findIndex(f => f.id === this.frameIndex)
 		cursor = (cursor + 1) % this.frames.length
 		this.selectFrame(this.frames[cursor].id)
 	}
 	public removeFrame(id: number) {
 		this.frames = this.frames.filter(frame => frame.id !== id)
+		this._sketch.historyPush()
 	}
 
 	public sortFrames(list: number[]) {
@@ -47,14 +50,25 @@ export default class FramesManager {
 		const original = this.frames.find(frame => frame.id === id)
 		if (original) this.frames.push(new Frame(this._sketch, newId, original))
 		this._sketch.dispatchUpdate()
+		this._sketch.historyPush()
 	}
 
 	public currentDrawing() {
 		return this.currentFrame?.currentLayer()
 	}
 
+	public loadDatas(datas: InstantType) {
+		this.frameIndex = datas.selectedFrame
+
+		this.frames = datas.frames.map(dataFrame => {
+			const frame = new Frame(this._sketch, dataFrame.id)
+			frame.loadDatas(dataFrame)
+			return frame
+		})
+	}
+
 	get previousFrame() {
-		const index = this.frames.findIndex(frame => frame.id === this._frameIndex)
+		const index = this.frames.findIndex(frame => frame.id === this.frameIndex)
 		return this.frames[index - 1] ?? null
 	}
 

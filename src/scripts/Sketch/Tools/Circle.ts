@@ -12,6 +12,7 @@ export default class Circle extends Tool {
 		if (this.drawing) {
 			this._ellipse(initPos, newPos, this.drawing)
 			this._sketch.dispatchUpdate()
+			this._sketch.historyPush()
 		}
 	}
 	public move(e: PointerMove): void {

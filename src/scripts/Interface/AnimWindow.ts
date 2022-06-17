@@ -3,18 +3,17 @@ import Sketch from '../Sketch'
 import deleteImgUrl from '../../../assets/icons/actions/effacer.png'
 import duplicateImgUrl from '../../../assets/icons/duplicate.png'
 import MicroModal from 'micromodal'
+import LayersWindow from './LayersWindow'
 
 export default class AnimWindow {
 	private static _sketch: Sketch
 	private static _element: HTMLElement
 	private static _frameList: HTMLUListElement
-	private static _updateLayers: () => void
 
-	static init(selector: string, sketch: Sketch, updateLayers: () => void) {
+	static init(selector: string, sketch: Sketch) {
 		this._element = document.querySelector(selector)!
 		this._frameList = this._element.querySelector('#frameList-js')!
 		this._sketch = sketch
-		this._updateLayers = updateLayers
 		const newFrameBtn = this._element.querySelector('#newFrame-js')
 		newFrameBtn?.addEventListener('click', this._addFrame.bind(this))
 		Sortable.create(this._frameList, {
@@ -38,10 +37,10 @@ export default class AnimWindow {
 			this._duplicateFrame(frame)
 		} else if (deleteBtn !== null) {
 			this._removeFrame(frame)
-			this._updateLayers()
+			LayersWindow.updateLayers()
 		} else {
 			this._selectFrame(frame)
-			this._updateLayers()
+			LayersWindow.updateLayers()
 		}
 	}
 
@@ -56,13 +55,13 @@ export default class AnimWindow {
 		const frames = Array.from(this._frameList.querySelectorAll('.anim_frame:not(.anim_frame-new)'))
 		const ids = frames.map(el => Number(el.getAttribute('data-id')))
 		const frame = e.item
-		this._sketch.frameManager.sortFrames(ids)
+		this._sketch.animation.sortFrames(ids)
 		if (this._sketch.playing) {
 			MicroModal.show('inactifClick-modal')
 			return
 		}
 		this._selectFrame(frame)
-		this._updateLayers()
+		LayersWindow.updateLayers()
 	}
 
 	private static _addFrame() {
@@ -75,9 +74,9 @@ export default class AnimWindow {
 
 		this._frameList.appendChild(frame)
 		this._frameList.scrollTo(this._frameList.scrollWidth, 0)
-		this._sketch.frameManager.newFrame(id)
+		this._sketch.animation.newFrame(id)
 		this._selectFrame(frame)
-		this._updateLayers()
+		LayersWindow.updateLayers()
 	}
 
 	private static _removeFrame(frame: Element) {
@@ -90,11 +89,9 @@ export default class AnimWindow {
 			const selected = frame.classList.contains('selected')
 			if (selected) {
 				const childrens = Array.from(this._frameList.querySelectorAll('.anim_frame:not(.anim_frame-new)'))
-				// const index = Array.prototype.indexOf.call(this._frameList.children, frame)
 				const index = childrens.indexOf(frame)
 				if (index >= 1) {
 					const toSelect = childrens[index - 1]
-					console.log(index, toSelect)
 					this._selectFrame(toSelect)
 				} else {
 					const toSelect = childrens[1]
@@ -102,7 +99,7 @@ export default class AnimWindow {
 				}
 			}
 			const id = Number(frame.getAttribute('data-id'))
-			this._sketch.frameManager.removeFrame(id)
+			this._sketch.animation.removeFrame(id)
 			frame.remove()
 		}
 	}
@@ -111,7 +108,7 @@ export default class AnimWindow {
 		selected?.classList.remove('selected')
 		frame.classList.add('selected')
 		const id = Number(frame.getAttribute('data-id'))
-		this._sketch.frameManager.selectFrame(id)
+		this._sketch.animation.selectFrame(id)
 		this._sketch.updatePreview()
 	}
 
@@ -119,13 +116,13 @@ export default class AnimWindow {
 		const id = Number(frameEl.getAttribute('data-id'))
 		const newId = this.newId()
 		const newFrame = this._createEl(newId)
-		this._sketch.frameManager.duplicate(id, newId)
-		const frame = this._sketch.frameManager.frames.find(f => f.id === newId)
+		this._sketch.animation.duplicate(id, newId)
+		const frame = this._sketch.animation.frames.find(f => f.id === newId)
 		newFrame.style.backgroundImage = `url(${frame!.preview.toDataURL()})`
 		this._frameList.appendChild(newFrame)
 		this._frameList.scrollTo(this._frameList.scrollWidth, 0)
 		this._selectFrame(newFrame)
-		this._updateLayers()
+		LayersWindow.updateLayers()
 	}
 
 	private static _createEl(id: number) {
@@ -165,9 +162,23 @@ export default class AnimWindow {
 		const items = Array.from(this._frameList.querySelectorAll<HTMLElement>('.anim_frame:not(.anim_frame-new)'))
 		items.forEach(itm => {
 			const id = Number(itm.getAttribute('data-id'))
-			const frame = this._sketch.frameManager.frames.find(f => f.id === id)
+			const frame = this._sketch.animation.frames.find(f => f.id === id)
 
 			itm.style.backgroundImage = `url(${frame!.preview.toDataURL()})`
 		})
+	}
+
+	public static updateFrames() {
+		const framesEl = Array.from(this._frameList.querySelectorAll<HTMLElement>('.anim_frame:not(.anim_frame-new)'))
+		framesEl.forEach(f => f.remove())
+		const frames = this._sketch.animation.frames
+		frames.forEach(f => {
+			const el = this._createEl(f.id)
+			el.style.backgroundImage = `url(${f.preview.toDataURL()})`
+			this._frameList.appendChild(el)
+		})
+		const toSelectId = this._sketch.animation.frameIndex
+		const toSelectEl = this._frameList.querySelector<HTMLElement>(`[data-id="${toSelectId}"]`)
+		toSelectEl?.classList.add('selected')
 	}
 }

@@ -1,5 +1,7 @@
 import MicroModal from 'micromodal'
 import Sketch from '../Sketch'
+import AnimWindow from './AnimWindow'
+import LayersWindow from './LayersWindow'
 import ResizeForm from './ResizeForm'
 
 export default class ActionsBtns {
@@ -18,6 +20,16 @@ export default class ActionsBtns {
 					case 'resize':
 						MicroModal.show('resize-modal')
 						ResizeForm.update()
+						break
+					case 'undo':
+						sketch.undo()
+						AnimWindow.updateFrames()
+						LayersWindow.updateLayers()
+						break
+					case 'redo':
+						sketch.redo()
+						AnimWindow.updateFrames()
+						LayersWindow.updateLayers()
 						break
 				}
 			})

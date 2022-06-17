@@ -12,6 +12,7 @@ export default class Line extends Tool {
 		this.drawing?.line(this._sketch.gridCoordinate(initPos), this._sketch.gridCoordinate(newPos), this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
 		this._sketch.dispatchUpdate()
+		this._sketch.historyPush()
 	}
 	public move(e: PointerMove): void {
 		this._cursor.actif = true

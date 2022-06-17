@@ -16,6 +16,7 @@ export default class Rect extends Tool {
 		this.drawing?.rect(from, to.x - from.x, to.y - from.y, this._sketch.size, this._sketch.color)
 		this._sketch.updatePreview()
 		this._sketch.dispatchUpdate()
+		this._sketch.historyPush()
 	}
 
 	public move(e: PointerMove): void {

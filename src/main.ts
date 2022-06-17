@@ -25,7 +25,7 @@ SizesBtn.init('#size-js', sketch)
 ActionsBtns.init('.actions_btn', sketch)
 ColorsBtn.init('#colorBtn-js', sketch)
 LayersWindow.init('#layers-js', sketch)
-AnimWindow.init('#anim-js', sketch, LayersWindow.updateLayers.bind(LayersWindow))
+AnimWindow.init('#anim-js', sketch)
 AnimActions.init(sketch)
 ResizeForm.init('#resizeForm-js', sketch)
 ToolTips.init()
@@ -33,7 +33,10 @@ ContentTranslate.init()
 
 sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-modal'))
 
-sketch.onload = () => sketch.camera.fitSketch()
+window.onload = () => {
+	sketch.camera.fitSketch()
+	sketch.historyPush()
+}
 
 // window.addEventListener('beforeunload', function (e) {
 // 	const confirmationMessage = 'If you leave before saving, your changes will be lost.'
