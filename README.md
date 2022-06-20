@@ -16,8 +16,7 @@ une application de dessins avec peu de pixels
 
 ## prochaines étapes :
 
-- historique
-- gestion des fichiers
+- importer png et json
 
 ---
 
