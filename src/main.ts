@@ -14,6 +14,7 @@ import ContentTranslate from './scripts/Interface/Translate'
 import ResizeForm from './scripts/Interface/ResizeForm'
 import AnimWindow from './scripts/Interface/AnimWindow'
 import AnimActions from './scripts/Interface/AnimActions'
+import DownloadForm from './scripts/Interface/DownloadForm'
 // import translation from './scripts/Interface/utils/translation'
 
 customElements.define('sketch-app', Sketch)
@@ -28,6 +29,7 @@ LayersWindow.init('#layers-js', sketch)
 AnimWindow.init('#anim-js', sketch)
 AnimActions.init(sketch)
 ResizeForm.init('#resizeForm-js', sketch)
+DownloadForm.init('#download-modal', sketch)
 ToolTips.init()
 ContentTranslate.init()
 
@@ -35,7 +37,6 @@ sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-mod
 
 window.onload = () => {
 	sketch.camera.fitSketch()
-	sketch.historyPush()
 }
 
 // window.addEventListener('beforeunload', function (e) {

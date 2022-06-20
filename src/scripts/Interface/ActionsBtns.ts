@@ -1,6 +1,7 @@
 import MicroModal from 'micromodal'
 import Sketch from '../Sketch'
 import AnimWindow from './AnimWindow'
+import DownloadForm from './DownloadForm'
 import LayersWindow from './LayersWindow'
 import ResizeForm from './ResizeForm'
 
@@ -30,6 +31,10 @@ export default class ActionsBtns {
 						sketch.redo()
 						AnimWindow.updateFrames()
 						LayersWindow.updateLayers()
+						break
+					case 'download':
+						MicroModal.show('download-modal')
+						DownloadForm.updateContent()
 						break
 				}
 			})

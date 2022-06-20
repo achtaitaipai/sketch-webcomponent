@@ -21,15 +21,10 @@ export default class HistoryManager {
 	}
 
 	public push() {
-		const width = this._sketch.width
-		const height = this._sketch.height
-		const selectedFrame = this._animation.frameIndex
-		const frames = this._animation.frames.map(f => f.getDatas())
-
 		if (this._cursor < this._datas.length - 1) {
 			this._datas = this._datas.slice(0, this._cursor + 1)
 		}
-		this._datas.push({ width, height, selectedFrame, frames })
+		this._datas.push(this._sketch.getDatas())
 		this._cursor = this._datas.length - 1
 	}
 

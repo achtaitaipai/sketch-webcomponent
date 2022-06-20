@@ -6,6 +6,9 @@ import ToolsManager from './Tools/ToolsManager'
 import { Coordinate } from './types/eventsTypes'
 import Animation from './Animation'
 import HistoryManager from './History'
+import exportGif from './utils/export/gif/exportGif'
+import exportPng from './utils/export/png/exportPng'
+import exportJson from './utils/export/json/exportJson'
 
 export default class Sketch extends HTMLElement {
 	public _canvas: HTMLCanvasElement
@@ -159,6 +162,7 @@ export default class Sketch extends HTMLElement {
 		this._cursor.clear()
 		this.updatePreview()
 		this.dispatchUpdate()
+		this.historyPush()
 	}
 
 	public historyPush() {
@@ -200,6 +204,29 @@ export default class Sketch extends HTMLElement {
 		this._savedFrame = this.animation.currentFrame?.id ?? 1
 		this._loop()
 		this.playing = true
+	}
+
+	public download(fileName: string, format: string, scale: number, columns: number, rows: number) {
+		const frames = this.animation.frames.map(f => f.preview)
+		switch (format) {
+			case 'gif':
+				exportGif(fileName, frames, this.fps, scale)
+				break
+			case 'png':
+				exportPng(fileName, frames, scale, columns, rows)
+				break
+			case 'json':
+				exportJson(fileName, this.getDatas())
+				break
+		}
+	}
+
+	public getDatas() {
+		const width = this.width
+		const height = this.height
+		const selectedFrame = this.animation.frameIndex
+		const frames = this.animation.frames.map(f => f.getDatas())
+		return { width, height, selectedFrame, frames }
 	}
 
 	private _loop() {
