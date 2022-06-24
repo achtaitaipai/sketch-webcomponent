@@ -46,6 +46,7 @@ export default class EventsManager {
 				this._unclickObservers.notify({ button: e.button, initPos: this._initPos, newPos: { x: e.clientX, y: e.clientY } })
 			} else if (e.button === 2) {
 				this._rightUnclickObservers.notify({ x: e.clientX, y: e.clientY })
+				console.log('right')
 			}
 			this._handleOut(e)
 		})
@@ -107,7 +108,7 @@ export default class EventsManager {
 			case 'unclick':
 				return this._unclickObservers.subscribe(callback)
 			case 'rightUnClick':
-				return this._unclickObservers.subscribe(callback)
+				return this._rightUnclickObservers.subscribe(callback)
 			case 'pointerOut':
 				return this._pointerOutObservers.subscribe(callback)
 			case 'zoom':
@@ -129,7 +130,7 @@ export default class EventsManager {
 			case 'unclick':
 				return this._unclickObservers.unsubscribe(id)
 			case 'rightUnClick':
-				return this._unclickObservers.unsubscribe(id)
+				return this._rightUnclickObservers.unsubscribe(id)
 			case 'pointerOut':
 				return this._pointerOutObservers.unsubscribe(id)
 			case 'zoom':
