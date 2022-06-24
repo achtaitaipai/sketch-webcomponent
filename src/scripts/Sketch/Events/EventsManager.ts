@@ -107,7 +107,7 @@ export default class EventsManager {
 			case 'unclick':
 				return this._unclickObservers.subscribe(callback)
 			case 'rightUnClick':
-				return this._unclickObservers.subscribe(callback)
+				return this._rightUnclickObservers.subscribe(callback)
 			case 'pointerOut':
 				return this._pointerOutObservers.subscribe(callback)
 			case 'zoom':
@@ -129,7 +129,7 @@ export default class EventsManager {
 			case 'unclick':
 				return this._unclickObservers.unsubscribe(id)
 			case 'rightUnClick':
-				return this._unclickObservers.unsubscribe(id)
+				return this._rightUnclickObservers.unsubscribe(id)
 			case 'pointerOut':
 				return this._pointerOutObservers.unsubscribe(id)
 			case 'zoom':
