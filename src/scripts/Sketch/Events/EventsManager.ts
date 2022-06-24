@@ -46,6 +46,7 @@ export default class EventsManager {
 				this._unclickObservers.notify({ button: e.button, initPos: this._initPos, newPos: { x: e.clientX, y: e.clientY } })
 			} else if (e.button === 2) {
 				this._rightUnclickObservers.notify({ x: e.clientX, y: e.clientY })
+				console.log('right')
 			}
 			this._handleOut(e)
 		})
