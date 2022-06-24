@@ -17,6 +17,7 @@ une application de dessins avec peu de pixels
 ## prochaines étapes :
 
 - importer png et json
+- pipette
 
 ---
 
@@ -25,6 +26,7 @@ une application de dessins avec peu de pixels
 ### Bugs :
 
 - bug bizarre au chargement parfois, on dirait que `fitScreen()` s'exécute trop tôt
+- parfois aucun layer n'est sélectionné lorsqu'on sélectionne une nouvelle frame
 
 ### Calques :
 

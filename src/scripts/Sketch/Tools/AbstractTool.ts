@@ -22,7 +22,7 @@ export default abstract class Tool {
 		this._sketch.updatePreview()
 		this._cursor.actif = false
 		this._cursor.clear()
-		this._sketch.historyPush()
+		// this._sketch.historyPush()
 		this._sketch.dispatchUpdate()
 	}
 	public drag(_: DragEventType) {}
@@ -32,6 +32,10 @@ export default abstract class Tool {
 		this._sketch.camera.zoom(this._sketch.gridCoordinate(e.pos), e.dir, e.factor)
 	}
 	public unClick(_: PointerUpType): void {
+		this._sketch.historyPush()
+		this._sketch.dispatchUpdate()
+	}
+	public rightUnClick(_: PointerUpType): void {
 		this._sketch.historyPush()
 		this._sketch.dispatchUpdate()
 	}

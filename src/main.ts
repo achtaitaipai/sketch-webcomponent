@@ -15,6 +15,7 @@ import ResizeForm from './scripts/Interface/ResizeForm'
 import AnimWindow from './scripts/Interface/AnimWindow'
 import AnimActions from './scripts/Interface/AnimActions'
 import DownloadForm from './scripts/Interface/DownloadForm'
+import FileInput from './scripts/Interface/FileSelector'
 // import translation from './scripts/Interface/utils/translation'
 
 customElements.define('sketch-app', Sketch)
@@ -32,6 +33,7 @@ ResizeForm.init('#resizeForm-js', sketch)
 DownloadForm.init('#download-modal', sketch)
 ToolTips.init()
 ContentTranslate.init()
+FileInput.init('#file-selector')
 
 sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-modal'))
 

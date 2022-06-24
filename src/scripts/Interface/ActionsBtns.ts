@@ -2,6 +2,7 @@ import MicroModal from 'micromodal'
 import Sketch from '../Sketch'
 import AnimWindow from './AnimWindow'
 import DownloadForm from './DownloadForm'
+import FileSelector from './FileSelector'
 import LayersWindow from './LayersWindow'
 import ResizeForm from './ResizeForm'
 
@@ -35,6 +36,9 @@ export default class ActionsBtns {
 					case 'download':
 						MicroModal.show('download-modal')
 						DownloadForm.updateContent()
+						break
+					case 'open':
+						FileSelector.open()
 						break
 				}
 			})

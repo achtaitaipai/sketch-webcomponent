@@ -7,7 +7,8 @@ export default class EventsManager {
 	private _rightClickObservers = new Listener<Coordinate>()
 	private _dragObservers = new Listener<DragEventType>()
 	private _pointerMoveObservers = new Listener<PointerMove>()
-	private _pointerUpObservers = new Listener<PointerUpType>()
+	private _unclickObservers = new Listener<PointerUpType>()
+	private _rightUnclickObservers = new Listener<Coordinate>()
 	private _pointerOutObservers = new Listener<Coordinate>()
 	private _zoomObservers = new Listener<ZoomEventType>()
 
@@ -41,7 +42,11 @@ export default class EventsManager {
 			if (!this._inGesture) this._handleDrag(e)
 		})
 		document.addEventListener('pointerup', e => {
-			if (this._initPos) this._pointerUpObservers.notify({ button: e.button, initPos: this._initPos, newPos: { x: e.clientX, y: e.clientY } })
+			if (this._initPos) {
+				this._unclickObservers.notify({ button: e.button, initPos: this._initPos, newPos: { x: e.clientX, y: e.clientY } })
+			} else if (e.button === 2) {
+				this._rightUnclickObservers.notify({ x: e.clientX, y: e.clientY })
+			}
 			this._handleOut(e)
 		})
 		document.addEventListener('pointercancel', e => {
@@ -61,8 +66,9 @@ export default class EventsManager {
 			const pos = { x: e.clientX, y: e.clientY }
 			this._buttonDown = e.button
 			this._oldPos = pos
-			if (e.button === 2) this._rightClickObservers.notify(pos)
-			if (e.button === 0) {
+			if (e.button === 2) {
+				this._rightClickObservers.notify(pos)
+			} else if (e.button === 0) {
 				this._initPos = pos
 				this._clickObservers.notify(pos)
 			}
@@ -98,8 +104,10 @@ export default class EventsManager {
 				return this._dragObservers.subscribe(callback)
 			case 'pointerMove':
 				return this._pointerMoveObservers.subscribe(callback)
-			case 'pointerUp':
-				return this._pointerUpObservers.subscribe(callback)
+			case 'unclick':
+				return this._unclickObservers.subscribe(callback)
+			case 'rightUnClick':
+				return this._unclickObservers.subscribe(callback)
 			case 'pointerOut':
 				return this._pointerOutObservers.subscribe(callback)
 			case 'zoom':
@@ -118,8 +126,10 @@ export default class EventsManager {
 				return this._dragObservers.unsubscribe(id)
 			case 'pointerMove':
 				return this._pointerMoveObservers.unsubscribe(id)
-			case 'pointerUp':
-				return this._pointerUpObservers.unsubscribe(id)
+			case 'unclick':
+				return this._unclickObservers.unsubscribe(id)
+			case 'rightUnClick':
+				return this._unclickObservers.unsubscribe(id)
 			case 'pointerOut':
 				return this._pointerOutObservers.unsubscribe(id)
 			case 'zoom':

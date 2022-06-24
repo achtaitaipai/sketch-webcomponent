@@ -1,4 +1,4 @@
-export type EventsNames = 'click' | 'rightClick' | 'drag' | 'pointerMove' | 'pointerUp' | 'pointerOut' | 'zoom'
+export type EventsNames = 'click' | 'rightClick' | 'drag' | 'pointerMove' | 'unclick' | 'pointerOut' | 'zoom' | 'rightUnClick'
 
 export type Coordinate = {
 	x: number

@@ -48,7 +48,11 @@ export default class Animation {
 
 	public duplicate(id: number, newId: number) {
 		const original = this.frames.find(frame => frame.id === id)
-		if (original) this.frames.push(new Frame(this._sketch, newId, original))
+		if (original) {
+			const newFrame = new Frame(this._sketch, newId, original)
+			newFrame.selectLayer(original.layerIndex)
+			this.frames.push(newFrame)
+		}
 		this._sketch.dispatchUpdate()
 		this._sketch.historyPush()
 	}
