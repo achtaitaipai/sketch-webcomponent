@@ -116,15 +116,9 @@ export default class LayersWindow {
 		}
 	}
 
-	private static _moveLayer(e: SortableEvent) {
+	private static _moveLayer(_: SortableEvent) {
 		this._sketch.animation.currentFrame?.sortLayers(this._sortable?.toArray().map(Number) || [])
 		this._sketch.updatePreview()
-		const item = e.item
-		if (item) {
-			this._window?.querySelector('.selected')?.classList.remove('selected')
-			item.classList.add('selected')
-			this._updateSelectedLayer()
-		}
 	}
 
 	private static _layerClick(e: MouseEvent) {

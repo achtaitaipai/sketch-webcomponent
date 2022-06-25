@@ -142,7 +142,7 @@ export default class Drawing extends AbstractImage {
 		}
 	}
 
-	public drawImg(img: HTMLCanvasElement) {
+	public drawImg(img: HTMLCanvasElement | HTMLImageElement) {
 		this._ctx.drawImage(img, 0, 0)
 	}
 }

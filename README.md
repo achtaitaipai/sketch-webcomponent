@@ -44,3 +44,4 @@ une application de dessins avec peu de pixels
   - maximum, minimum en fonction de la taille de l'image
   - zoom et dézoom proportionnel au zoom actuel
 - définir une dimension maximum au delà de laquelle pixynth fonctionne bof ?
+- curseur gomme

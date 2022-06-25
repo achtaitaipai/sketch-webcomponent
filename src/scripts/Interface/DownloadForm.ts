@@ -8,6 +8,7 @@ export default class DownloadForm {
 	private static _formatInput: HTMLInputElement
 	private static _scaleInput: HTMLInputElement
 	private static _spriteSheetField: HTMLElement
+	private static _scaleFieldset: HTMLElement
 	private static _rowsInput: HTMLInputElement
 	private static _columnsInput: HTMLInputElement
 
@@ -18,7 +19,9 @@ export default class DownloadForm {
 		this._fileNameInput = this._form.querySelector('#fileName-download')!
 		this._formatInput = this._form.querySelector('#format-download')!
 		this._scaleInput = this._form.querySelector('#scale-download')!
+
 		this._spriteSheetField = this._form.querySelector('.downloadForm_spritesheet')!
+		this._scaleFieldset = this._form.querySelector('.scale')!
 		this._rowsInput = this._form.querySelector('#rows-download')!
 		this._columnsInput = this._form.querySelector('#columns-download')!
 		this._form?.addEventListener('submit', this._handleSubmit.bind(this))
@@ -49,6 +52,7 @@ export default class DownloadForm {
 			this._setSpriSheetInitValues()
 			this._spriteSheetField.style.setProperty('display', 'none')
 		}
+		this._scaleFieldset.style.setProperty('display', this._formatInput.value === 'json' ? 'none' : 'block')
 	}
 
 	private static _isSpriteSheet() {

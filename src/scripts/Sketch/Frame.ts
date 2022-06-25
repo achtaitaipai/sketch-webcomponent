@@ -82,6 +82,7 @@ export default class Frame {
 		const newLayer = { id: id, drawing: new Drawing(this._sketch.width, this._sketch.height) }
 		this.layers.splice(pos, 0, newLayer)
 		this._sketch.historyPush()
+		return newLayer
 	}
 
 	public selectLayer(index: number) {

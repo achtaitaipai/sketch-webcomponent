@@ -14,13 +14,16 @@ export default class Animation {
 	get actif() {
 		return this.currentFrame?.actif ?? false
 	}
+
 	get currentFrame() {
 		return this.frames.find(frame => frame.id === this.frameIndex)
 	}
 
 	public newFrame(id: number) {
-		this.frames.push(new Frame(this._sketch, id))
+		const frame = new Frame(this._sketch, id)
+		this.frames.push(frame)
 		this._sketch.historyPush()
+		return frame
 	}
 
 	public selectFrame(id: number) {

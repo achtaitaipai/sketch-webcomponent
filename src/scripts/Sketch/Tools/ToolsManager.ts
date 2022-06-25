@@ -71,7 +71,6 @@ export default class ToolsManager {
 		})
 		this._eventsManager.addObserver('rightUnClick', (e: DragEventType) => {
 			this.currentTool.rightUnClick(e)
-			console.log('right')
 		})
 		this._eventsManager.addObserver('drag', (e: DragEventType) => {
 			const { button, oldPos, newPos } = e

@@ -9,6 +9,7 @@ import HistoryManager from './History'
 import exportGif from './utils/export/gif/exportGif'
 import exportPng from './utils/export/png/exportPng'
 import exportJson from './utils/export/json/exportJson'
+import loadJson from './utils/import/loadJson'
 
 export default class Sketch extends HTMLElement {
 	public _canvas: HTMLCanvasElement
@@ -219,6 +220,10 @@ export default class Sketch extends HTMLElement {
 				exportJson(fileName, this.getDatas())
 				break
 		}
+	}
+
+	public loadJson(str: string) {
+		loadJson(str, this)
 	}
 
 	public getDatas() {

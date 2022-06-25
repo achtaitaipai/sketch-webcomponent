@@ -16,7 +16,7 @@ import AnimWindow from './scripts/Interface/AnimWindow'
 import AnimActions from './scripts/Interface/AnimActions'
 import DownloadForm from './scripts/Interface/DownloadForm'
 import FileInput from './scripts/Interface/FileSelector'
-// import translation from './scripts/Interface/utils/translation'
+import translation from './scripts/Interface/utils/translation'
 
 customElements.define('sketch-app', Sketch)
 
@@ -33,16 +33,18 @@ ResizeForm.init('#resizeForm-js', sketch)
 DownloadForm.init('#download-modal', sketch)
 ToolTips.init()
 ContentTranslate.init()
-FileInput.init('#file-selector')
+FileInput.init('#file-selector', sketch)
 
 sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-modal'))
+sketch.addEventListener('update', _ => AnimWindow.updateFrames())
+sketch.addEventListener('update', _ => LayersWindow.updateLayers())
 
 window.onload = () => {
 	sketch.camera.fitSketch()
 }
 
-// window.addEventListener('beforeunload', function (e) {
-// 	const confirmationMessage = 'If you leave before saving, your changes will be lost.'
-// 	e.returnValue = translation(confirmationMessage) || confirmationMessage
-// 	return translation(confirmationMessage) || confirmationMessage
-// })
+window.addEventListener('beforeunload', function (e) {
+	const confirmationMessage = 'If you leave before saving, your changes will be lost.'
+	e.returnValue = translation(confirmationMessage) || confirmationMessage
+	return translation(confirmationMessage) || confirmationMessage
+})
