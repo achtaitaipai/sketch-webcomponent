@@ -37,7 +37,7 @@
 						><img src="/assets/icons/tools/pot.png" alt="bucket" class="tools_img"
 					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="drag" value="drag" />
-					<label for="drag" class="tools_label" tooltip-text="move" tooltip-right
+					<label for="drag" class="tools_label" tooltip-text="drag" tooltip-right
 						><img src="/assets/icons/tools/move.png" alt="drag" class="tools_img"
 					/></label>
 					<input type="radio" class="tools_radio" name="tool" id="crop" value="crop" />
@@ -106,7 +106,7 @@
 				</div>
 				<!-- LAYERS -->
 				<div class="layers" id="layers-js">
-					<h4 class="layers_title">layers</h4>
+					<h4 class="layers_title" translate="Layers">layers</h4>
 					<ul class="layers_list"></ul>
 					<div class="layers_control">
 						<button class="layers_btn" id="mergeLayer-js" tooltip-text="merge layer"><img src="./assets/icons/merge.png" alt="" /></button>
@@ -125,13 +125,13 @@
 				<div class="anim_tools">
 					<label for="fps" class="anim_label">fps : </label>
 					<input type="number" class="anim_fps" id="fps" value="5" required min="1" max="24" step="1" />
-					<input type="checkbox" class="anim_checkbox" name="play" id="play" value="play" />
-					<label for="play" class="anim_labelBtn">
+					<input type="checkbox" class="anim_checkbox" name="play" id="play" value="play" tooltip-text="Fps" />
+					<label for="play" class="anim_labelBtn" tooltip-text="Play">
 						<img src="./assets/icons/play.png" alt="" class="inactive" />
 						<img src="./assets/icons/pause.png" alt="" class="active"
 					/></label>
 					<input type="checkbox" class="anim_checkbox" name="oignon" id="oignon" value="oignon" />
-					<label for="oignon" class="anim_labelBtn">
+					<label for="oignon" class="anim_labelBtn" tooltip-text="Onion skin">
 						<img src="./assets/icons/oignon.png" alt="" class="active" />
 						<img src="./assets/icons/pasoignon.png" alt="" class="inactive"
 					/></label>
@@ -197,7 +197,7 @@
 						<main class="modal__content" id="download-modal-content">
 							<form action="" class="downloadForm">
 								<fieldset class="file">
-									<label for="fileName-download">File name : </label>
+									<label for="fileName-download" translate="File Name">File name : </label>
 									<input type="text" name="fileName-download" id="fileName-download" value="awesome-drawing" class="downloadForm_input" required />
 									<select name="format-download" id="format-download" class="downloadForm_select">
 										<option value="png">.png</option>
@@ -206,13 +206,13 @@
 									</select>
 								</fieldset>
 								<fieldset class="scale">
-									<label for="scale-download">Scale :</label>
+									<label for="scale-download" translate="Scale">Scale :</label>
 									<input type="number" name="scale-download" id="scale-download" value="1" min="1" class="downloadForm_scale" required />
 								</fieldset>
 								<fieldset class="downloadForm_spritesheet">
-									<label for="columns-download">Columns :</label>
+									<label for="columns-download" translate="Columns">Columns :</label>
 									<input type="number" name="columns-download" id="columns-download" value="1" min="1" class="downloadForm_columns" required />
-									<label for="rows-download">Rows :</label>
+									<label for="rows-download" translate="Rows">Rows :</label>
 									<input type="number" name="rows-download" id="rows-download" value="1" min="1" class="downloadForm_rows" required />
 								</fieldset>
 								<button class="modal__btn modal__btn-primary">Download</button>

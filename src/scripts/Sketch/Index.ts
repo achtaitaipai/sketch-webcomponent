@@ -190,6 +190,9 @@ export default class Sketch extends HTMLElement {
 	public dispatchUpdate() {
 		this.dispatchEvent(new CustomEvent('update'))
 	}
+	public dispatchLoadFile() {
+		this.dispatchEvent(new CustomEvent('load'))
+	}
 
 	public stop() {
 		if (this._animationFrame) {

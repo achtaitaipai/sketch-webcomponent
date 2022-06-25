@@ -36,8 +36,8 @@ ContentTranslate.init()
 FileInput.init('#file-selector', sketch)
 
 sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-modal'))
-sketch.addEventListener('update', _ => AnimWindow.updateFrames())
-sketch.addEventListener('update', _ => LayersWindow.updateLayers())
+sketch.addEventListener('load', _ => AnimWindow.updateFrames())
+sketch.addEventListener('load', _ => LayersWindow.updateLayers())
 
 window.onload = () => {
 	sketch.camera.fitSketch()

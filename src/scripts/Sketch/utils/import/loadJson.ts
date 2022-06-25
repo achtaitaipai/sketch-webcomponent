@@ -25,8 +25,8 @@ export default function loadJson(str: string, sketch: Sketch) {
 		frame.selectLayer(1)
 	}
 	Promise.all(promises).then(() => {
-		sketch.historyPush()
-		sketch.dispatchUpdate()
+		sketch.dispatchLoadFile()
 		sketch.updatePreview()
+		sketch.historyPush()
 	})
 }

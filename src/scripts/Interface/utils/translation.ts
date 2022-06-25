@@ -42,7 +42,7 @@ export const translateDatas: translateType = {
 		fr: 'Pot de peinture',
 	},
 	drag: {
-		fr: 'Glisser',
+		fr: 'Déplacer',
 	},
 	crop: {
 		fr: 'Recadrer',
@@ -54,7 +54,7 @@ export const translateDatas: translateType = {
 		fr: 'Dézoom',
 	},
 	handle: {
-		fr: 'Déplacer',
+		fr: 'Glisser',
 	},
 	'Set size to 1px': {
 		fr: 'Définir la taille à 1px',
@@ -92,11 +92,20 @@ export const translateDatas: translateType = {
 	download: {
 		fr: 'Télécharger',
 	},
+	Layers: {
+		fr: 'Calques',
+	},
+	Layer: {
+		fr: 'Calque',
+	},
 	'add layer': {
 		fr: 'Ajouter un calque',
 	},
 	'remove layer': {
 		fr: 'Supprimer un calque',
+	},
+	'merge layer': {
+		fr: 'Fusionner les calques',
 	},
 	'add frame': {
 		fr: 'Nouvelle image',
@@ -106,6 +115,24 @@ export const translateDatas: translateType = {
 	},
 	'If you leave before saving, your changes will be lost.': {
 		fr: "Si vous quittez avant d'enregistrer, vos modifications seront perdues.",
+	},
+	'Onion skin': {
+		fr: "Pelure d'oignon",
+	},
+	Play: {
+		fr: "Lire l'animation",
+	},
+	'File Name': {
+		fr: 'Nom du fichier',
+	},
+	Scale: {
+		fr: 'Échelle',
+	},
+	Columns: {
+		fr: 'Colonnes',
+	},
+	Rows: {
+		fr: 'Rangées',
 	},
 }
 

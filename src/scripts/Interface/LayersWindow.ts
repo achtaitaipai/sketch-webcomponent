@@ -1,5 +1,6 @@
 import Sortable, { SortableEvent } from 'sortablejs'
 import Sketch from '../Sketch'
+import translation from './utils/translation'
 
 export default class LayersWindow {
 	private static _sketch: Sketch
@@ -65,7 +66,8 @@ export default class LayersWindow {
 		const newId = id
 		newLayer.classList.add('layers_item')
 		newLayer.setAttribute('data-id', newId.toString())
-		newLayer.textContent = 'Layer ' + newId
+		const layerName = translation('Layer') ?? 'Layer'
+		newLayer.textContent = layerName + ' ' + newId
 
 		const checkbox = document.createElement('input')
 		checkbox.setAttribute('type', 'checkbox')
@@ -83,6 +85,7 @@ export default class LayersWindow {
 		const selected = this._layers?.querySelector('.selected')
 		const toSelect = selected?.nextElementSibling
 		selected?.remove()
+		console.log(toSelect)
 		if (toSelect) toSelect?.classList.add('selected')
 		else this._layers?.lastElementChild?.classList.add('selected')
 
