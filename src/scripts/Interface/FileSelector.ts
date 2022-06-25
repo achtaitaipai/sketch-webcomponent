@@ -23,6 +23,7 @@ export default class FileSelector {
 				fr.onload = _ => loadPng(fr.result as string)
 			}
 		}
+		this._inputEl.value = ''
 	}
 
 	private static _loadJson(e: ProgressEvent<FileReader>) {

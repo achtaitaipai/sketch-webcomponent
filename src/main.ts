@@ -34,6 +34,7 @@ DownloadForm.init('#download-modal', sketch)
 ToolTips.init()
 ContentTranslate.init()
 FileInput.init('#file-selector', sketch)
+ToolTips.init()
 
 sketch.addEventListener('inactif-click', () => MicroModal.show('inactifClick-modal'))
 sketch.addEventListener('load', _ => AnimWindow.updateFrames())

@@ -14,6 +14,7 @@ export default function exportJson(fileName: string, datas: InstantType) {
 function replaceCanvasByDataUrl(datas: InstantType): exportType {
 	const width = datas.width
 	const height = datas.height
+
 	const frames = datas.frames.map(frame => {
 		const layers = frame.layers.map(l => l.drawing.toDataURL())
 		return layers

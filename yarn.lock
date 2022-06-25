@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@achtaitaipai/color-picker@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@achtaitaipai/color-picker/-/color-picker-1.0.6.tgz#bdf42ba6a724e0f85daa1615769ca5d97573b7cf"
-  integrity sha512-0lfadUM2juVO70awqd+8/4dIc+fDTrhdyKoXemU1KdrMcePyaWF4Yxmz7+42LLDf82VBLJJuQlc7fS+dtugneA==
+"@achtaitaipai/color-picker@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@achtaitaipai/color-picker/-/color-picker-1.0.8.tgz#c657e1e809f65bd1ee66de0ea2943d907d0da1e5"
+  integrity sha512-nwdTRVoxHeyD3jTFdtwuaWYvVnCe8VV37ngDe/Ixv2Cyn0tWrkeXciCrSOoQ5msHRWdmYpGRxdeZVtf6Bvn1Yg==
 
 "@fortawesome/fontawesome-free@^6.1.1":
   version "6.1.1"
