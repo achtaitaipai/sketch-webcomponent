@@ -1,241 +1,642 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-		<title>Pixynth</title>
-	</head>
-	<body>
-		<main class="main">
-			<div class="leftBlock">
-				<!-- TOOLS -->
-				<div class="tools" id="tools-js">
-					<input type="radio" class="tools_radio" name="tool" id="paint" value="paint" checked />
-					<label for="paint" class="tools_label" tooltip-text="pencil" tooltip-right>
-						<img src="/assets/icons/tools/crayon.png" alt="paint" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="erase" value="erase" />
-					<label for="erase" class="tools_label" tooltip-text="eraser" tooltip-right
-						><img src="/assets/icons/tools/gomme.png" alt="erase" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="line" value="line" />
-					<label for="line" class="tools_label" tooltip-text="line" tooltip-right
-						><img src="/assets/icons/tools/ligne.png" alt="line" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="rect" value="rect" />
-					<label for="rect" class="tools_label" tooltip-text="rect" tooltip-right
-						><img src="/assets/icons/tools/rectangle.png" alt="rect" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="circle" value="circle" />
-					<label for="circle" class="tools_label" tooltip-text="circle" tooltip-right
-						><img src="/assets/icons/tools/cercle.png" alt="circle" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="bucket" value="bucket" />
-					<label for="bucket" class="tools_label" tooltip-text="bucket" tooltip-right
-						><img src="/assets/icons/tools/pot.png" alt="bucket" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="drag" value="drag" />
-					<label for="drag" class="tools_label" tooltip-text="drag" tooltip-right
-						><img src="/assets/icons/tools/move.png" alt="drag" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="crop" value="crop" />
-					<label for="crop" class="tools_label" tooltip-text="crop" tooltip-right
-						><img src="/assets/icons/tools/recadrer.png" alt="crop" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="zoom" value="zoom" />
-					<label for="zoom" class="tools_label" tooltip-text="zoom" tooltip-right
-						><img src="/assets/icons/tools/zoom.png" alt="zoom" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="unzoom" value="unzoom" />
-					<label for="unzoom" class="tools_label" tooltip-text="unzoom" tooltip-right
-						><img src="/assets/icons/tools/dezoom.png" alt="unzoom" class="tools_img"
-					/></label>
-					<input type="radio" class="tools_radio" name="tool" id="handle" value="handle" />
-					<label for="handle" class="tools_label" tooltip-text="handle" tooltip-right
-						><img src="/assets/icons/tools/handle.png" alt="handle" class="tool_img"
-					/></label>
-				</div>
-				<!-- SIZES -->
-				<div class="size" id="size-js">
-					<label for="sizepx" class="size_label">size : <i>1 px</i></label
-					><input type="range" name="sizepx" id="sizepx" class="size_input" min="1" max="16" value="1" />
-				</div>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <title>Pixynth</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="leftBlock">
+        <!-- TOOLS -->
+        <div class="tools" id="tools-js">
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="paint"
+            value="paint"
+            checked
+          />
+          <label
+            for="paint"
+            class="tools_label"
+            tooltip-text="pencil"
+            tooltip-right
+          >
+            <img
+              src="/assets/icons/tools/crayon.png"
+              alt="paint"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="erase"
+            value="erase"
+          />
+          <label
+            for="erase"
+            class="tools_label"
+            tooltip-text="eraser"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/gomme.png"
+              alt="erase"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="line"
+            value="line"
+          />
+          <label
+            for="line"
+            class="tools_label"
+            tooltip-text="line"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/ligne.png"
+              alt="line"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="rect"
+            value="rect"
+          />
+          <label
+            for="rect"
+            class="tools_label"
+            tooltip-text="rect"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/rectangle.png"
+              alt="rect"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="circle"
+            value="circle"
+          />
+          <label
+            for="circle"
+            class="tools_label"
+            tooltip-text="circle"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/cercle.png"
+              alt="circle"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="bucket"
+            value="bucket"
+          />
+          <label
+            for="bucket"
+            class="tools_label"
+            tooltip-text="bucket"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/pot.png"
+              alt="bucket"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="drag"
+            value="drag"
+          />
+          <label
+            for="drag"
+            class="tools_label"
+            tooltip-text="drag"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/move.png"
+              alt="drag"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="crop"
+            value="crop"
+          />
+          <label
+            for="crop"
+            class="tools_label"
+            tooltip-text="crop"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/recadrer.png"
+              alt="crop"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="zoom"
+            value="zoom"
+          />
+          <label
+            for="zoom"
+            class="tools_label"
+            tooltip-text="zoom"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/zoom.png"
+              alt="zoom"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="unzoom"
+            value="unzoom"
+          />
+          <label
+            for="unzoom"
+            class="tools_label"
+            tooltip-text="unzoom"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/dezoom.png"
+              alt="unzoom"
+              class="tools_img"
+          /></label>
+          <input
+            type="radio"
+            class="tools_radio"
+            name="tool"
+            id="handle"
+            value="handle"
+          />
+          <label
+            for="handle"
+            class="tools_label"
+            tooltip-text="handle"
+            tooltip-right
+            ><img
+              src="/assets/icons/tools/handle.png"
+              alt="handle"
+              class="tool_img"
+          /></label>
+        </div>
+        <!-- SIZES -->
+        <div class="size" id="size-js">
+          <label for="sizepx" class="size_label">size : <i>1 px</i></label
+          ><input
+            type="range"
+            name="sizepx"
+            id="sizepx"
+            class="size_input"
+            min="1"
+            max="16"
+            value="1"
+          />
+        </div>
 
-				<!-- COLORS -->
-				<button class="color" label="color" id="colorBtn-js" tooltip-text="Choose a color" tooltip-right></button>
-				<color-picker
-					pallet='[
-					"#000000",
-					"#282728",
-					"#76726e",
-					"#009c47",
-					"#48b059",
-					"#7E2553",
-					"#965695",
-					"#cf3785",
-					"#e22e34",
-					"#ab5236",
-					"#f59d14",
-					"#fcc629",
-					"#114e9d",
-					"#83c0b5",
-					"#e1aeaa",
-					"#FFF1E8"
-
+        <!-- COLORS -->
+        <button
+          class="color"
+          label="color"
+          id="colorBtn-js"
+          tooltip-text="Choose a color"
+          tooltip-right
+        ></button>
+        <color-picker
+          pallet='[
+          "#212529",
+          "#f8f9fa",
+          "#ced4da",
+          "#228be6",
+          "#fa5252",
+          "#fcc419",
+          "#ff922b",
+          "#40c057",
+          "#f06595",
+          "#a52f01"
 					]'
-				></color-picker>
-			</div>
-			<sketch-app class="sketch"></sketch-app>
+        ></color-picker>
+      </div>
+      <sketch-app class="sketch"></sketch-app>
 
-			<div class="rightBlock">
-				<input type="file" id="file-selector" accept="application/JSON" />
-				<!-- ACTIONS -->
-				<div class="actions">
-					<button id="fit" class="actions_btn" tooltip-text="fit to screen size"><img src="/assets/icons/actions/adapter.png" alt="fit" /></button>
-					<button id="undo" class="actions_btn" tooltip-text="undo"><img src="/assets/icons/actions/retour.png" alt="undo" /></button>
-					<button id="redo" class="actions_btn" tooltip-text="redo"><img src="/assets/icons/actions/avant.png" alt="redo" /></button>
-					<button id="clear" class="actions_btn" tooltip-text="clear"><img src="/assets/icons/actions/effacer.png" alt="clear" /></button>
-					<button id="resize" class="actions_btn" data-custom-open="resize-modal" tooltip-text="resize">
-						<img src="/assets/icons/actions/resize.png" alt="resize" />
-					</button>
-					<button id="open" class="actions_btn" tooltip-text="open"><img src="/assets/icons/actions/ouvrir.png" alt="open" /></button>
-					<!-- <button id="save" class="actions_btn" tooltip-text="save"><img src="/assets/icons/actions/enregistrer.png" alt="save" /></button> -->
-					<button id="download" class="actions_btn" tooltip-text="download"><img src="/assets/icons/actions/telecharger.png" alt="download" /></button>
-				</div>
-				<!-- LAYERS -->
-				<div class="layers" id="layers-js">
-					<h4 class="layers_title" translate="Layers">layers</h4>
-					<ul class="layers_list"></ul>
-					<div class="layers_control">
-						<button class="layers_btn" id="mergeLayer-js" tooltip-text="merge layer"><img src="./assets/icons/merge.png" alt="" /></button>
-						<button class="layers_btn" id="newLayer-js" tooltip-text="add layer">+</button>
-						<button class="layers_btn" id="deleteLayer-js" tooltip-text="remove layer">-</button>
-					</div>
-				</div>
-			</div>
+      <div class="rightBlock">
+        <input type="file" id="file-selector" accept="application/JSON" />
+        <!-- ACTIONS -->
+        <div class="actions">
+          <button
+            id="fit"
+            class="actions_btn"
+            tooltip-text="fit to screen size"
+          >
+            <img src="/assets/icons/actions/adapter.png" alt="fit" />
+          </button>
+          <button id="undo" class="actions_btn" tooltip-text="undo">
+            <img src="/assets/icons/actions/retour.png" alt="undo" />
+          </button>
+          <button id="redo" class="actions_btn" tooltip-text="redo">
+            <img src="/assets/icons/actions/avant.png" alt="redo" />
+          </button>
+          <button id="clear" class="actions_btn" tooltip-text="clear">
+            <img src="/assets/icons/actions/effacer.png" alt="clear" />
+          </button>
+          <button
+            id="resize"
+            class="actions_btn"
+            data-custom-open="resize-modal"
+            tooltip-text="resize"
+          >
+            <img src="/assets/icons/actions/resize.png" alt="resize" />
+          </button>
+          <button id="open" class="actions_btn" tooltip-text="open">
+            <img src="/assets/icons/actions/ouvrir.png" alt="open" />
+          </button>
+          <!-- <button id="save" class="actions_btn" tooltip-text="save"><img src="/assets/icons/actions/enregistrer.png" alt="save" /></button> -->
+          <button id="download" class="actions_btn" tooltip-text="download">
+            <img src="/assets/icons/actions/telecharger.png" alt="download" />
+          </button>
+        </div>
+        <!-- LAYERS -->
+        <div class="layers" id="layers-js">
+          <h4 class="layers_title" translate="Layers">layers</h4>
+          <ul class="layers_list"></ul>
+          <div class="layers_control">
+            <button
+              class="layers_btn"
+              id="mergeLayer-js"
+              tooltip-text="merge layer"
+            >
+              <img src="./assets/icons/merge.png" alt="" />
+            </button>
+            <button
+              class="layers_btn"
+              id="newLayer-js"
+              tooltip-text="add layer"
+            >
+              +
+            </button>
+            <button
+              class="layers_btn"
+              id="deleteLayer-js"
+              tooltip-text="remove layer"
+            >
+              -
+            </button>
+          </div>
+        </div>
+      </div>
 
-			<div class="anim" id="anim-js">
-				<ul class="anim_frameList" id="frameList-js">
-					<li class="anim_frame anim_frame-new">
-						<button class="anim_new" tooltip-text="add frame" id="newFrame-js">+</button>
-					</li>
-				</ul>
-				<div class="anim_tools">
-					<label for="fps" class="anim_label">fps : </label>
-					<input type="number" class="anim_fps" id="fps" value="5" required min="1" max="24" step="1" />
-					<input type="checkbox" class="anim_checkbox" name="play" id="play" value="play" tooltip-text="Fps" />
-					<label for="play" class="anim_labelBtn" tooltip-text="Play">
-						<img src="./assets/icons/play.png" alt="" class="inactive" />
-						<img src="./assets/icons/pause.png" alt="" class="active"
-					/></label>
-					<input type="checkbox" class="anim_checkbox" name="oignon" id="oignon" value="oignon" />
-					<label for="oignon" class="anim_labelBtn" tooltip-text="Onion skin">
-						<img src="./assets/icons/oignon.png" alt="" class="active" />
-						<img src="./assets/icons/pasoignon.png" alt="" class="inactive"
-					/></label>
-				</div>
-			</div>
+      <div class="anim" id="anim-js">
+        <ul class="anim_frameList" id="frameList-js">
+          <li class="anim_frame anim_frame-new">
+            <button class="anim_new" tooltip-text="add frame" id="newFrame-js">
+              +
+            </button>
+          </li>
+        </ul>
+        <div class="anim_tools">
+          <label for="fps" class="anim_label">fps : </label>
+          <input
+            type="number"
+            class="anim_fps"
+            id="fps"
+            value="5"
+            required
+            min="1"
+            max="24"
+            step="1"
+          />
+          <input
+            type="checkbox"
+            class="anim_checkbox"
+            name="play"
+            id="play"
+            value="play"
+            tooltip-text="Fps"
+          />
+          <label for="play" class="anim_labelBtn" tooltip-text="Play">
+            <img src="./assets/icons/play.png" alt="" class="inactive" />
+            <img src="./assets/icons/pause.png" alt="" class="active"
+          /></label>
+          <input
+            type="checkbox"
+            class="anim_checkbox"
+            name="oignon"
+            id="oignon"
+            value="oignon"
+          />
+          <label for="oignon" class="anim_labelBtn" tooltip-text="Onion skin">
+            <img src="./assets/icons/oignon.png" alt="" class="active" />
+            <img src="./assets/icons/pasoignon.png" alt="" class="inactive"
+          /></label>
+        </div>
+      </div>
 
-			<!-- resize modal -->
-			<div class="modal micromodal-slide" id="resize-modal" aria-hidden="true">
-				<div class="modal__overlay" tabindex="-1" data-micromodal-close>
-					<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="resize-modal-title">
-						<header class="modal__header">
-							<h2 class="modal__title" id="resize-modal-title" translate="resize">Resize</h2>
-							<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-						</header>
-						<main class="modal__content" id="resize-modal-content">
-							<form class="resizeForm" id="resizeForm-js">
-								<label for="width-js" class="resizeForm_label">
-									<span translate="width">Width</span> : <input type="number" name="width" value="30" class="resizeForm_input" id="width-js" /><span
-										translate="px"
-										>px</span
-									>
-								</label>
-								<label for="height-js" class="resizeForm_label">
-									<span translate="height">Height</span> :
+      <!-- resize modal -->
+      <div class="modal micromodal-slide" id="resize-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div
+            class="modal__container"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="resize-modal-title"
+          >
+            <header class="modal__header">
+              <h2
+                class="modal__title"
+                id="resize-modal-title"
+                translate="resize"
+              >
+                Resize
+              </h2>
+              <button
+                class="modal__close"
+                aria-label="Close modal"
+                data-micromodal-close
+              ></button>
+            </header>
+            <main class="modal__content" id="resize-modal-content">
+              <form class="resizeForm" id="resizeForm-js">
+                <label for="width-js" class="resizeForm_label">
+                  <span translate="width">Width</span> :
+                  <input
+                    type="number"
+                    name="width"
+                    value="30"
+                    class="resizeForm_input"
+                    id="width-js"
+                  /><span translate="px">px</span>
+                </label>
+                <label for="height-js" class="resizeForm_label">
+                  <span translate="height">Height</span> :
 
-									<input type="number" name="height" value="30" class="resizeForm_input" id="height-js" /><span translate="px">px</span>
-								</label>
-								<div class="align" id="align-js">
-									<input type="radio" id="top-left" class="align_input" name="align" value="[-1,-1]" />
-									<label tabindex="0" for="top-left" class="align_label">↖</label>
-									<input type="radio" id="top-middle" class="align_input" name="align" value="[0,-1]" />
-									<label tabindex="0" for="top-middle" class="align_label">↑</label>
-									<input type="radio" id="top-right" class="align_input" name="align" value="[1,-1]" />
-									<label tabindex="0" for="top-right" class="align_label">↗</label>
-									<input type="radio" id="middle-left" class="align_input" name="align" value="[-1,0]" />
-									<label tabindex="0" for="middle-left" class="align_label">←</label>
-									<input type="radio" id="middle-middle" class="align_input" checked name="align" value="[0,0]" />
-									<label tabindex="0" for="middle-middle" class="align_label">◉</label>
-									<input type="radio" id="middle-right" class="align_input" name="align" value="[1,0]" />
-									<label tabindex="0" for="middle-right" class="align_label">→</label>
-									<input type="radio" id="bottom-left" class="align_input" name="align" value="[-1,1]" />
-									<label tabindex="0" for="bottom-left" class="align_label">↙</label>
-									<input type="radio" id="bottom-middle" class="align_input" name="align" value="[0,1]" />
-									<label tabindex="0" for="bottom-middle" class="align_label">↓</label>
-									<input type="radio" id="bottom-right" class="align_input" name="align" value="[1,1]" />
-									<label tabindex="0" for="bottom-right" class="align_label">↘</label>
-								</div>
-								<button class="modal__btn modal__btn-primary" id="resizeConfirm-js">Ok</button>
-							</form>
-						</main>
-					</div>
-				</div>
-			</div>
+                  <input
+                    type="number"
+                    name="height"
+                    value="30"
+                    class="resizeForm_input"
+                    id="height-js"
+                  /><span translate="px">px</span>
+                </label>
+                <div class="align" id="align-js">
+                  <input
+                    type="radio"
+                    id="top-left"
+                    class="align_input"
+                    name="align"
+                    value="[-1,-1]"
+                  />
+                  <label tabindex="0" for="top-left" class="align_label"
+                    >↖</label
+                  >
+                  <input
+                    type="radio"
+                    id="top-middle"
+                    class="align_input"
+                    name="align"
+                    value="[0,-1]"
+                  />
+                  <label tabindex="0" for="top-middle" class="align_label"
+                    >↑</label
+                  >
+                  <input
+                    type="radio"
+                    id="top-right"
+                    class="align_input"
+                    name="align"
+                    value="[1,-1]"
+                  />
+                  <label tabindex="0" for="top-right" class="align_label"
+                    >↗</label
+                  >
+                  <input
+                    type="radio"
+                    id="middle-left"
+                    class="align_input"
+                    name="align"
+                    value="[-1,0]"
+                  />
+                  <label tabindex="0" for="middle-left" class="align_label"
+                    >←</label
+                  >
+                  <input
+                    type="radio"
+                    id="middle-middle"
+                    class="align_input"
+                    checked
+                    name="align"
+                    value="[0,0]"
+                  />
+                  <label tabindex="0" for="middle-middle" class="align_label"
+                    >◉</label
+                  >
+                  <input
+                    type="radio"
+                    id="middle-right"
+                    class="align_input"
+                    name="align"
+                    value="[1,0]"
+                  />
+                  <label tabindex="0" for="middle-right" class="align_label"
+                    >→</label
+                  >
+                  <input
+                    type="radio"
+                    id="bottom-left"
+                    class="align_input"
+                    name="align"
+                    value="[-1,1]"
+                  />
+                  <label tabindex="0" for="bottom-left" class="align_label"
+                    >↙</label
+                  >
+                  <input
+                    type="radio"
+                    id="bottom-middle"
+                    class="align_input"
+                    name="align"
+                    value="[0,1]"
+                  />
+                  <label tabindex="0" for="bottom-middle" class="align_label"
+                    >↓</label
+                  >
+                  <input
+                    type="radio"
+                    id="bottom-right"
+                    class="align_input"
+                    name="align"
+                    value="[1,1]"
+                  />
+                  <label tabindex="0" for="bottom-right" class="align_label"
+                    >↘</label
+                  >
+                </div>
+                <button
+                  class="modal__btn modal__btn-primary"
+                  id="resizeConfirm-js"
+                >
+                  Ok
+                </button>
+              </form>
+            </main>
+          </div>
+        </div>
+      </div>
 
-			<!-- download modal -->
-			<div class="modal micromodal-slide" id="download-modal" aria-hidden="true">
-				<div class="modal__overlay" tabindex="-1" data-micromodal-close>
-					<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="download-modal-title">
-						<header class="modal__header">
-							<h2 class="modal__title modal__title" id="download-modal-title" translate="download">Download</h2>
-							<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-						</header>
-						<main class="modal__content" id="download-modal-content">
-							<form action="" class="downloadForm">
-								<fieldset class="file">
-									<label for="fileName-download" translate="File Name">File name : </label>
-									<input type="text" name="fileName-download" id="fileName-download" value="awesome-drawing" class="downloadForm_input" required />
-									<select name="format-download" id="format-download" class="downloadForm_select">
-										<option value="png">.png</option>
-										<option value="gif">.gif</option>
-										<option value="json">.json</option>
-									</select>
-								</fieldset>
-								<fieldset class="scale">
-									<label for="scale-download" translate="Scale">Scale :</label>
-									<input type="number" name="scale-download" id="scale-download" value="1" min="1" class="downloadForm_scale" required />
-								</fieldset>
-								<fieldset class="downloadForm_spritesheet">
-									<label for="columns-download" translate="Columns">Columns :</label>
-									<input type="number" name="columns-download" id="columns-download" value="1" min="1" class="downloadForm_columns" required />
-									<label for="rows-download" translate="Rows">Rows :</label>
-									<input type="number" name="rows-download" id="rows-download" value="1" min="1" class="downloadForm_rows" required />
-								</fieldset>
-								<button class="modal__btn modal__btn-primary">Download</button>
-							</form>
-						</main>
-					</div>
-				</div>
-			</div>
-			<!-- inactif click modal -->
-			<div class="modal micromodal-slide" id="inactifClick-modal" aria-hidden="true">
-				<div class="modal__overlay" tabindex="-1" data-micromodal-close>
-					<div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="inactifClick-modal-title">
-						<header class="modal__header">
-							<h2 class="modal__title modal__title--error" id="inactifClick-modal-title" translate="Edition Impossible">Edition impossible</h2>
-							<button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-						</header>
-						<main class="modal__content" id="inactifClick-modal-content">
-							<p translate="inactiveClick">The current layer should be activ and the animation should be paused.</p>
-						</main>
-					</div>
-				</div>
-			</div>
-		</main>
-		<script type="module" src="/src/main.ts"></script>
-	</body>
+      <!-- download modal -->
+      <div
+        class="modal micromodal-slide"
+        id="download-modal"
+        aria-hidden="true"
+      >
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div
+            class="modal__container"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="download-modal-title"
+          >
+            <header class="modal__header">
+              <h2
+                class="modal__title modal__title"
+                id="download-modal-title"
+                translate="download"
+              >
+                Download
+              </h2>
+              <button
+                class="modal__close"
+                aria-label="Close modal"
+                data-micromodal-close
+              ></button>
+            </header>
+            <main class="modal__content" id="download-modal-content">
+              <form action="" class="downloadForm">
+                <fieldset class="file">
+                  <label for="fileName-download" translate="File Name"
+                    >File name :
+                  </label>
+                  <input
+                    type="text"
+                    name="fileName-download"
+                    id="fileName-download"
+                    value="awesome-drawing"
+                    class="downloadForm_input"
+                    required
+                  />
+                  <select
+                    name="format-download"
+                    id="format-download"
+                    class="downloadForm_select"
+                  >
+                    <option value="png">.png</option>
+                    <option value="gif">.gif</option>
+                    <option value="json">.json</option>
+                  </select>
+                </fieldset>
+                <fieldset class="scale">
+                  <label for="scale-download" translate="Scale">Scale :</label>
+                  <input
+                    type="number"
+                    name="scale-download"
+                    id="scale-download"
+                    value="1"
+                    min="1"
+                    class="downloadForm_scale"
+                    required
+                  />
+                </fieldset>
+                <fieldset class="downloadForm_spritesheet">
+                  <label for="columns-download" translate="Columns"
+                    >Columns :</label
+                  >
+                  <input
+                    type="number"
+                    name="columns-download"
+                    id="columns-download"
+                    value="1"
+                    min="1"
+                    class="downloadForm_columns"
+                    required
+                  />
+                  <label for="rows-download" translate="Rows">Rows :</label>
+                  <input
+                    type="number"
+                    name="rows-download"
+                    id="rows-download"
+                    value="1"
+                    min="1"
+                    class="downloadForm_rows"
+                    required
+                  />
+                </fieldset>
+                <button class="modal__btn modal__btn-primary">Download</button>
+              </form>
+            </main>
+          </div>
+        </div>
+      </div>
+      <!-- inactif click modal -->
+      <div
+        class="modal micromodal-slide"
+        id="inactifClick-modal"
+        aria-hidden="true"
+      >
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div
+            class="modal__container"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="inactifClick-modal-title"
+          >
+            <header class="modal__header">
+              <h2
+                class="modal__title modal__title--error"
+                id="inactifClick-modal-title"
+                translate="Edition Impossible"
+              >
+                Edition impossible
+              </h2>
+              <button
+                class="modal__close"
+                aria-label="Close modal"
+                data-micromodal-close
+              ></button>
+            </header>
+            <main class="modal__content" id="inactifClick-modal-content">
+              <p translate="inactiveClick">
+                The current layer should be activ and the animation should be
+                paused.
+              </p>
+            </main>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
